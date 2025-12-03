@@ -92,22 +92,73 @@ export const parseAmazonBookData = (
       }
     }
 
-    // Parse cover image URL
+    // Parse cover image URL - try multiple patterns
     let coverUrl = '';
-    const imgMatch = html.match(/<img[^>]*id="landingImage"[^>]*src="([^"]+)"/i);
-    if (imgMatch) {
-      coverUrl = imgMatch[1];
-    } else {
-      const imgAltMatch = html.match(/<img[^>]*class="[^"]*frontImage[^"]*"[^>]*src="([^"]+)"/i);
-      if (imgAltMatch) {
-        coverUrl = imgAltMatch[1];
-      } else {
-        // Try to find any large book cover image
-        const anyImgMatch = html.match(/src="(https:\/\/m\.media-amazon\.com\/images\/[^"]+\.jpg)"/i);
-        if (anyImgMatch) {
-          coverUrl = anyImgMatch[1];
+    
+    // Try landing image first (main product image)
+    const landingImgMatch = html.match(/<img[^>]*id="landingImage"[^>]*src="([^"]+)"/i) ||
+                            html.match(/id="landingImage"[^>]*src="([^"]+)"/i);
+    if (landingImgMatch) {
+      coverUrl = landingImgMatch[1];
+    }
+    
+    // Try imgBlkFront (common for book covers)
+    if (!coverUrl) {
+      const blkFrontMatch = html.match(/<img[^>]*id="imgBlkFront"[^>]*src="([^"]+)"/i) ||
+                            html.match(/id="imgBlkFront"[^>]*src="([^"]+)"/i);
+      if (blkFrontMatch) {
+        coverUrl = blkFrontMatch[1];
+      }
+    }
+    
+    // Try ebooksImgBlkFront for Kindle books
+    if (!coverUrl) {
+      const ebookMatch = html.match(/<img[^>]*id="ebooksImgBlkFront"[^>]*src="([^"]+)"/i);
+      if (ebookMatch) {
+        coverUrl = ebookMatch[1];
+      }
+    }
+    
+    // Try data-a-dynamic-image attribute (contains JSON with image URLs)
+    if (!coverUrl) {
+      const dynamicImgMatch = html.match(/data-a-dynamic-image="([^"]+)"/i);
+      if (dynamicImgMatch) {
+        try {
+          const decoded = dynamicImgMatch[1].replace(/&quot;/g, '"');
+          const imgObj = JSON.parse(decoded);
+          const urls = Object.keys(imgObj);
+          // Get the largest image (usually last in the object)
+          if (urls.length > 0) {
+            coverUrl = urls[urls.length - 1] || urls[0];
+          }
+        } catch (e) {
+          // JSON parse failed, continue to next pattern
         }
       }
+    }
+    
+    // Try markdown image pattern
+    if (!coverUrl) {
+      const mdImgMatch = markdown.match(/!\[.*?\]\((https:\/\/[^\s)]+(?:amazon|media-amazon)[^\s)]+\.(?:jpg|jpeg|png|webp)[^\s)]*)\)/i);
+      if (mdImgMatch) {
+        coverUrl = mdImgMatch[1];
+      }
+    }
+    
+    // Fallback: find any Amazon media image URL
+    if (!coverUrl) {
+      const amazonImgMatch = html.match(/(?:src|href)="(https:\/\/(?:m\.media-amazon|images-na\.ssl-images-amazon|images-eu\.ssl-images-amazon)\.com\/images\/[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"/i);
+      if (amazonImgMatch) {
+        coverUrl = amazonImgMatch[1];
+      }
+    }
+    
+    // Clean up the URL - decode HTML entities
+    if (coverUrl) {
+      coverUrl = coverUrl
+        .replace(/&amp;/g, '&')
+        .replace(/&#x27;/g, "'")
+        .replace(/&quot;/g, '"');
     }
 
     // Parse description
