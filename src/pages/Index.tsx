@@ -4,14 +4,19 @@ import { BookForm } from '@/components/BookForm';
 import { BookCard } from '@/components/BookCard';
 import { PinGenerator } from '@/components/PinGenerator';
 import { EmptyState } from '@/components/EmptyState';
+import { ImportBookModal } from '@/components/ImportBookModal';
+import { ApiKeyModal } from '@/components/ApiKeyModal';
 import { useBooks } from '@/hooks/useBooks';
 import { Book } from '@/types/book';
 import { Toaster } from '@/components/ui/sonner';
-import { Library, Wand2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Library, Wand2, Download } from 'lucide-react';
 
 const Index = () => {
   const { books, addBook, deleteBook } = useBooks();
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [importModalOpen, setImportModalOpen] = useState(false);
+  const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false);
 
   const handleAddBook = (bookData: Omit<Book, 'id' | 'createdAt'>) => {
     const newBook = addBook(bookData);
@@ -25,10 +30,31 @@ const Index = () => {
     }
   };
 
+  const handleImportBook = (bookData: Omit<Book, 'id' | 'createdAt'>) => {
+    const newBook = addBook(bookData);
+    setSelectedBook(newBook);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Toaster position="top-center" richColors />
       <Header />
+
+      <ImportBookModal
+        open={importModalOpen}
+        onOpenChange={setImportModalOpen}
+        onImport={handleImportBook}
+        onOpenApiKeyModal={() => {
+          setImportModalOpen(false);
+          setApiKeyModalOpen(true);
+        }}
+      />
+
+      <ApiKeyModal
+        open={apiKeyModalOpen}
+        onOpenChange={setApiKeyModalOpen}
+        onKeySet={() => setImportModalOpen(true)}
+      />
       
       <main className="container py-8">
         {/* Hero Section */}
@@ -44,6 +70,16 @@ const Index = () => {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
             Generate eye-catching Pinterest pins for your Amazon KDP books. Drive more readers to your listings with beautiful, professional designs.
           </p>
+          <div className="mt-6">
+            <Button
+              variant="gold"
+              size="lg"
+              onClick={() => setImportModalOpen(true)}
+            >
+              <Download className="h-4 w-4" />
+              Import from Amazon
+            </Button>
+          </div>
         </section>
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -53,15 +89,27 @@ const Index = () => {
 
             {/* Book Library */}
             <div>
-              <div className="mb-4 flex items-center gap-2">
-                <Library className="h-5 w-5 text-primary" />
-                <h2 className="font-display text-xl font-semibold text-foreground">
-                  Your Books
-                </h2>
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Library className="h-5 w-5 text-primary" />
+                  <h2 className="font-display text-xl font-semibold text-foreground">
+                    Your Books
+                  </h2>
+                  {books.length > 0 && (
+                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                      {books.length}
+                    </span>
+                  )}
+                </div>
                 {books.length > 0 && (
-                  <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                    {books.length}
-                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setImportModalOpen(true)}
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    Import
+                  </Button>
                 )}
               </div>
 
