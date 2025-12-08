@@ -32,6 +32,11 @@ export const PinPreview = forwardRef<PinPreviewRef, PinPreviewProps>(
                 alt={book.title}
                 className="h-full w-full object-cover"
               />
+              <div className="absolute bottom-0 left-0 right-0 bg-foreground/80 py-3">
+                <p className="text-center text-sm font-medium text-primary-foreground">
+                  Available on Amazon
+                </p>
+              </div>
             </div>
           );
 
