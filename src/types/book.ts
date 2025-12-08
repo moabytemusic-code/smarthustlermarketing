@@ -12,7 +12,7 @@ export interface Book {
 export interface PinTemplate {
   id: string;
   name: string;
-  style: 'classic' | 'modern' | 'minimal' | 'bold' | 'elegant';
+  style: 'cover' | 'classic' | 'modern' | 'minimal' | 'bold' | 'elegant';
 }
 
 export interface GeneratedPin {

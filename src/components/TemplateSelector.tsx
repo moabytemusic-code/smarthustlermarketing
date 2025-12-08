@@ -2,6 +2,7 @@ import { PinTemplate } from '@/types/book';
 import { cn } from '@/lib/utils';
 
 const templates: PinTemplate[] = [
+  { id: '0', name: 'Cover Only', style: 'cover' },
   { id: '1', name: 'Classic', style: 'classic' },
   { id: '2', name: 'Modern', style: 'modern' },
   { id: '3', name: 'Minimal', style: 'minimal' },

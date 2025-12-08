@@ -21,6 +21,20 @@ export const PinPreview = forwardRef<PinPreviewRef, PinPreviewProps>(
 
     const renderTemplate = () => {
       switch (template.style) {
+        case 'cover':
+          return (
+            <div
+              ref={pinRef}
+              className="relative flex h-[600px] w-[400px] overflow-hidden rounded-2xl"
+            >
+              <img
+                src={book.coverUrl}
+                alt={book.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          );
+
         case 'classic':
           return (
             <div
