@@ -1,1 +1,4 @@
 project_id = "xyzqhficngvyllstczkn"
+
+[functions.upload-pin-image]
+verify_jwt = false
