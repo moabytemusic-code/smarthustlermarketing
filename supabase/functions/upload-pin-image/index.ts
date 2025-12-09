@@ -31,6 +31,15 @@ serve(async (req) => {
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // Sanitize filename - remove special characters that are invalid for storage keys
+    const sanitizedFileName = fileName
+      .replace(/[^a-zA-Z0-9.-]/g, '-') // Replace any non-alphanumeric chars (except . and -) with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+      .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+      .substring(0, 100); // Limit length
+
+    console.log('Sanitized filename:', sanitizedFileName);
+
     // Convert base64 to Uint8Array
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
     const binaryString = atob(base64Data);
@@ -40,7 +49,7 @@ serve(async (req) => {
     }
 
     // Generate unique filename with timestamp
-    const uniqueFileName = `${Date.now()}-${fileName}`;
+    const uniqueFileName = `${Date.now()}-${sanitizedFileName}`;
 
     // Upload to storage
     const { data, error } = await supabase.storage
