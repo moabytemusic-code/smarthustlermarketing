@@ -11,7 +11,7 @@ export default function Navbar() {
         <nav className="glass" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--glass-border)' }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
                 <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src="/logo.png" alt="Smart Hustler" style={{ height: '50px', width: 'auto' }} />
+                    <img src="/logo.png" alt="Smart Hustler" style={{ height: '70px', width: 'auto' }} />
                 </Link>
 
                 {/* Desktop Menu */}
