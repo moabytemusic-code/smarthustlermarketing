@@ -1,0 +1,51 @@
+[
+    {
+        "name": "Brevo",
+        "category": "Email Marketing",
+        "description": "The best free-tier email marketing platform for beginners.",
+        "affiliate_link": "[INSERT_BREVO_LINK]",
+        "commission": "$5 per signup"
+    },
+    {
+        "name": "Bluehost",
+        "category": "Hosting",
+        "description": "Reliable and affordable web hosting with a free domain.",
+        "affiliate_link": "[INSERT_BLUEHOST_LINK]",
+        "commission": "$65 per sale"
+    },
+    {
+        "name": "Shopify",
+        "category": "E-commerce",
+        "description": "The world's leading e-commerce platform.",
+        "affiliate_link": "[INSERT_SHOPIFY_LINK]",
+        "commission": "100% of first 2 months"
+    },
+    {
+        "name": "Semrush",
+        "category": "SEO",
+        "description": "All-in-one tool suite for improving online visibility and discovering marketing insights.",
+        "affiliate_link": "[INSERT_SEMRUSH_LINK]",
+        "commission": "$200 per sale"
+    },
+    {
+        "name": "ClickFunnels",
+        "category": "Funnel Builder",
+        "description": "Build high-converting sales funnels in minutes.",
+        "affiliate_link": "[INSERT_CLICKFUNNELS_LINK]",
+        "commission": "40% recurring"
+    },
+    {
+        "name": "Jasper.ai",
+        "category": "AI Writing",
+        "description": "AI copywriter that helps you create content 10x faster.",
+        "affiliate_link": "[INSERT_JASPER_LINK]",
+        "commission": "30% recurring"
+    },
+    {
+        "name": "Smart Hustler Books",
+        "category": "Education",
+        "description": "Our own premium guides to jumpstart your business.",
+        "affiliate_link": "https://smarthustlermarketing.com/shop",
+        "commission": "100% (Own Product)"
+    }
+]
