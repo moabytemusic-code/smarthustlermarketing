@@ -4,8 +4,8 @@ export default function Navbar() {
     return (
         <nav className="glass" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--glass-border)' }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
-                <Link href="/" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
-                    SmartHustler
+                <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+                    <img src="/logo.png" alt="Smart Hustler" style={{ height: '50px', width: 'auto' }} />
                 </Link>
 
                 <div style={{ display: 'flex', gap: '2rem' }}>

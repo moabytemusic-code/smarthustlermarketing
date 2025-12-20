@@ -23,8 +23,57 @@ const getScheduledDate = (daysFromNow) => {
     return date.toISOString();
 };
 
+// Helper to delete old campaigns to avoid duplicates
+async function deleteOldCampaigns() {
+    console.log('🧹 Cleaning up old "smarthustler" campaigns...');
+    try {
+        const response = await fetch(`https://api.brevo.com/v3/emailCampaigns?status=scheduled&limit=50&sort=desc`, {
+            method: 'GET',
+            headers: { 'api-key': BREVO_API_KEY }
+        });
+
+        const data = await response.json();
+
+        if (data.campaigns) {
+            const toDelete = data.campaigns.filter(c => c.tag === 'smarthustler');
+            console.log(`Found ${toDelete.length} old campaigns to delete.`);
+
+            for (const campaign of toDelete) {
+                await fetch(`https://api.brevo.com/v3/emailCampaigns/${campaign.id}`, {
+                    method: 'DELETE',
+                    headers: { 'api-key': BREVO_API_KEY }
+                });
+                process.stdout.write('.');
+            }
+            console.log('\nCleaned up.');
+        }
+    } catch (error) {
+        console.error('Warning: Could not clean up old campaigns:', error.message);
+    }
+}
+
 async function createCampaign(email, index) {
     const scheduledAt = getScheduledDate(email.day);
+
+    // HTML Template with Logo
+    const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6; color: #333;">
+        <div style="text-align: center; padding: 20px; background-color: #0f172a;">
+            <img src="https://smarthustlermarketing.com/logo.png" alt="Smart Hustler Marketing" style="max-height: 80px; width: auto;">
+        </div>
+        <div style="padding: 20px; background-color: #ffffff;">
+            ${email.content}
+        </div>
+        <div style="text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #eee;">
+            <p>© ${new Date().getFullYear()} Smart Hustler Marketing. All rights reserved.</p>
+            <p>You received this email because you signed up on our website.</p>
+            <a href="{{ mirror }}" style="color: #666;">View in browser</a> | <a href="{{ unsubscribe }}" style="color: #666;">Unsubscribe</a>
+        </div>
+    </body>
+    </html>
+    `;
 
     console.log(`Creating campaign for Day ${email.day}: "${email.subject}" (Scheduled: ${scheduledAt})`);
 
@@ -38,11 +87,11 @@ async function createCampaign(email, index) {
             },
             body: JSON.stringify({
                 tag: 'smarthustler',
-                sender: { name: 'Smart Hustler Marketing', email: 'ken@smarthustlermarketing.com' }, // Default sender, user should update if needed
+                sender: { name: 'Smart Hustler Marketing', email: 'ken@smarthustlermarketing.com' },
                 name: `[Day ${email.day}] ${email.subject}`,
                 subject: email.subject,
-                htmlContent: email.content,
-                recipients: { listIds: [51] }, // Sending to List 51 (User specified)
+                htmlContent: htmlContent,
+                recipients: { listIds: [51] },
                 scheduledAt: scheduledAt
             })
         });
@@ -60,6 +109,7 @@ async function createCampaign(email, index) {
 }
 
 async function run() {
+    await deleteOldCampaigns(); // Clean up first
     console.log(`Found ${emails.length} emails to schedule...`);
 
     // Process sequentially to avoid rate limits
