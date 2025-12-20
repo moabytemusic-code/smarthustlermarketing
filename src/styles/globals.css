@@ -1,0 +1,128 @@
+:root {
+  /* Dark/Black Background form the bottom of the cover */
+  --background: #020617;
+  --background-alt: #0f172a;
+  --foreground: #fffbeb;
+  /* Warm white/cream */
+
+  /* Vibrant Amber/Yellow from "EBOOKWRITER.AI" */
+  --primary: #fbbf24;
+  --primary-hover: #d97706;
+  --primary-glow: rgba(251, 191, 36, 0.4);
+
+  /* Neon Sky Blue from "Smart Hustler" Logo */
+  --secondary: #38bdf8;
+  --secondary-glow: rgba(56, 189, 248, 0.4);
+
+  /* Burnt Orange from top background */
+  --accent: #9a3412;
+
+  --card-bg: #1e293b;
+  --card-border: #451a03;
+  /* Deep brown/orange border */
+
+  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-border: rgba(251, 191, 36, 0.1);
+  /* Subtle Gold border */
+
+  --text-muted: #94a3b8;
+
+  --font-mono: 'Ui-Monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px var(--primary-glow);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #000;
+  /* Black text for contrast on yellow */
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px var(--primary-glow);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, #f8fafc, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* Animation utilities */
+@keyframes coin-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: coin-float 3s ease-in-out infinite;
+}
