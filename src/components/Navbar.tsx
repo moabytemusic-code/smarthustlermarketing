@@ -1,29 +1,40 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <nav className="glass" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--glass-border)' }}>
-            <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
-                <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src="/logo.png" alt="Smart Hustler" style={{ height: '70px', width: 'auto' }} />
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <div className="container nav-container">
+                <Link href="/" className="nav-logo">
+                    <img
+                        src="/logo.png"
+                        alt="Smart Hustler"
+                        style={{ height: '48px', width: 'auto' }}
+                    />
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="desktop-menu" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', gap: '2rem' }}>
-                        <Link href="/blog">Blog</Link>
-                        <Link href="/resources">Resources</Link>
-                        <Link href="/shop">Shop</Link>
-                        <Link href="/about">About</Link>
-                    </div>
+                <div className="nav-links">
+                    <Link href="/blog">Blog</Link>
+                    <Link href="/resources">Resources</Link>
+                    <Link href="/shop">Shop</Link>
+                    <Link href="/about">About</Link>
 
-                    <Link href="/contact" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+                    <Link href="/contact" className="btn-outline btn-sm" style={{ padding: '0.6rem 1.25rem', backgroundColor: '#fff', color: '#000' }}>
                         Get Started
                     </Link>
                 </div>
@@ -32,55 +43,41 @@ export default function Navbar() {
                 <button
                     className="mobile-menu-btn"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--foreground)' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#fff' }}
                 >
-                    {isMobileMenuOpen ? <X /> : <Menu />}
+                    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
             </div>
 
             {/* Mobile Menu Overlay */}
-            {isMobileMenuOpen && (
-                <div style={{
-                    position: 'absolute',
-                    top: '80px',
-                    left: 0,
-                    right: 0,
-                    background: 'var(--background)',
-                    borderBottom: '1px solid var(--glass-border)',
-                    padding: '2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1.5rem',
-                    alignItems: 'center',
-                    zIndex: 99
-                }}>
-                    <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
-                    <Link href="/resources" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
-                    <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
-                    <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-                    <Link href="/contact" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                        Get Started
-                    </Link>
-                </div>
-            )}
-
-            <style jsx>{`
-                .desktop-menu {
-                    display: flex;
-                }
-                .mobile-menu-btn {
-                    display: none !important;
-                }
-
-                @media (max-width: 768px) {
-                    .desktop-menu {
-                        display: none !important;
-                    }
-                    .mobile-menu-btn {
-                        display: block !important;
-                    }
-                }
-            `}</style>
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100vh',
+                backgroundColor: '#020617',
+                zIndex: 99,
+                display: isMobileMenuOpen ? 'flex' : 'none',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '2rem'
+            }}>
+                <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{ position: 'absolute', top: '2rem', right: '2rem', background: 'none', border: 'none', color: '#fff' }}
+                >
+                    <X size={32} />
+                </button>
+                <Link href="/blog" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
+                <Link href="/resources" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
+                <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
+                <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                <Link href="/contact" className="btn-premium" onClick={() => setIsMobileMenuOpen(false)}>
+                    Get Started
+                </Link>
+            </div>
         </nav>
     );
 }

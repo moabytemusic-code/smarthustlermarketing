@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     const createContact = new Brevo.CreateContact();
     createContact.email = email;
-    createContact.listIds = [2]; // Default list ID, usually 2 is the first custom list, or make this configurable
+    createContact.listIds = [51]; // Using List ID 51 as per user request
     createContact.updateEnabled = true;
 
     try {

@@ -15,19 +15,19 @@
         "day": 3,
         "subject": "My Toolkit: The 3 tools I can't live without 🏝️",
         "previewText": "If I had to start over today, this is what I'd use.",
-        "content": "<h1>The Smart Hustler Toolkit</h1><p>If I lost everything today, I would simply sign up for these 3 tools and be back in business by Friday.</p><h2>1. The Platform: Bluehost</h2><p>You need to own your platform. Don't build on rented land.<br><a href='https://www.bluehost.com/track/smarthustler'>Get Bluehost here</a></p><h2>2. The Engine: Brevo</h2><p>Email is where the money is. I use Brevo because it's free to start.<br><a href='https://www.brevo.com/'>Get Brevo here</a></p><h2>3. The Brain: Jasper AI</h2><p>I don't write generic copy anymore. Jasper helps me crank out 10x the content.<br><a href='https://www.jasper.ai/'>Try Jasper here</a></p><p>Talk soon,</p><p>-[Your Name]</p>"
+        "content": "<h1>The Smart Hustler Toolkit</h1><p>If I lost everything today, I would simply sign up for these 3 tools and be back in business by Friday.</p><h2>1. The Platform: Bluehost</h2><p>You need to own your platform. Don't build on rented land.<br><a href='[INSERT_BLUEHOST_LINK]'>Get Bluehost here</a></p><h2>2. The Engine: Brevo</h2><p>Email is where the money is. I use Brevo because it's free to start.<br><a href='[INSERT_BREVO_LINK]'>Get Brevo here</a></p><h2>3. The Brain: Jasper AI</h2><p>I don't write generic copy anymore. Jasper helps me crank out 10x the content.<br><a href='[INSERT_JASPER_AI_LINK]'>Try Jasper here</a></p><p>Talk soon,</p><p>-[Your Name]</p>"
     },
     {
         "day": 7,
         "subject": "Why I switched to Brevo (and fired Mailchimp)",
         "previewText": "Stop overpaying for email marketing.",
-        "content": "<h1>I was burning money.</h1><p>I used to pay $200/month for email marketing features I never used.</p><p>Then I switched to <strong>Brevo</strong>.</p><ul><li>Unlimited contacts on the free plan.</li><li>Better automation.</li><li>SMS marketing included.</li></ul><p>It's the smartest move for a lean startup.</p><p><a href='https://www.brevo.com/'>Create your free Brevo account here</a></p><p>-[Your Name]</p>"
+        "content": "<h1>I was burning money.</h1><p>I used to pay $200/month for email marketing features I never used.</p><p>Then I switched to <strong>Brevo</strong>.</p><ul><li>Unlimited contacts on the free plan.</li><li>Better automation.</li><li>SMS marketing included.</li></ul><p>It's the smartest move for a lean startup.</p><p><a href='[INSERT_BREVO_LINK]'>Create your free Brevo account here</a></p><p>-[Your Name]</p>"
     },
     {
         "day": 14,
         "subject": "The Secret to High-Ticket Sales: The Bridge Page",
         "previewText": "Never send traffic directly to an affiliate link.",
-        "content": "<h1>Stop leaking commissions.</h1><p>If you send people directly to an affiliate link, they don't know who you are, and they don't trust the offer.</p><p>You need a <strong>Bridge Page</strong>.</p><p>A simple page that introduces YOU and explains why you recommend the product.</p><p>The best tool to build these fast? <strong>ClickFunnels</strong>.</p><p><a href='https://www.clickfunnels.com/'>Start your 14-day free trial here</a></p><p>-[Your Name]</p>"
+        "content": "<h1>Stop leaking commissions.</h1><p>If you send people directly to an affiliate link, they don't know who you are, and they don't trust the offer.</p><p>You need a <strong>Bridge Page</strong>.</p><p>A simple page that introduces YOU and explains why you recommend the product.</p><p>The best tool to build these fast? <strong>ClickFunnels</strong>.</p><p><a href='[INSERT_CLICKFUNNELS_LINK]'>Start your 14-day free trial here</a></p><p>-[Your Name]</p>"
     },
     {
         "day": 20,

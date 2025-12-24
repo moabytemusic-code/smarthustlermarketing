@@ -15,6 +15,14 @@ if (!BREVO_API_KEY) {
 const EMAILS_PATH = path.join(__dirname, '../src/content/campaigns/emails.json');
 const emails = JSON.parse(fs.readFileSync(EMAILS_PATH, 'utf8'));
 
+const OFFERS_PATH = path.join(__dirname, '../src/content/campaigns/affiliate_offers.json');
+let offers = [];
+try {
+    offers = JSON.parse(fs.readFileSync(OFFERS_PATH, 'utf8'));
+} catch (error) {
+    console.warn('⚠️ Warning: Could not load affiliate_offers.json. Skipping link injection.');
+}
+
 // Helper function to format date for Brevo (ISO string)
 const getScheduledDate = (daysFromNow) => {
     const date = new Date();
@@ -52,8 +60,39 @@ async function deleteOldCampaigns() {
     }
 }
 
+function processEmailContent(emailContent, offerIndex) {
+    let processedContent = emailContent;
+
+    // 1. Replace Placeholders
+    offers.forEach(offer => {
+        // Create a placeholder from the name, e.g., [INSERT_BREVO_LINK]
+        const placeholder = `[INSERT_${offer.name.toUpperCase().replace(/[^A-Z0-9]/g, '_')}_LINK]`;
+        if (processedContent.includes(placeholder)) {
+            processedContent = processedContent.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), offer.affiliate_link);
+        }
+    });
+
+    // 2. Add Featured Resource (Round Robin)
+    const featuredOffer = offers[offerIndex % offers.length];
+    if (featuredOffer) {
+        const featuredBlock = `
+            <div style="margin-top: 30px; padding: 20px; background-color: #f8fafc; border-left: 4px solid #fbbf24; border-radius: 4px;">
+                <h3 style="margin-top: 0; color: #1e293b; font-size: 18px;">💡 Tool of the Week: ${featuredOffer.name}</h3>
+                <p style="color: #475569; font-size: 14px;">${featuredOffer.description}</p>
+                <a href="${featuredOffer.affiliate_link}" style="display: inline-block; margin-top: 10px; color: #2563eb; font-weight: bold; text-decoration: none;">Check it out &rarr;</a>
+            </div>
+        `;
+        processedContent += featuredBlock;
+    }
+
+    return processedContent;
+}
+
 async function createCampaign(email, index) {
     const scheduledAt = getScheduledDate(email.day);
+
+    // Inject links and featured product
+    const enhancedContent = processEmailContent(email.content, index);
 
     // HTML Template with Logo
     const htmlContent = `
@@ -64,7 +103,7 @@ async function createCampaign(email, index) {
             <img src="https://smarthustlermarketing.com/logo.png" alt="Smart Hustler Marketing" style="max-height: 80px; width: auto;">
         </div>
         <div style="padding: 20px; background-color: #ffffff;">
-            ${email.content}
+            ${enhancedContent}
         </div>
         <div style="text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #eee;">
             <p>© ${new Date().getFullYear()} Smart Hustler Marketing. All rights reserved.</p>
@@ -91,7 +130,7 @@ async function createCampaign(email, index) {
                 name: `[Day ${email.day}] ${email.subject}`,
                 subject: email.subject,
                 htmlContent: htmlContent,
-                recipients: { listIds: [51] },
+                recipients: { listIds: [51] }, // Updated to List ID 51
                 scheduledAt: scheduledAt
             })
         });
