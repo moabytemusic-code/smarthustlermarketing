@@ -173,5 +173,47 @@
         "description": "Write and publish eBooks in record time.",
         "affiliate_link": "https://5dollarfriday.idevaffiliate.com/235-82.html",
         "commission": "50%"
+    },
+    {
+        "name": "YouTube CTR Boost Lab",
+        "category": "Our SaaS Tools",
+        "description": "AI-powered title optimizer trained on viral videos.",
+        "affiliate_link": "https://youtube.signalengines.com",
+        "commission": "Free Tool"
+    },
+    {
+        "name": "Real Estate Deal Snapshot",
+        "category": "Our SaaS Tools",
+        "description": "Analyze rental properties and calculate cash flow in seconds.",
+        "affiliate_link": "https://realestate.signalengines.com",
+        "commission": "Free Tool"
+    },
+    {
+        "name": "Affiliate Profit Scanner",
+        "category": "Our SaaS Tools",
+        "description": "Validate niche ideas and generate viral content strategies.",
+        "affiliate_link": "https://niche.signalengines.com",
+        "commission": "Free Tool"
+    },
+    {
+        "name": "Cold Email Roaster™",
+        "category": "Our SaaS Tools",
+        "description": "Get your cold outreach roasted by an AI Sales Director.",
+        "affiliate_link": "https://email.signalengines.com",
+        "commission": "Free Tool"
+    },
+    {
+        "name": "LandingForge",
+        "category": "Our SaaS Tools",
+        "description": "Generate high-converting landing pages instantly.",
+        "affiliate_link": "https://landing.signalengines.com",
+        "commission": "Free Tool"
+    },
+    {
+        "name": "Warm-Up Hero",
+        "category": "Our SaaS Tools",
+        "description": "Stop landing in spam with AI-driven email warm-up.",
+        "affiliate_link": "https://warmup.signalengines.com",
+        "commission": "Free Tool"
     }
 ]

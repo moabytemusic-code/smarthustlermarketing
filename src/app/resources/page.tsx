@@ -1,36 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import Navbar from '../../components/Navbar';
-import Link from 'next/link';
-
-// Helper to get icon based on category
-const getCategoryIcon = (category: string) => {
-    const map: Record<string, string> = {
-        'Email Marketing': '📧',
-        'Hosting': '☁️',
-        'E-commerce': '🛍️',
-        'SEO': '🔍',
-        'Funnel Builder': '🏗️',
-        'AI Writing': '✍️',
-        'Education': '🎓',
-        'PLR & Resources': '📚',
-        'Traffic': '🚦',
-        'Video Tools': '🎥',
-        'Content': '📝',
-        'AI Tools': '🤖',
-        'Affiliate Marketing': '💸',
-        'Social Media': '📱',
-        'CRO': '📈',
-        'Funnels': '🌪️',
-        'Research': '🔬',
-        'Advertising': '📢',
-        'Design': '🎨',
-        'Business': '💼',
-        'Webinars': '🎙️',
-        'Audio': '🎧'
-    };
-    return map[category] || '⚡';
-};
+import ResourceDirectory from '../../components/ResourceDirectory';
 
 async function getOffers() {
     const filePath = path.join(process.cwd(), 'src/content/campaigns/affiliate_offers.json');
@@ -41,63 +12,26 @@ async function getOffers() {
 export default async function Resources() {
     const offers = await getOffers();
 
-    // Group offers by category
-    const groupedOffers: Record<string, any[]> = {};
-    offers.forEach((offer: any) => {
-        if (!groupedOffers[offer.category]) {
-            groupedOffers[offer.category] = [];
-        }
-        groupedOffers[offer.category].push(offer);
-    });
-
-    const categories = Object.keys(groupedOffers).sort();
-
     return (
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
 
             <div className="container" style={{ padding: '8rem 0 4rem' }}>
-                <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem' }}>
-                    <h1 className="title-main" style={{ fontSize: '3.5rem' }}>Curated <span className="gradient-text">Resources</span></h1>
+                <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem' }}>
+                    <div className="badge" style={{ marginBottom: '1.5rem', justifyContent: 'center' }}>
+                        <div className="dot">
+                            <div className="dot-ping"></div>
+                        </div>
+                        Curated Toolbox
+                    </div>
+                    <h1 className="title-main" style={{ fontSize: '3.5rem' }}>The <span className="gradient-text">Stack</span></h1>
                     <p className="subtitle" style={{ margin: '0 auto' }}>
-                        We've tested hundreds of tools. These are the ones we actually use to run our 6-figure businesses.
+                        The software, services, and secret weapons behind our 6-figure automated business.
                     </p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
-                    {categories.map((category) => (
-                        <div key={category}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
-                                <span style={{ fontSize: '2rem' }}>{getCategoryIcon(category)}</span>
-                                <h2 style={{ fontSize: '2rem', fontWeight: 700, margin: 0 }}>{category}</h2>
-                            </div>
-
-                            <div className="resource-grid" style={{ marginTop: '0' }}>
-                                {groupedOffers[category].map((offer: any, i: number) => (
-                                    <div key={i} className="card-premium">
-                                        <div className="card-icon" style={{ marginBottom: '1.5rem' }}>
-                                            {getCategoryIcon(offer.category)}
-                                        </div>
-                                        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', lineHeight: '1.4' }}>{offer.name}</h3>
-                                        <div className="badge" style={{ marginBottom: '1rem', alignSelf: 'flex-start' }}>
-                                            {offer.commission ? `Earn ${offer.commission}` : 'Recommended'}
-                                        </div>
-                                        <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '1.5rem', flexGrow: 1 }}>{offer.description}</p>
-                                        <a
-                                            href={offer.affiliate_link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="btn-outline btn-sm"
-                                            style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}
-                                        >
-                                            Get Deal &rarr;
-                                        </a>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                {/* Interactive Directory */}
+                <ResourceDirectory offers={offers} />
 
                 {/* Amazon Section */}
                 <div style={{ marginTop: '8rem', paddingTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
