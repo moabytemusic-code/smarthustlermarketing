@@ -374,7 +374,7 @@ export default function SocialPoster() {
                         />
                         <button className="btn-premium" style={{ width: '100%', justifyContent: 'center' }}>Unlock Poster</button>
                     </form>
-                    <p style={{ marginTop: '1rem', color: '#64748b', fontSize: '0.8rem' }}>Hint: hustle2026</p>
+
                 </div>
             </main>
         );
