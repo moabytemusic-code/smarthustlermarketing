@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
                 },
             ],
             mode: 'payment',
-            success_url: `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}&productId=${product.id}`,
             cancel_url: `${req.headers.get('origin')}/cancel`,
             metadata: {
                 productName: name,

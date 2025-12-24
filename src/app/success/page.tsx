@@ -1,20 +1,65 @@
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
 
-export default function Success() {
+export default function Success({
+    searchParams,
+}: {
+    searchParams: { productId?: string; session_id?: string };
+}) {
+    const productMap: Record<string, { name: string; file: string }> = {
+        '1': { name: 'Affiliate Jumpstart Kit', file: '/products/Affiliate_Jumpstart_Kit.md' },
+        '2': { name: 'Email Mastery Course', file: '/products/Email_Mastery_Course.md' },
+        '3': { name: 'AI Content System', file: '/products/AI_Content_System.md' },
+        '4': { name: 'SEO Power Pack', file: '/products/SEO_Power_Pack.md' }
+    };
+
+    const productId = searchParams.productId;
+    const product = productId ? productMap[productId] : null;
+
     return (
-        <main>
+        <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
-            <div className="container" style={{ padding: '8rem 0', textAlign: 'center' }}>
-                <div className="glass" style={{ display: 'inline-block', padding: '4rem', borderRadius: '1rem' }}>
-                    <span style={{ fontSize: '5rem', display: 'block', marginBottom: '1rem' }}>🎉</span>
-                    <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--primary)' }}>Payment Successful!</h1>
-                    <p style={{ color: '#94a3b8', fontSize: '1.25rem', marginBottom: '2rem' }}>
-                        Thank you for your purchase. You will receive an email confirmation shortly.
+            <div className="container" style={{ padding: '8rem 0', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+                <div className="glass" style={{ padding: '4rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <div className="badge" style={{ marginBottom: '2rem', justifyContent: 'center' }}>
+                        <div className="dot">
+                            <div className="dot-ping"></div>
+                        </div>
+                        Payment Successful
+                    </div>
+
+                    <h1 className="title-main" style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>
+                        You're In! <span className="gradient-text">Welcome.</span>
+                    </h1>
+
+                    <p style={{ color: '#94a3b8', fontSize: '1.25rem', marginBottom: '3rem', lineHeight: '1.6' }}>
+                        Thank you for your investment. You’ve just taken a massive step toward automating your income.
                     </p>
-                    <Link href="/shop" className="btn btn-primary">
-                        Back to Shop
-                    </Link>
+
+                    {product ? (
+                        <div className="card-premium" style={{ maxWidth: '500px', margin: '0 auto', textAlign: 'center' }}>
+                            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{product.name}</h2>
+                            <p style={{ color: '#cbd5e1', marginBottom: '2rem' }}>Your product is ready for immediate download.</p>
+                            <a
+                                href={product.file}
+                                download
+                                className="btn-premium"
+                                style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}
+                            >
+                                📥 Download Now
+                            </a>
+                        </div>
+                    ) : (
+                        <div style={{ padding: '2rem', background: 'rgba(255,255,255,0.05)', borderRadius: '0.5rem' }}>
+                            <p>Check your email for your receipt and product access.</p>
+                        </div>
+                    )}
+
+                    <div style={{ marginTop: '4rem' }}>
+                        <Link href="/shop" className="btn-outline">
+                            &larr; Return to Shop
+                        </Link>
+                    </div>
                 </div>
             </div>
         </main>
