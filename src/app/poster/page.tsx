@@ -186,8 +186,12 @@ export default function SocialPoster() {
     const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0].id);
     const [selectedPlatform, setSelectedPlatform] = useState('twitter');
     const [copyStatus, setCopyStatus] = useState('Copy to Clipboard');
+    const [visualStatus, setVisualStatus] = useState('Copy Image');
     const [seed, setSeed] = useState(12345); // For regenerating images
     const [generatedCopy, setGeneratedCopy] = useState('');
+
+    // Default the target URL to the first product's link
+    const [targetUrl, setTargetUrl] = useState(PRODUCTS[0].link);
 
     // Scheduler State
     const [date, setDate] = useState('');
@@ -198,7 +202,8 @@ export default function SocialPoster() {
     const updateCopy = () => {
         const product = PRODUCTS.find(p => p.id === selectedProduct);
         if (product) {
-            setGeneratedCopy(generatePost(selectedProduct, selectedPlatform, product.link));
+            // Use the custom targetUrl instead of the hardcoded product link
+            setGeneratedCopy(generatePost(selectedProduct, selectedPlatform, targetUrl));
         }
     };
 
@@ -208,8 +213,26 @@ export default function SocialPoster() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedProduct, selectedPlatform]);
 
+    const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newProductId = e.target.value;
+        setSelectedProduct(newProductId);
+        setSeed(Math.floor(Math.random() * 999999));
+
+        // Update the target URL to the new product's default
+        const product = PRODUCTS.find(p => p.id === newProductId);
+        if (product) {
+            setTargetUrl(product.link);
+            setGeneratedCopy(generatePost(newProductId, selectedPlatform, product.link));
+        }
+    };
+
+    const handlePlatformChange = (platform: string) => {
+        setSelectedPlatform(platform);
+        setGeneratedCopy(generatePost(selectedProduct, platform, targetUrl));
+    };
+
     const handleRegenerateCopy = () => {
-        updateCopy();
+        setGeneratedCopy(generatePost(selectedProduct, selectedPlatform, targetUrl));
     };
 
     const handleUnlock = (e: React.FormEvent) => {
@@ -229,6 +252,80 @@ export default function SocialPoster() {
         navigator.clipboard.writeText(generatedCopy);
         setCopyStatus('Copied! ✅');
         setTimeout(() => setCopyStatus('Copy to Clipboard'), 2000);
+    };
+
+    const handleCopyImage = async () => {
+        try {
+            setVisualStatus('Copying...');
+            const response = await fetch(imageLink);
+            const blob = await response.blob();
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [blob.type]: blob
+                })
+            ]);
+            setVisualStatus('Copied! 🖼️');
+            setTimeout(() => setVisualStatus('Copy Image'), 2000);
+        } catch (err) {
+            console.error(err);
+            alert('Failed to copy image automatically. Please Right Click > Copy Image.');
+            setVisualStatus('Failed');
+            setTimeout(() => setVisualStatus('Copy Image'), 2000);
+        }
+    };
+
+    const handlePostNow = async () => {
+        // 1. Auto-Download the Image
+        try {
+            setVisualStatus('Downloading...');
+            const response = await fetch(imageLink);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // Create a nice filename: product-name-seed.jpg
+            a.download = `smarthustler-${selectedProduct}-${seed}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            setVisualStatus('Downloaded! ⬇️');
+            setTimeout(() => setVisualStatus('Copy Image'), 3000);
+        } catch (err) {
+            console.error("Image download failed", err);
+            // Non-blocking error, still try to open the post window
+            alert("Could not auto-download image. Please save it manually.");
+        }
+
+        // 2. Prepare the Post Text
+        let shareUrl = '';
+        const text = encodeURIComponent(generatedCopy);
+        const url = encodeURIComponent(targetUrl);
+
+        switch (selectedPlatform) {
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?text=${text}`;
+                break;
+            case 'linkedin':
+                shareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${text}`;
+                break;
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                break;
+            case 'instagram':
+                alert("Instagram does not allow direct posting from the web. Image downloaded! Please post via mobile.");
+                return;
+        }
+
+        // 3. Open Window & Prompt User
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'width=600,height=600');
+
+            // Simple prompt to remind them
+            setTimeout(() => {
+                alert("📸 Image Downloaded!\n\nIt's in your Downloads folder.\nDon't forget to attach it to your post!");
+            }, 1000);
+        }
     };
 
     const handleRegenerateVisual = () => {
@@ -300,11 +397,20 @@ export default function SocialPoster() {
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#94a3b8' }}>Select Product</label>
                             <select
                                 value={selectedProduct}
-                                onChange={(e) => { setSelectedProduct(e.target.value); setSeed(Math.floor(Math.random() * 999999)); }}
-                                style={{ width: '100%', padding: '1rem', borderRadius: '0.5rem', background: 'rgba(0,0,0,0.3)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}
+                                onChange={handleProductChange}
+                                style={{ width: '100%', padding: '1rem', borderRadius: '0.5rem', background: 'rgba(0,0,0,0.3)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '1rem' }}
                             >
                                 {PRODUCTS.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                             </select>
+
+                            <label style={{ display: 'block', marginBottom: '0.5rem', color: '#94a3b8' }}>Target URL (Optional)</label>
+                            <input
+                                type="text"
+                                value={targetUrl}
+                                onChange={(e) => setTargetUrl(e.target.value)}
+                                placeholder="https://..."
+                                style={{ width: '100%', padding: '1rem', borderRadius: '0.5rem', background: 'rgba(0,0,0,0.3)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}
+                            />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#94a3b8' }}>Select Platform</label>
@@ -312,7 +418,7 @@ export default function SocialPoster() {
                                 {['twitter', 'linkedin', 'instagram', 'facebook'].map(platform => (
                                     <button
                                         key={platform}
-                                        onClick={() => setSelectedPlatform(platform)}
+                                        onClick={() => handlePlatformChange(platform)}
                                         style={{
                                             flex: 1,
                                             padding: '1rem',
@@ -362,19 +468,40 @@ export default function SocialPoster() {
                                     resize: 'none'
                                 }}
                             />
-                            <button
-                                onClick={handleCopy}
-                                className="btn-premium"
-                                style={{
-                                    position: 'absolute',
-                                    bottom: '1.5rem',
-                                    right: '1.5rem',
-                                    padding: '0.5rem 1.5rem',
-                                    fontSize: '0.9rem'
-                                }}
-                            >
-                                {copyStatus}
-                            </button>
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '1.5rem',
+                                right: '1.5rem',
+                                display: 'flex',
+                                gap: '1rem'
+                            }}>
+                                {selectedPlatform !== 'instagram' && (
+                                    <button
+                                        onClick={handlePostNow}
+                                        className="btn-premium"
+                                        style={{
+                                            padding: '0.5rem 1.5rem',
+                                            fontSize: '0.9rem',
+                                            background: 'rgba(255,255,255,0.1)',
+                                            border: '1px solid rgba(255,255,255,0.2)',
+                                            color: '#fff'
+                                        }}
+                                    >
+                                        🚀 Post Now
+                                    </button>
+                                )}
+
+                                <button
+                                    onClick={handleCopy}
+                                    className="btn-premium"
+                                    style={{
+                                        padding: '0.5rem 1.5rem',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    {copyStatus}
+                                </button>
+                            </div>
                         </div>
 
                         {/* Visual Column */}
@@ -404,6 +531,20 @@ export default function SocialPoster() {
                                     alt="AI Generated Marketing Visual"
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
+                                <button
+                                    onClick={handleCopyImage}
+                                    className="btn-premium"
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: '1.5rem',
+                                        right: '1.5rem',
+                                        padding: '0.5rem 1.5rem',
+                                        fontSize: '0.9rem',
+                                        boxShadow: '0 4px 6px rgba(0,0,0,0.3)'
+                                    }}
+                                >
+                                    {visualStatus}
+                                </button>
                                 <div style={{
                                     position: 'absolute',
                                     bottom: 0,
@@ -413,7 +554,8 @@ export default function SocialPoster() {
                                     background: 'rgba(0,0,0,0.7)',
                                     fontSize: '0.7rem',
                                     color: '#64748b',
-                                    backdropFilter: 'blur(4px)'
+                                    backdropFilter: 'blur(4px)',
+                                    zIndex: 0 // Ensure it's behind the button if they overlap, though button is positioned absolute
                                 }}>
                                     Prompt: {currentPrompt.substring(0, 60)}...
                                 </div>
