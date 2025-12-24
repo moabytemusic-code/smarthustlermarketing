@@ -1,39 +1,111 @@
+import { promises as fs } from 'fs';
+import path from 'path';
 import Navbar from '../../components/Navbar';
+import Link from 'next/link';
 
-export default function Resources() {
-    const categories = [
-        'AI Writing Tools',
-        'Email Platforms',
-        'Page Builders',
-        'SEO Tools',
-        'Hosting',
-        'Design Assets'
-    ];
+// Helper to get icon based on category
+const getCategoryIcon = (category: string) => {
+    const map: Record<string, string> = {
+        'Email Marketing': '📧',
+        'Hosting': '☁️',
+        'E-commerce': '🛍️',
+        'SEO': '🔍',
+        'Funnel Builder': '🏗️',
+        'AI Writing': '✍️',
+        'Education': '🎓',
+        'PLR & Resources': '📚',
+        'Traffic': '🚦',
+        'Video Tools': '🎥',
+        'Content': '📝',
+        'AI Tools': '🤖',
+        'Affiliate Marketing': '💸',
+        'Social Media': '📱',
+        'CRO': '📈',
+        'Funnels': '🌪️',
+        'Research': '🔬',
+        'Advertising': '📢',
+        'Design': '🎨',
+        'Business': '💼',
+        'Webinars': '🎙️',
+        'Audio': '🎧'
+    };
+    return map[category] || '⚡';
+};
+
+async function getOffers() {
+    const filePath = path.join(process.cwd(), 'src/content/campaigns/affiliate_offers.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContents);
+}
+
+export default async function Resources() {
+    const offers = await getOffers();
+
+    // Group offers by category
+    const groupedOffers: Record<string, any[]> = {};
+    offers.forEach((offer: any) => {
+        if (!groupedOffers[offer.category]) {
+            groupedOffers[offer.category] = [];
+        }
+        groupedOffers[offer.category].push(offer);
+    });
+
+    const categories = Object.keys(groupedOffers).sort();
 
     return (
-        <main>
+        <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
-            <div className="container" style={{ padding: '4rem 0' }}>
-                <h1 className="section-title">Curated Resources</h1>
-                <p style={{ textAlign: 'center', color: '#94a3b8', maxWidth: '600px', margin: '-1rem auto 3rem' }}>
-                    We've tested hundreds of tools. These are the ones we actually use to run our 6-figure businesses.
-                </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-                    {categories.map((cat, i) => (
-                        <div key={i} className="glass" style={{ padding: '2rem', borderRadius: '1rem', cursor: 'pointer', transition: 'background 0.3s' }}>
-                            <h3 style={{ margin: 0 }}>{cat}</h3>
-                            <p style={{ marginTop: '0.5rem', color: 'var(--primary)', fontSize: '0.9rem' }}>View Recommendations &rarr;</p>
+            <div className="container" style={{ padding: '8rem 0 4rem' }}>
+                <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem' }}>
+                    <h1 className="title-main" style={{ fontSize: '3.5rem' }}>Curated <span className="gradient-text">Resources</span></h1>
+                    <p className="subtitle" style={{ margin: '0 auto' }}>
+                        We've tested hundreds of tools. These are the ones we actually use to run our 6-figure businesses.
+                    </p>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
+                    {categories.map((category) => (
+                        <div key={category}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
+                                <span style={{ fontSize: '2rem' }}>{getCategoryIcon(category)}</span>
+                                <h2 style={{ fontSize: '2rem', fontWeight: 700, margin: 0 }}>{category}</h2>
+                            </div>
+
+                            <div className="resource-grid" style={{ marginTop: '0' }}>
+                                {groupedOffers[category].map((offer: any, i: number) => (
+                                    <div key={i} className="card-premium">
+                                        <div className="card-icon" style={{ marginBottom: '1.5rem' }}>
+                                            {getCategoryIcon(offer.category)}
+                                        </div>
+                                        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', lineHeight: '1.4' }}>{offer.name}</h3>
+                                        <div className="badge" style={{ marginBottom: '1rem', alignSelf: 'flex-start' }}>
+                                            {offer.commission ? `Earn ${offer.commission}` : 'Recommended'}
+                                        </div>
+                                        <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '1.5rem', flexGrow: 1 }}>{offer.description}</p>
+                                        <a
+                                            href={offer.affiliate_link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="btn-outline btn-sm"
+                                            style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}
+                                        >
+                                            Get Deal &rarr;
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>
 
-                <div style={{ marginTop: '6rem' }}>
-                    <h2 className="section-title">Amazon Must-Reads</h2>
-                    <p style={{ textAlign: 'center', color: '#94a3b8', maxWidth: '600px', margin: '-1rem auto 3rem' }}>
+                {/* Amazon Section */}
+                <div style={{ marginTop: '8rem', paddingTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                    <h2 className="section-title" style={{ marginBottom: '1rem' }}>Amazon Must-Reads</h2>
+                    <p style={{ textAlign: 'center', color: '#94a3b8', maxWidth: '600px', margin: '0 auto 4rem' }}>
                         Books that shaped our mindset and strategy.
                     </p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+                    <div className="resource-grid" style={{ marginTop: 0 }}>
                         {[
                             {
                                 title: "AI Side Hustle: 5 Simple Online Businesses You Can Start This Weekend",
@@ -50,39 +122,31 @@ export default function Resources() {
                                 link: "https://www.amazon.com/s?k=Affiliate+Marketing+Jumpstart+Zero+to+Commission+in+7+Days"
                             }
                         ].map((book, i) => (
-                            <div key={i} className="glass" style={{ padding: '1.5rem', borderRadius: '1rem', display: 'flex', flexDirection: 'column' }}>
+                            <div key={i} className="card-premium">
                                 <div style={{
-                                    height: '280px',
+                                    height: '200px',
                                     background: 'rgba(255,255,255,0.05)',
-                                    borderRadius: '0.5rem',
-                                    marginBottom: '1rem',
+                                    borderRadius: '0.75rem',
+                                    marginBottom: '1.5rem',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     color: '#64748b',
                                     textAlign: 'center',
-                                    padding: '1rem'
+                                    padding: '1rem',
+                                    border: '1px solid rgba(255,255,255,0.05)'
                                 }}>
-                                    [Book Cover: {book.title.split(':')[0]}]
+                                    📚 {book.title.slice(0, 20)}...
                                 </div>
                                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', lineHeight: '1.4' }}>{book.title}</h3>
-                                <p style={{ color: 'var(--primary)', fontSize: '0.9rem', marginBottom: '0.75rem' }}>{book.author}</p>
-                                <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '1rem', flex: 1 }}>{book.description}</p>
+                                <p style={{ color: 'var(--primary)', fontSize: '0.85rem', marginBottom: '0.75rem' }}>{book.author}</p>
+                                <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '1.5rem', flexGrow: 1 }}>{book.description}</p>
                                 <a
                                     href={book.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="btn btn-primary"
-                                    style={{
-                                        textAlign: 'center',
-                                        fontSize: '0.9rem',
-                                        padding: '0.5rem 1rem',
-                                        backgroundColor: '#febd69',
-                                        color: '#131921',
-                                        fontWeight: 'bold',
-                                        border: 'none',
-                                        marginTop: 'auto'
-                                    }}
+                                    className="btn-premium btn-sm"
+                                    style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}
                                 >
                                     Buy on Amazon {book.price}
                                 </a>
