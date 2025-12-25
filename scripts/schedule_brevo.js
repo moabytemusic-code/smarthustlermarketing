@@ -24,9 +24,24 @@ try {
 }
 
 // Helper function to format date for Brevo (ISO string)
-const getScheduledDate = (daysFromNow) => {
-    const date = new Date();
-    date.setDate(date.getDate() + daysFromNow);
+// OFFSET: We start 4 days from now to allow the 3-day Re-engagement campaign to finish first.
+// Helper to find the next business day (Mon-Fri)
+// OFFSET: We start 4 days from now to allow the 3-day Re-engagement campaign to finish first.
+const CAMPAIGN_START_OFFSET = 4;
+let currentDate = new Date();
+currentDate.setDate(currentDate.getDate() + CAMPAIGN_START_OFFSET);
+
+const getNextBusinessDay = () => {
+    // Increment by 1 day first
+    currentDate.setDate(currentDate.getDate() + 1);
+
+    // If Sat (6) or Sun (0), keep adding days until Mon (1)
+    while (currentDate.getDay() === 0 || currentDate.getDay() === 6) {
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // Create a copy to return properly
+    const date = new Date(currentDate);
     date.setHours(9, 0, 0, 0); // Schedule for 9:00 AM
     return date.toISOString();
 };
@@ -89,7 +104,8 @@ function processEmailContent(emailContent, offerIndex) {
 }
 
 async function createCampaign(email, index) {
-    const scheduledAt = getScheduledDate(email.day);
+    // Get next business day from the global cursor
+    const scheduledAt = getNextBusinessDay();
 
     // Inject links and featured product
     const enhancedContent = processEmailContent(email.content, index);
