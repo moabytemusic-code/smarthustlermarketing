@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,6 +34,10 @@ export default function Navbar() {
                     <Link href="/resources">Resources</Link>
                     <Link href="/shop">Shop</Link>
                     <Link href="/about">About</Link>
+
+                    <div style={{ marginLeft: '1rem', marginRight: '0.5rem' }}>
+                        <ThemeToggle />
+                    </div>
 
                     <Link href="/contact" className="btn-outline btn-sm" style={{ padding: '0.6rem 1.25rem', backgroundColor: '#fff', color: '#000' }}>
                         Get Started
@@ -74,6 +79,9 @@ export default function Navbar() {
                 <Link href="/resources" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
                 <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                <div onClick={() => setIsMobileMenuOpen(false)} style={{ transform: 'scale(1.5)' }}>
+                    <ThemeToggle />
+                </div>
                 <Link href="/contact" className="btn-premium" onClick={() => setIsMobileMenuOpen(false)}>
                     Get Started
                 </Link>

@@ -4,7 +4,7 @@ import NewsletterForm from '../components/NewsletterForm';
 
 export default function Home() {
     return (
-        <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
+        <main>
             <Navbar />
 
             {/* Hero Section */}
@@ -85,7 +85,7 @@ export default function Home() {
             </section>
 
             {/* Premium Resources Section */}
-            <section style={{ padding: '8rem 0', backgroundColor: '#0b1120' }}>
+            <section style={{ padding: '8rem 0', backgroundColor: 'var(--background-alt)' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
                         <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1.5rem' }}>Premium Resources</h2>

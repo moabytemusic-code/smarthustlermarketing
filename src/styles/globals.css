@@ -1,5 +1,5 @@
 :root {
-  /* Ultra-dark slate for depth */
+  /* Default: "Hustler Dark" */
   --background: #020617;
   --background-alt: #0b1120;
   --foreground: #f8fafc;
@@ -26,6 +26,56 @@
 
   --text-muted: #94a3b8;
   --font-outfit: 'Outfit', sans-serif;
+}
+
+[data-theme='cyber'] {
+  /* Matrix/Hacker Theme */
+  --background: #000000;
+  --background-alt: #051105;
+  --foreground: #e2e8f0;
+
+  /* Neon Green */
+  --primary: #00ff41;
+  --primary-hover: #008f11;
+  --primary-glow: rgba(0, 255, 65, 0.3);
+
+  /* Digital Rain Green */
+  --secondary: #0d0208;
+  --secondary-hover: #003b00;
+  --secondary-glow: rgba(0, 59, 0, 0.3);
+
+  --card-bg: rgba(0, 20, 0, 0.7);
+  --card-border: rgba(0, 255, 65, 0.2);
+
+  --glass-bg: rgba(0, 0, 0, 0.9);
+  --glass-border: rgba(0, 255, 65, 0.2);
+
+  --text-muted: #4ade80;
+}
+
+[data-theme='executive'] {
+  /* Executive / Light Theme */
+  --background: #ffffff;
+  --background-alt: #f8fafc;
+  --foreground: #0f172a;
+
+  /* Trustworthy Blue */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-glow: rgba(37, 99, 235, 0.2);
+
+  /* Slate */
+  --secondary: #64748b;
+  --secondary-hover: #475569;
+  --secondary-glow: rgba(100, 116, 139, 0.2);
+
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(0, 0, 0, 0.1);
+
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.1);
+
+  --text-muted: #475569;
 }
 
 html,
@@ -204,8 +254,8 @@ a:hover {
 
 /* Cards */
 .card-premium {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   padding: 2.5rem;
   border-radius: 1.5rem;
   transition: all 0.5s ease;
@@ -390,9 +440,9 @@ a:hover {
 
 .navbar.scrolled {
   padding: 1rem 0;
-  background: rgba(2, 6, 23, 0.8);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .nav-container {
@@ -434,8 +484,8 @@ a:hover {
 
 /* Newsletter Section */
 .cta-box {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, var(--background-alt), var(--background));
+  border: 1px solid var(--glass-border);
   border-radius: 3rem;
   padding: 6rem 4rem;
   position: relative;

@@ -36,12 +36,12 @@ export default async function GiftPage({ params }: PageProps) {
     }
 
     return (
-        <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
+        <main style={{ minHeight: '100vh' }}>
             <Navbar />
             <div className="container" style={{ padding: '8rem 0' }}>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
 
-                    <div className="glass" style={{ padding: '3rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <div className="glass" style={{ padding: '3rem', borderRadius: '1rem', border: '1px solid var(--glass-border)', backgroundColor: 'var(--glass-bg)' }}>
                         <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
                             <span style={{
                                 backgroundColor: 'var(--primary)',
