@@ -58,24 +58,26 @@ export default function Home() {
                         </div>
 
                         <div className="hero-visual">
-                            <div className="mockup-container">
-                                <div className="mockup-window">
-                                    <div className="mockup-header">
-                                        <div className="btn-dot" style={{ backgroundColor: '#ef4444' }}></div>
-                                        <div className="btn-dot" style={{ backgroundColor: '#f59e0b' }}></div>
-                                        <div className="btn-dot" style={{ backgroundColor: '#10b981' }}></div>
-                                    </div>
-                                    <div className="mockup-body">
-                                        <div className="mockup-line" style={{ width: '80%' }}></div>
-                                        <div className="mockup-line" style={{ width: '60%' }}></div>
-                                        <div className="mockup-line" style={{ width: '90%' }}></div>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '2rem' }}>
-                                            <div style={{ height: '80px', borderRadius: '0.75rem', background: 'rgba(251, 191, 36, 0.1)', border: '1px solid rgba(251, 191, 36, 0.1)' }}></div>
-                                            <div style={{ height: '80px', borderRadius: '0.75rem', background: 'rgba(56, 189, 248, 0.1)', border: '1px solid rgba(56, 189, 248, 0.1)' }}></div>
-                                            <div style={{ height: '80px', borderRadius: '0.75rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="image-container" style={{ position: 'relative', animation: 'float 6s ease-in-out infinite' }}>
+                                <div style={{
+                                    position: 'absolute',
+                                    inset: -20,
+                                    background: 'radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, rgba(59, 130, 246, 0.1) 50%, transparent 70%)',
+                                    filter: 'blur(40px)',
+                                    zIndex: 0
+                                }}></div>
+                                <img
+                                    src="/hero-vibrant.png"
+                                    alt="Smart Hustler Dashboard"
+                                    style={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        position: 'relative',
+                                        zIndex: 10,
+                                        borderRadius: '1rem',
+                                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
