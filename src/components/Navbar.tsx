@@ -31,7 +31,7 @@ export default function Navbar() {
                 {/* Desktop Menu */}
                 <div className="nav-links">
                     <Link href="/blog">Blog</Link>
-
+                    <Link href="/resources">Resources</Link>
                     <Link href="/tools">Tools</Link>
 
                     <Link href="/shop">Shop</Link>
@@ -78,7 +78,7 @@ export default function Navbar() {
                     <X size={32} />
                 </button>
                 <Link href="/blog" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
-
+                <Link href="/resources" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
                 <Link href="/tools" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Tools</Link>
 
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
