@@ -31,7 +31,22 @@ export default function Navbar() {
                 {/* Desktop Menu */}
                 <div className="nav-links">
                     <Link href="/blog">Blog</Link>
-                    <Link href="/resources">Resources</Link>
+
+                    {/* Tools Dropdown */}
+                    <div className="relative group">
+                        <button className="text-[var(--text-muted)] hover:text-white font-medium transition-colors flex items-center gap-1">
+                            Free Tools
+                        </button>
+                        <div className="absolute top-full left-0 mt-2 w-56 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 p-2 backdrop-blur-md">
+                            <Link href="/tools/freedom-calculator" className="block px-4 py-3 rounded-lg hover:bg-white/5 text-sm font-medium text-white transition-colors">
+                                💰 Freedom Calculator
+                            </Link>
+                            <Link href="/tools/micro-niche-finder" className="block px-4 py-3 rounded-lg hover:bg-white/5 text-sm font-medium text-white transition-colors">
+                                🎯 Niche Finder AI
+                            </Link>
+                        </div>
+                    </div>
+
                     <Link href="/shop">Shop</Link>
                     <Link href="/about">About</Link>
 
@@ -39,7 +54,7 @@ export default function Navbar() {
                         <ThemeToggle />
                     </div>
 
-                    <Link href="/contact" className="btn-outline btn-sm" style={{ padding: '0.6rem 1.25rem', backgroundColor: '#fff', color: '#000' }}>
+                    <Link href="/contact" className="btn-outline btn-sm" style={{ padding: '0.6rem 1.25rem', backgroundColor: 'var(--foreground)', color: 'var(--background)' }}>
                         Get Started
                     </Link>
                 </div>
@@ -76,7 +91,10 @@ export default function Navbar() {
                     <X size={32} />
                 </button>
                 <Link href="/blog" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
-                <Link href="/resources" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
+
+                <Link href="/tools/freedom-calculator" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--primary)' }} onClick={() => setIsMobileMenuOpen(false)}>💰 Freedom Calculator</Link>
+                <Link href="/tools/micro-niche-finder" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--primary)' }} onClick={() => setIsMobileMenuOpen(false)}>🎯 Niche Finder AI</Link>
+
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
                 <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
                 <div onClick={() => setIsMobileMenuOpen(false)} style={{ transform: 'scale(1.5)' }}>
