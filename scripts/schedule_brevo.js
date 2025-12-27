@@ -143,11 +143,11 @@ async function createCampaign(email, index) {
             body: JSON.stringify({
                 tag: 'smarthustler',
                 sender: { name: 'Smart Hustler Marketing', email: 'ken@smarthustlermarketing.com' },
-                name: `[Day ${email.day}] ${email.subject}`,
+                name: `[Day ${email.day}] ${email.subject} (Send: ${scheduledAt.split('T')[0]})`,
                 subject: email.subject,
                 htmlContent: htmlContent,
-                recipients: { listIds: [51] }, // Updated to List ID 51
-                scheduledAt: scheduledAt
+                recipients: { listIds: [27, 38, 31, 33, 42, 29] }
+                // scheduledAt: scheduledAt  <-- REMOVED to save as DRAFT
             })
         });
 
@@ -164,7 +164,7 @@ async function createCampaign(email, index) {
 }
 
 async function run() {
-    await deleteOldCampaigns(); // Clean up first
+    await deleteOldCampaigns();
     console.log(`Found ${emails.length} emails to schedule...`);
 
     // Process sequentially to avoid rate limits
