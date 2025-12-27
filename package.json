@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "node scripts/generate_rss.js && next build",
         "start": "next start",
         "lint": "next lint",
         "postbuild": "next-sitemap"
@@ -22,6 +22,7 @@
         "react-dom": "^19.2.3",
         "react-markdown": "^10.1.0",
         "remark-gfm": "^4.0.1",
+        "rss-parser": "^3.13.0",
         "stripe": "^20.1.0"
     },
     "devDependencies": {
