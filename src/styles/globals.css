@@ -1,8 +1,10 @@
 :root {
   /* Default: "Hustler Dark" */
   --background: #020617;
-  --background-alt: #0b1120;
-  --foreground: #f8fafc;
+  --background-alt: #02040a;
+  /* Darker for better pop */
+  --foreground: #ffffff;
+  /* Pure white text */
 
   /* Premium Gold/Amber */
   --primary: #fbbf24;
@@ -18,13 +20,16 @@
   --accent: #6366f1;
 
   /* Card and Glass Styles */
-  --card-bg: rgba(30, 41, 59, 0.5);
-  --card-border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(15, 23, 42, 0.8);
+  /* Much higher opacity for readability */
+  --card-border: rgba(255, 255, 255, 0.15);
+  /* Stronger border definition */
 
-  --glass-bg: rgba(2, 6, 23, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(2, 6, 23, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.15);
 
-  --text-muted: #94a3b8;
+  --text-muted: #cbd5e1;
+  /* Lighter grey for better contrast */
   --font-outfit: 'Outfit', sans-serif;
 }
 
