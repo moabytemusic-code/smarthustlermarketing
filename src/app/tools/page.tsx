@@ -83,30 +83,27 @@ export default function ToolsHub() {
                             </div>
                         </Link>
 
-                        {/* Tool 3: Headline Generator (Coming Soon) */}
-                        <div className="group relative">
-                            <div className="h-full p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 border-dashed relative overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
-                                <div className="relative z-10">
-                                    <div className="flex justify-between items-start mb-6">
-                                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-slate-500">
-                                            <Zap size={24} />
-                                        </div>
-                                        <div className="px-2 py-1 rounded bg-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-widest border border-slate-700">
-                                            Dev Mode
-                                        </div>
+                        {/* Tool 3: AI Agents Suite */}
+                        <Link href="/tools/agents" className="group relative">
+                            <div className="h-full p-8 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-purple-500/50 hover:bg-slate-900/80 transition-all duration-300 hover:-translate-y-1 overflow-hidden backdrop-blur-sm">
+                                <div className="absolute top-0 right-0 p-32 bg-purple-500/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-purple-600/10 transition-colors duration-500"></div>
+
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/5 border border-purple-500/20 flex items-center justify-center text-purple-500 mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                                        <Zap size={24} />
                                     </div>
 
-                                    <h3 className="text-2xl font-bold text-slate-300 mb-3">Headline Generator</h3>
-                                    <p className="text-slate-500 mb-8 leading-relaxed text-sm">
-                                        Create 50%+ open rate subject lines and viral hooks automatically. Currently in beta testing.
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">AI Agent Suite</h3>
+                                    <p className="text-slate-400 mb-8 leading-relaxed text-sm flex-grow">
+                                        Next-Gen Tools: Campaign Architect, Faceless Director, and Reply Guy Bot. Automate the work itself.
                                     </p>
 
-                                    <div className="flex items-center text-slate-600 font-bold text-sm tracking-wide uppercase cursor-not-allowed">
-                                        <Lock className="w-4 h-4 mr-2" /> Locked
+                                    <div className="flex items-center text-purple-500 font-bold text-sm tracking-wide uppercase mt-auto">
+                                        Open Suite <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                     </div>
 
