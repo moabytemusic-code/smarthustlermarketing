@@ -1,83 +1,125 @@
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
-import { ArrowRight, Calculator, Search, Lock } from 'lucide-react';
+import { ArrowRight, Calculator, Search, Lock, Zap } from 'lucide-react';
 
 export default function ToolsHub() {
     return (
-        <main style={{ minHeight: '100vh', paddingBottom: '4rem' }}>
+        <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-amber-500/30">
             <Navbar />
 
-            <section className="container" style={{ paddingTop: '8rem' }}>
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6 border border-primary/20">
-                        <span className="animate-pulse">●</span> Available Free for Limited Time
+            {/* Background Effects */}
+            <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px]" />
+                <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-amber-500/5 blur-[120px]" />
+            </div>
+
+            <section className="relative z-10 pt-40 pb-24 px-6 md:px-0">
+                <div className="max-w-7xl mx-auto">
+
+                    {/* Header */}
+                    <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            <span className="text-xs font-medium text-slate-300 tracking-wider uppercase">Online Tools Suite</span>
+                        </div>
+
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">
+                            Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">Faster</span>. <br className="hidden md:block" />
+                            Scale <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Smarter</span>.
+                        </h1>
+
+                        <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                            Access the same tactical utilities used by 7-figure affiliates. No fluff, just pure execution power.
+                        </p>
                     </div>
-                    <h1 className="title-main text-5xl md:text-7xl mb-6">
-                        The <span className="gradient-text">Growth Arsenal</span>
-                    </h1>
-                    <p className="subtitle text-xl">
-                        Stop guessing. Start executing. We build the tools that 7-figure affiliates feel guilty using for free.
-                    </p>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {/* Tools Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    {/* Tool 1: Micro Niche Finder */}
-                    <Link href="/tools/micro-niche-finder" className="group relative">
-                        <div className="h-full p-8 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
-                            <div className="absolute top-0 right-0 p-24 bg-primary/5 blur-3xl rounded-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors"></div>
+                        {/* Tool 1: Micro Niche Finder */}
+                        <Link href="/tools/micro-niche-finder" className="group">
+                            <div className="relative h-full p-8 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-amber-500/50 hover:bg-slate-900/80 transition-all duration-300 hover:-translate-y-1 overflow-hidden backdrop-blur-sm group-hover:shadow-[0_0_40px_rgba(245,158,11,0.1)]">
+                                <div className="absolute top-0 right-0 p-32 bg-amber-500/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-amber-600/10 transition-colors duration-500"></div>
 
-                            <div className="relative z-10">
-                                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-                                    <Search size={28} strokeWidth={2.5} />
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/5 border border-amber-500/20 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                                        <Search size={24} />
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Micro Niche Finder</h3>
+                                    <p className="text-slate-400 mb-8 leading-relaxed text-sm flex-grow">
+                                        Identify untapped, high-profit sub-niches in seconds using our specific AI algorithm. Stop guessing.
+                                    </p>
+
+                                    <div className="flex items-center text-amber-500 font-bold text-sm tracking-wide uppercase mt-auto">
+                                        Launch Scanner <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </div>
                                 </div>
-                                <h3 className="text-2xl font-bold text-[var(--foreground)] mb-3">Micro Niche Finder</h3>
-                                <p className="text-[var(--text-muted)] mb-6 leading-relaxed">
-                                    AI-powered market scanner. Uncover untapped, high-cpc sub-niches in seconds before the competition does.
-                                </p>
-                                <div className="flex items-center text-primary font-bold text-sm tracking-wide uppercase">
-                                    Launch Tool <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </Link>
+
+                        {/* Tool 2: Freedom Calculator */}
+                        <Link href="/tools/freedom-calculator" className="group">
+                            <div className="relative h-full p-8 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-blue-500/50 hover:bg-slate-900/80 transition-all duration-300 hover:-translate-y-1 overflow-hidden backdrop-blur-sm group-hover:shadow-[0_0_40px_rgba(59,130,246,0.1)]">
+                                <div className="absolute top-0 right-0 p-32 bg-blue-500/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-blue-600/10 transition-colors duration-500"></div>
+
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/5 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                                        <Calculator size={24} />
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">Freedom Calculator</h3>
+                                    <p className="text-slate-400 mb-8 leading-relaxed text-sm flex-grow">
+                                        Reverse engineer your financial independence. Calculate the exact daily sales needed to quit your job.
+                                    </p>
+
+                                    <div className="flex items-center text-blue-500 font-bold text-sm tracking-wide uppercase mt-auto">
+                                        Calculate Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+
+                        {/* Tool 3: Headline Generator (Coming Soon) */}
+                        <div className="group relative">
+                            <div className="h-full p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 border-dashed relative overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-slate-500">
+                                            <Zap size={24} />
+                                        </div>
+                                        <div className="px-2 py-1 rounded bg-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-widest border border-slate-700">
+                                            Dev Mode
+                                        </div>
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-slate-300 mb-3">Headline Generator</h3>
+                                    <p className="text-slate-500 mb-8 leading-relaxed text-sm">
+                                        Create 50%+ open rate subject lines and viral hooks automatically. Currently in beta testing.
+                                    </p>
+
+                                    <div className="flex items-center text-slate-600 font-bold text-sm tracking-wide uppercase cursor-not-allowed">
+                                        <Lock className="w-4 h-4 mr-2" /> Locked
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </Link>
 
-                    {/* Tool 2: Freedom Calculator */}
-                    <Link href="/tools/freedom-calculator" className="group relative">
-                        <div className="h-full p-8 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-secondary/50 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
-                            <div className="absolute top-0 right-0 p-24 bg-secondary/5 blur-3xl rounded-full -mr-12 -mt-12 group-hover:bg-secondary/10 transition-colors"></div>
+                    </div>
 
-                            <div className="relative z-10">
-                                <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
-                                    <Calculator size={28} strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-[var(--foreground)] mb-3">Freedom Calculator</h3>
-                                <p className="text-[var(--text-muted)] mb-6 leading-relaxed">
-                                    Reverse engineer your dream life. Calculate exactly how many daily sales you need to quit your 9-5 forever.
-                                </p>
-                                <div className="flex items-center text-secondary font-bold text-sm tracking-wide uppercase">
-                                    Calculate Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-
-                    {/* Tool 3: Coming Soon */}
-                    <div className="group relative opacity-60 hover:opacity-100 transition-opacity cursor-not-allowed">
-                        <div className="h-full p-8 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] border-dashed">
-                            <div className="relative z-10">
-                                <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 mb-6">
-                                    <Lock size={28} strokeWidth={2.5} />
-                                </div>
-                                <h3 className="text-2xl font-bold text-[var(--foreground)] mb-3">Headline Generator</h3>
-                                <p className="text-[var(--text-muted)] mb-6 leading-relaxed">
-                                    Create viral hooks and subject lines that force opens. Currently in beta testing for Inner Circle members.
-                                </p>
-                                <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-bold text-white/60 uppercase">
-                                    Coming Q1 2026
-                                </div>
-                            </div>
-                        </div>
+                    {/* Bottom CTA */}
+                    <div className="mt-20 relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-b from-slate-900 to-black p-12 text-center">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+                        <h2 className="text-2xl font-bold text-white mb-4">Need the Full Manual?</h2>
+                        <p className="text-slate-400 max-w-lg mx-auto mb-8">
+                            These tools are powerful, but they work best when combined with the complete operating system.
+                        </p>
+                        <Link href="/blueprint" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-900 transition-all duration-200 bg-white rounded-full hover:bg-amber-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50">
+                            Download the Blueprint <ArrowRight className="ml-2 w-5 h-5" />
+                        </Link>
                     </div>
 
                 </div>
