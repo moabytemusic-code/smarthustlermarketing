@@ -10,14 +10,22 @@ https://smarthustlermarketing.com/rss.xml
 
 ---
 
-## 1. Medium (Import & Canonical)
-This allows your posts to appear on Medium while telling Google YOU are the original owner.
+## 1. Medium (Syndication)
+*Note: Medium removed their native "Auto-Import from RSS" feature. You have two options:*
 
-1.  Go to **Medium Settings**.
-2.  Navigate to **Publishing** > **Connect to RSS**.
-3.  Paste your RSS URL: `https://smarthustlermarketing.com/rss.xml`
-4.  **Result:** When you publish a post on your site, it will appear as a "Draft" in Medium.
-5.  **Action:** You just need to login, review the draft, and click "Publish".
+**Option A: The SEO-Safe Way (Recommended)**
+1.  Login to Medium.
+2.  Click your profile icon -> **Stories** -> **Import a story**.
+3.  Paste the URL of your new blog post (e.g., `https://smarthustlermarketing.com/blog/my-new-post`).
+4.  Click **Import**.
+5.  **Why this is best:** Medium automatically sets the `canonical_link` to your website. This tells Google "Smart Hustler is the original source," protecting your SEO.
+
+**Option B: The Automated Way (Zapier)**
+If you want it 100% hands-free:
+1.  Use **Zapier** (or Make.com).
+2.  **Trigger:** "New Item in Feed" (Use your `rss.xml` URL).
+3.  **Action:** "Create Story in Medium".
+4.  *Warning:* You must manually ensure the canonical link is set, or Google might view it as duplicate content. Option A is safer.
 
 ---
 
