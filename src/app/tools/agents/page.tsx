@@ -16,7 +16,7 @@ export default function ToolsHubAdditional() {
             </div>
 
             {/* Main Content Container with safe padding */}
-            <div className="container" style={{ padding: '10rem 2rem 6rem', position: 'relative', zIndex: 10 }}>
+            <div className="container" style={{ padding: '180px 2rem 6rem', position: 'relative', zIndex: 10 }}>
 
                 <div className="mb-12">
                     <Link href="/tools" className="inline-flex items-center text-slate-400 hover:text-white transition-colors mb-6">

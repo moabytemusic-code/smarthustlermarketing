@@ -53,11 +53,11 @@ export default function CampaignArchitect() {
                 <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-pink-500/5 blur-[120px]" />
             </div>
 
-            <div className="relative z-10 container mx-auto px-6 pt-40 pb-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="relative z-10 container mx-auto px-6" style={{ paddingTop: '180px', paddingBottom: '5rem' }}>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                     {/* Left Column: Text */}
-                    <div className="max-w-xl sticky top-32">
+                    <div className="max-w-xl sticky top-40">
                         <Link href="/tools/agents" className="inline-flex items-center text-slate-400 hover:text-white transition-colors mb-8">
                             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Agents
                         </Link>

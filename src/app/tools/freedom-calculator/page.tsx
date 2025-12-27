@@ -17,7 +17,7 @@ export default function FreedomCalculatorPage() {
                 <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-purple-500/5 blur-[120px]" />
             </div>
 
-            <div className="relative z-10 container mx-auto px-6 pt-40 pb-20">
+            <div className="relative z-10 container mx-auto px-6" style={{ paddingTop: '180px', paddingBottom: '5rem' }}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                     {/* Left Column: Text */}
