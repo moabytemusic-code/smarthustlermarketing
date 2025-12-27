@@ -1,0 +1,87 @@
+{
+    "name": "Smart Hustler Post Syndication",
+    "flow": [
+        {
+            "id": 1,
+            "module": "rss:WatchRSS",
+            "version": 1,
+            "parameters": {
+                "url": "https://smarthustlermarketing.com/rss.xml",
+                "limit": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 2,
+            "module": "router:Router",
+            "version": 1,
+            "parameters": {},
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 3,
+                            "module": "linkedin:CreateShare",
+                            "version": 1,
+                            "parameters": {
+                                "__connection": "YOUR_LINKEDIN_CONNECTION_ID"
+                            },
+                            "mapper": {
+                                "content": {
+                                    "title": "{{1.title}}",
+                                    "description": "{{1.description}}",
+                                    "submittedUrl": "{{1.link}}",
+                                    "submittedImageUrl": "{{1.image.url}}"
+                                },
+                                "visibility": "CONNECTIONS"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": -100
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 4,
+                            "module": "twitter:CreateTweet",
+                            "version": 1,
+                            "parameters": {
+                                "__connection": "YOUR_TWITTER_CONNECTION_ID"
+                            },
+                            "mapper": {
+                                "text": "New Post: {{1.title}}\n\nRead here: {{1.link}}\n\n#SmartHustler"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 100
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "version": 1
+    }
+}
