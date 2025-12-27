@@ -3,8 +3,30 @@ import { Analytics } from '@vercel/analytics/react';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
-    title: 'Smart Hustler Marketing | Tools & Tactics',
-    description: 'Tools, Training, and Tactics for modern affiliate marketing. Boost your digital presence.',
+    metadataBase: new URL('https://smarthustlermarketing.com'),
+    title: {
+        default: 'Smart Hustler Marketing | Tools & Tactics',
+        template: '%s | Smart Hustler Marketing'
+    },
+    description: 'Tools, Training, and Tactics for modern affiliate marketing. Build automated income streams with AI.',
+    alternates: {
+        canonical: './',
+        types: {
+            'application/rss+xml': '/rss.xml',
+        },
+    },
+    openGraph: {
+        title: 'Smart Hustler Marketing',
+        description: 'Automated Marketing Systems for the Modern Entrepreneur.',
+        url: 'https://smarthustlermarketing.com',
+        siteName: 'Smart Hustler Marketing',
+        locale: 'en_US',
+        type: 'website',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
 };
 
 export default function RootLayout({
