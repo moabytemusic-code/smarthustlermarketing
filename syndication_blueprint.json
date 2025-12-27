@@ -1,5 +1,5 @@
 {
-    "name": "Smart Hustler Linear Syndication",
+    "name": "Smart Hustler Linear Syndication V2",
     "flow": [
         {
             "id": 1,
@@ -21,9 +21,7 @@
             "id": 2,
             "module": "linkedin:CreateShare",
             "version": 1,
-            "parameters": {
-                "__connection": "123456"
-            },
+            "parameters": {},
             "mapper": {
                 "content": {
                     "title": "{{1.title}}",
@@ -44,9 +42,7 @@
             "id": 3,
             "module": "twitter:CreateTweet",
             "version": 1,
-            "parameters": {
-                "__connection": "123456"
-            },
+            "parameters": {},
             "mapper": {
                 "text": "New Post: {{1.title}}\n\nRead here: {{1.link}}\n\n#SmartHustler"
             },
