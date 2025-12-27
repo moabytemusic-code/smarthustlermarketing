@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, Megaphone, Video, MessageSquare } from 'lucide-react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../../components/Navbar';
 
 export default function ToolsHubAdditional() {
     return (
