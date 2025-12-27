@@ -85,7 +85,7 @@ export default function MicroNicheFinder() {
     };
 
     return (
-        <div className="card-premium relative overflow-hidden max-w-3xl mx-auto shadow-2xl bg-opacity-90 backdrop-blur-xl">
+        <div className="relative overflow-hidden w-full bg-slate-900/40 backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-12">
             {/* Background Decoration */}
             <div className="absolute top-0 right-0 p-32 bg-primary opacity-5 blur-[100px] rounded-full pointer-events-none -mr-16 -mt-16"></div>
 
@@ -109,8 +109,8 @@ export default function MicroNicheFinder() {
                                         key={cat}
                                         onClick={() => setCategory(cat)}
                                         className={`px-4 py-4 rounded-xl text-sm font-bold transition-all border ${category === cat
-                                                ? 'bg-primary text-black border-primary shadow-[0_0_20px_rgba(251,191,36,0.3)] transform -translate-y-1'
-                                                : 'bg-slate-800/50 text-slate-400 border-slate-700 hover:border-slate-500 hover:bg-slate-800'
+                                            ? 'bg-primary text-black border-primary shadow-[0_0_20px_rgba(251,191,36,0.3)] transform -translate-y-1'
+                                            : 'bg-slate-800/50 text-slate-400 border-slate-700 hover:border-slate-500 hover:bg-slate-800'
                                             }`}
                                     >
                                         {cat}
