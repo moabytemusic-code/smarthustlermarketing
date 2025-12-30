@@ -2,11 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 
-// Load env
-dotenv.config({ path: '.env.local' });
-// Fallback to root .env if local is missing or key is not there
+// Load env safely (local dev vs CI/CD)
 if (!process.env.PERPLEXITY_API_KEY) {
-    dotenv.config({ path: path.join(__dirname, '../.env') });
+    // Only try loading .env files if the key isn't already here
+    dotenv.config({ path: '.env.local' });
+    if (!process.env.PERPLEXITY_API_KEY) {
+        dotenv.config({ path: path.join(__dirname, '../.env') });
+    }
 }
 
 // IMPORTANT: Requires 'rss-parser' to read feeds
@@ -18,7 +20,9 @@ const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY;
 const API_URL = 'https://api.perplexity.ai/chat/completions';
 
 if (!PERPLEXITY_API_KEY) {
-    console.error('❌ Error: PERPLEXITY_API_KEY is not found in .env files.');
+    console.error('❌ Error: PERPLEXITY_API_KEY is not found in environment.');
+    console.error('   -> If Local: Check .env file.');
+    console.error('   -> If GitHub Action: Check Repository Secrets.');
     process.exit(1);
 }
 
