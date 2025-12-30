@@ -1,0 +1,45 @@
+name: AI Newsroom Auto-Publisher
+
+on:
+  schedule:
+    # Run at 13:00 UTC (8:00 AM EST) on Mon, Wed, Fri
+    - cron: '0 13 * * 1,3,5'
+  workflow_dispatch: # Allows manual trigger button in GitHub UI
+
+jobs:
+  trend_jacker:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Trend Jacker AI
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        run: node scripts/trend_jacker.js
+
+      - name: Commit and Push New Article
+        run: |
+          git config --global user.name "SmartHustler AI Bot"
+          git config --global user.email "bot@smarthustlermarketing.com"
+          
+          # Check if there are any new files in src/content/posts/
+          if [[ `git status --porcelain src/content/posts/` ]]; then
+            git add src/content/posts/*.md
+            git commit -m "feat(content): Auto-generated blog post by Trend Jacker"
+            git push
+            echo "✅ New article pushed to main. Vercel deployment triggered."
+          else
+            echo "ℹ️ No new content generated this run."
+          fi
