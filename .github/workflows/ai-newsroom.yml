@@ -1,4 +1,4 @@
-name: AI Newsroom Auto-Publisher
+name: "AI Newsroom: Content Auto-Publisher"
 
 on:
   schedule:
