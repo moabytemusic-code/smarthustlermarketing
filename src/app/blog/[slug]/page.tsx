@@ -53,7 +53,7 @@ export default async function Post({ params }: any) {
     return (
         <main>
             <Navbar />
-            <article className="container" style={{ padding: '4rem 0', maxWidth: '800px' }}>
+            <article className="container" style={{ padding: '8rem 0 4rem', maxWidth: '800px' }}>
                 <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
                     <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>{frontmatter.category}</span>
                     <h1 style={{ fontSize: '2.5rem', margin: '0.5rem 0', lineHeight: 1.2 }}>{frontmatter.title}</h1>
