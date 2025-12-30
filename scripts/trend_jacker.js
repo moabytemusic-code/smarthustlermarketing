@@ -4,11 +4,23 @@ const dotenv = require('dotenv');
 
 // Load env
 dotenv.config({ path: '.env.local' });
+// Fallback to root .env if local is missing or key is not there
+if (!process.env.PERPLEXITY_API_KEY) {
+    dotenv.config({ path: path.join(__dirname, '../.env') });
+}
 
 // IMPORTANT: Requires 'rss-parser' to read feeds
 // If not installed, it needs: npm install rss-parser
 const Parser = require('rss-parser');
 const parser = new Parser();
+
+const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY;
+const API_URL = 'https://api.perplexity.ai/chat/completions';
+
+if (!PERPLEXITY_API_KEY) {
+    console.error('❌ Error: PERPLEXITY_API_KEY is not found in .env files.');
+    process.exit(1);
+}
 
 // 1. Define Feed Sources (Derived from your CSV + Standard RSS Feeds)
 // Note: Many sites in CSV don't have public direct RSS. We will use the known reliable ones.
@@ -57,66 +69,112 @@ function findProductMatch(title, snippet) {
     return PRODUCT_MATCHES[0];
 }
 
-// 3. AI Generation (Simulated for this script 1.0, but ready for OpenAI hook)
-// In a real automated run, we would send the 'item.contentSnippet' to OpenAI API.
-// For now, we will template it intelligently.
-function generatePostContent(item, match) {
+// 3. AI Generation via Perplexity
+async function generatePostWithAI(item, match) {
     const date = new Date().toISOString().split('T')[0];
     const slug = item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-
-    // Check if we already have this post to avoid dupes
     const filename = `${slug}.md`;
+
+    // Check availability
     if (fs.existsSync(path.join(__dirname, '../src/content/posts', filename))) {
-        return null;
+        return null; // Skip duplicate
     }
 
-    const markdown = `---
-title: "Reaction: ${item.title.replace(/"/g, "'")}"
+    console.log(`🤖 AI Writing Article for: "${item.title}"...`);
+    console.log(`   (Estimated Cost: ~$0.05 | Model: sonar-pro)`);
+
+    const prompt = `
+    You are an expert marketing journalist for "Smart Hustler Marketing".
+    
+    Task: Write a high-quality, 1,200+ word blog post reacting to this breaking news.
+    
+    News Source: "${item.title}"
+    Link: ${item.link}
+    Snippet: ${item.contentSnippet || "No snippet provided, please research based on title."}
+    
+    Guidelines:
+    1. **Title:** Create a patchy, viral-worthy title (do not use the original title).
+    2. **Tone:** Professional but urgent and "hustle-oriented".
+    3. **Structure:** 
+       - Catchy Intro (Why this matters NOW).
+       - The Breakdown (What happened).
+       - Deep Dive Analysis (Provide unique value/insight others miss).
+       - The Opportunity (How to make money from this).
+       - Action Plan (3-5 concrete steps).
+    4. **Value First:** The goal is to make the reader feel they *must* subscribe to get this level of alpha. Avoid generic fluff.
+    5. **CTAs:**
+       - **Primary:** Naturally integrate a Call to Action for our tool: "${match.tool}".
+         - Copy: "${match.cta}"
+         - Link: ${match.link}
+       - **Secondary:** End with a reminder: "For more high-level marketing intel, join the Smart Hustler Vault."
+    6. **Format:** valid Markdown. Use ## for headers.
+    
+    Return ONLY the markdown body. Do not include frontmatter (I will add it).
+    `;
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${PERPLEXITY_API_KEY}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'sonar-pro',
+                messages: [
+                    { role: 'system', content: 'You are a senior marketing analyst.' },
+                    { role: 'user', content: prompt }
+                ],
+                temperature: 0.2, // Low temp for factual accuracy
+                max_tokens: 3000
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        let content = data.choices[0].message.content;
+        const citations = data.citations || [];
+
+        // Clean up any potential markdown code blocks wrapped around the content
+        content = content.replace(/^```markdown\n/, '').replace(/\n```$/, '');
+
+        // Format Sources Section
+        let sourcesFooter = "";
+        if (citations.length > 0) {
+            sourcesFooter = "\n## Sources\n\n" + citations.map((url, i) => `*   [${i + 1}] ${url}`).join('\n');
+        }
+
+        const fullFileContent = `---
+title: "${item.title.replace(/"/g, "'")}"
 date: "${date}"
-category: "Analysis"
-excerpt: "New intel from ${item.creator || 'the industry'}: ${item.contentSnippet ? item.contentSnippet.substring(0, 100) : '...'}..."
+category: "News"
+excerpt: "Breaking analysis on: ${item.title}."
 author: "Smart Hustler AI"
 original_source: "${item.link}"
 ---
 
-### 🚨 Breaking News in Marketing
+${content}
 
-**Source:** [${item.title}](${item.link})
-
-${item.contentSnippet || "A major update just dropped in the marketing world that affects how we build automated businesses."}
+${sourcesFooter}
 
 ---
-
-### 🧠 The Smart Hustler Take
-
-This news confirms what we've been saying: **Agility is everything.**
-
-While big corporations are stuck in meetings discussing this update, you can pivot effectively immediately.
-
-**Why this matters for you:**
-1.  **Speed**: The market rewards those who act first.
-2.  **Automation**: If this is a manual task, automate it. If it's an algorithm change, adapt your system.
-3.  **Leverage**: Use tools to bypass the learning curve.
-
----
-
-### 🛠 Action Plan
-
-Don't just read the news. Use it.
-
-**${match.cta}**
-
-[**🚀 Launch the ${match.tool}**](${match.link})
-
----
-*This is an automated curation of top marketing signals. Always verify original sources.*
+*This article was assisted by Smart Hustler AI research technologies.*
 `;
 
-    return { filename, markdown, slug };
+        return { filename, markdown: fullFileContent, slug };
+
+    } catch (e) {
+        console.error(`❌ AI Generation Failed: ${e.message}`);
+        return null;
+    }
 }
 
 async function runTrendJacker() {
-    console.log('🕵️‍♂️ Trend Jacker: Scanning Agency Feeds...');
+    console.log('🕵️‍♂️ Trend Jacker 2.0 (AI Powered): Scanning Agency Feeds...');
 
     let createdCount = 0;
 
@@ -125,28 +183,40 @@ async function runTrendJacker() {
             console.log(`📡 Checking: ${feed.name}...`);
             const feedData = await parser.parseURL(feed.url);
 
-            // Only look at top 2 items to avoid spamming
-            const topItems = feedData.items.slice(0, 2);
+            // Only look at the very first item to save costs/spam
+            const topItem = feedData.items[0];
 
-            for (const item of topItems) {
-                // Determine if it matches our niche (Filter Logic)
-                const keywords = ['marketing', 'ai', 'seo', 'hustle', 'money', 'business', 'tech', 'google', 'update'];
-                const text = (item.title + " " + (item.contentSnippet || "")).toLowerCase();
+            if (!topItem) continue;
 
-                const isRelevant = keywords.some(k => text.includes(k));
+            // Determine if it matches our niche (Filter Logic)
+            const keywords = ['marketing', 'ai', 'seo', 'hustle', 'money', 'business', 'tech', 'google', 'update'];
+            const text = (topItem.title + " " + (topItem.contentSnippet || "")).toLowerCase();
 
-                if (isRelevant) {
-                    const product = findProductMatch(item.title, item.contentSnippet);
-                    const post = generatePostContent(item, product);
+            const isRelevant = keywords.some(k => text.includes(k));
 
-                    if (post) {
-                        const filePath = path.join(__dirname, '../src/content/posts', post.filename);
-                        fs.writeFileSync(filePath, post.markdown);
-                        console.log(`✅ Created Post: ${post.filename}`);
-                        createdCount++;
-                    } else {
-                        // console.log(`⏩ Skipped (Duplicate): ${item.title.substring(0,20)}...`);
-                    }
+            if (isRelevant) {
+                // Check if file exists BEFORE calling AI to save money
+                const slug = topItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                if (fs.existsSync(path.join(__dirname, '../src/content/posts', `${slug}.md`))) {
+                    // console.log(`⏩ Skipped (Duplicate): ${topItem.title.substring(0,20)}...`);
+                    continue;
+                }
+
+                const product = findProductMatch(topItem.title, topItem.contentSnippet);
+
+                // Call AI
+                console.log(`🎯 Match Found: ${topItem.title}`);
+                const post = await generatePostWithAI(topItem, product);
+
+                if (post) {
+                    const filePath = path.join(__dirname, '../src/content/posts', post.filename);
+                    fs.writeFileSync(filePath, post.markdown);
+                    console.log(`✅ Created AI Post: ${post.filename}`);
+                    createdCount++;
+
+                    // Safety Brake: Only create 1 post per run to verify quality first
+                    console.log('🛑 Safety Brake: Stopping after 1 generation for review.');
+                    break;
                 }
             }
 
