@@ -24,6 +24,16 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Debug Secret Availability
+        env:
+          MY_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        run: |
+          if [ -z "$MY_KEY" ]; then
+            echo "❌ DEBUG: Secret PERPLEXITY_API_KEY is EMPTY or MISSING."
+          else
+            echo "✅ DEBUG: Secret PERPLEXITY_API_KEY is PRESENT (length: ${#MY_KEY})."
+          fi
+
       - name: Run Trend Jacker AI
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
