@@ -25,35 +25,21 @@ The following platforms are rated highest for B2B marketing authority (DA 90+):
 ---
 
 ## 2. Medium (Syndication)
-*Note: Medium removed their native "Auto-Import from RSS" feature. You have two options:*
+*Note: Medium removed their native "Auto-Import from RSS" feature.*
 
-**Option A: The SEO-Safe Way (Recommended)**
+**The Protocol: Manual Import (Recommended)**
 [Read the Detailed Import Procedure](./MEDIUM_IMPORT_PROCEDURE.md)
 
-1.  Use Medium's official "Import a Story" tool.
-2.  Paste your post URL.
-3.  **Why this is best:** Medium automatically sets the `canonical_link` to your website. This tells Google "Smart Hustler is the original source," protecting your SEO.
+1.  **Open:** [p.medium.com/import](https://p.medium.com/import)
+2.  **Paste:** Your blog post URL.
+3.  **Import:** Click the button.
+4.  **Publish:** Review and hit Publish.
 
-**Option B: The Script Way (Advanced & Automated)**
-We have built a custom script that automates the browser for you.
+**Why Manual?**
+Automation scripts are constantly blocked by Medium's anti-bot protection. The manual process takes 30 seconds and guarantees 100% success with proper SEO tags.
 
-1.  **Open Terminal**.
-2.  Run the script with your link:
-    ```bash
-    node scripts/syndicate_medium.js "https://smarthustlermarketing.com/blog/your-post"
-    ```
-3.  **What happens:**
-    *   Chrome will open.
-    *   (If first time) It will wait for you to Log In.
-    *   It will automatically fill the URL, verify the "canonical link", and draft the post for you.
-    *   You just click "Publish".
-
-**Option C: The Manual Way (Backup)**
-If the script fails, use the official import tool manually:
-1.  Go to [p.medium.com/import](https://p.medium.com/import).
-2.  Paste URL -> Import.
-
----
+**Frequency:**
+Perform this **3x per week** (Mon, Wed, Fri) immediately after publishing a new article.
 
 ## 2. Google News & Discover
 *Update 2024: Google has REMOVED the ability to manually add RSS feeds to Publisher Center.*
