@@ -9,12 +9,12 @@ on:
 jobs:
   trend_jacker:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -23,16 +23,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-
-      - name: Debug Secret Availability
-        env:
-          MY_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
-        run: |
-          if [ -z "$MY_KEY" ]; then
-            echo "❌ DEBUG: Secret PERPLEXITY_API_KEY is EMPTY or MISSING."
-          else
-            echo "✅ DEBUG: Secret PERPLEXITY_API_KEY is PRESENT (length: ${#MY_KEY})."
-          fi
 
       - name: Run Trend Jacker AI
         env:
