@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
+const { generateBlogImage } = require('./generate_images');
 
 // Load env
 dotenv.config({ path: '.env.local' });
@@ -38,8 +39,35 @@ async function enhancePost() {
 
     // Extract Frontmatter and Body
     const frontmatterMatch = originalContent.match(/^(---[\s\S]*?---)/);
-    const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
+    let frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
     const bodyContent = originalContent.replace(/---[\s\S]*?---/, '').trim();
+
+    // 0. Check & Generate Image (If missing)
+    if (!frontmatter.includes('image:')) {
+        console.log('🖼️  No image found in frontmatter. Generating one...');
+
+        // Extract title for prompt
+        const titleMatch = frontmatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+        const title = titleMatch ? titleMatch[1] : path.basename(filePath, '.md').replace(/-/g, ' ');
+        const slug = path.basename(filePath, '.md');
+
+        if (process.env.OPENAI_API_KEY) {
+            try {
+                const imgPath = await generateBlogImage(title, slug);
+                if (imgPath) {
+                    // Inject image line after category or at end of existing frontmatter tags
+                    if (frontmatter.includes('category:')) {
+                        frontmatter = frontmatter.replace(/(category:.*)/, `$1\nimage: "${imgPath}"`);
+                    } else {
+                        frontmatter = frontmatter.replace(/---$/, `image: "${imgPath}"\n---`);
+                    }
+                    console.log('✅ Image injected into frontmatter.');
+                }
+            } catch (e) {
+                console.error('⚠️ Image gen failed:', e.message);
+            }
+        }
+    }
 
     // MODE 1: Write from Scratch (if body is empty OR it is a skeleton draft)
     const isSkeleton = bodyContent.includes('[Write introduction here...]') ||

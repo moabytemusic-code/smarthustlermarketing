@@ -7,14 +7,16 @@
 **Action:** Give value first (Lead Magnets, Free Tips) before asking for a sale.
 *   *Phrase:* "I made this free guide for you..."
 
-## 2. Social Proof
+## 2. Bandwagon Effect (Social Proof)
 **Definition:** We copy the actions of others because we assume it's the correct behavior.
 **Action:** Show testimonials, subscriber counts, or "Best Seller" badges.
+*   *Real World:* "Thousands bought this" Facebook ads; Coca-Cola's "limited edition" craze.
 *   *Phrase:* "Join 10,000 other hustlers..."
 
-## 3. Scarcity & Urgency
-**Definition:** We value things more when they are rare or limited.
+## 3. Loss Aversion (Scarcity & Urgency)
+**Definition:** The pain of losing something (or missing out) is 2x stronger than the pleasure of gaining it.
 **Action:** Use countdown timers or limited enrollment spots.
+*   *Real World:* Booking.com's "1 room left!" alerts; Amazon's deal countdown timers; Spotify's "trial ending" notifications.
 *   *Phrase:* "Only 3 spots left this month." / "Doors close Friday."
 
 ## 4. Authority

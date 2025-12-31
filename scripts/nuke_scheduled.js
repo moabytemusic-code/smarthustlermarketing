@@ -20,72 +20,100 @@ async function nukeScheduledCampaigns() {
     const limit = 50;
     let deletedCount = 0;
 
-    try {
-        // Fetch campaigns
-        const response = await fetch(`https://api.brevo.com/v3/emailCampaigns?limit=${limit}&offset=${offset}`, {
-            method: 'GET',
-            headers: { 'api-key': BREVO_API_KEY }
-        });
-
-        const data = await response.json();
-
-        if (!data.campaigns) {
-            console.log('✅ No campaigns found.');
-            return;
-        }
-
-        // Filter Smart Hustler campaigns that are taking up quota
-        const toDelete = data.campaigns.filter(c => {
-            const isSmartHustler = (c.tag === 'smarthustler') ||
-                (c.name.includes('[Day') && (c.name.includes('Smart Hustler') || c.sender.email === 'ken@smarthustlermarketing.com'));
-
-            // We need to delete scheduled, queued, and suspended ones to free quota
-            const isLive = ['scheduled', 'queued', 'suspended', 'draft'].includes(c.status);
-            return isSmartHustler && isLive;
-        });
-
-        console.log(`� Found ${toDelete.length} campaigns to clean up.`);
-
-        for (const campaign of toDelete) {
-            process.stdout.write(`cleaning [${campaign.id}] (${campaign.status})... `);
-
-            // 1. If Scheduled/Queued, we must SUSPEND to stop sending
-            if (['scheduled', 'queued'].includes(campaign.status)) {
-                const suspendResp = await fetch(`https://api.brevo.com/v3/emailCampaigns/${campaign.id}/status`, {
-                    method: 'PUT',
-                    headers: { 'api-key': BREVO_API_KEY, 'content-type': 'application/json' },
-                    body: JSON.stringify({ status: 'suspended' })
-                });
-
-                if (suspendResp.status === 204) {
-                    process.stdout.write('(Suspended) -> ');
-                    await sleep(500); // Wait for Brevo to process state change
-                }
-            }
-
-            // 2. CRITICAL FIX: Update to 'draft' status if possible? 
-            // Brevo API allows deleting 'draft', 'suspended', 'sent'. 
-            // If delete fails on suspended, maybe we skip to just trying delete.
-
-            // 3. Delete
-            const delResp = await fetch(`https://api.brevo.com/v3/emailCampaigns/${campaign.id}`, {
-                method: 'DELETE',
+    while (true) {
+        try {
+            // Fetch campaigns
+            console.log(`\n🔄 Fetching batch (Limit: ${limit}, Offset: ${offset})...`);
+            const response = await fetch(`https://api.brevo.com/v3/emailCampaigns?limit=${limit}&offset=0`, {
+                method: 'GET',
                 headers: { 'api-key': BREVO_API_KEY }
             });
 
-            if (delResp.ok || delResp.status === 204) {
-                console.log('✅ Deleted');
-                deletedCount++;
-            } else {
-                const err = await delResp.json();
-                console.log(`❌ Failed: ${JSON.stringify(err)}`);
+            if (!response.ok) {
+                if (response.status === 429) {
+                    console.log('⏳ Rate limit hit (429). Pausing for 10 seconds...');
+                    await sleep(10000);
+                    continue;
+                }
+                console.log(`❌ API Error: ${response.status} ${response.statusText}`);
+                const text = await response.text();
+                console.log(`Body: ${text}`);
+                break;
             }
 
-            await sleep(200); // Rate limit protection
-        }
+            const data = await response.json();
 
-    } catch (error) {
-        console.error('❌ Error during cleanup:', error.message);
+            if (!data.campaigns || data.campaigns.length === 0) {
+                console.log('✅ No more campaigns found.');
+                break;
+            }
+
+            // Filter Smart Hustler campaigns that are taking up quota
+            const toDelete = data.campaigns.filter(c => {
+                const isSmartHustler = (c.tag === 'smarthustler') ||
+                    (c.name.includes('[Day') && (c.name.includes('Smart Hustler') || c.sender.email === 'ken@smarthustlermarketing.com'));
+
+                // We need to delete scheduled, queued, and suspended ones to free quota
+                const isLive = ['scheduled', 'queued', 'suspended', 'draft'].includes(c.status);
+                return isSmartHustler && isLive;
+            });
+
+            if (toDelete.length === 0) {
+                console.log('✅ No matching Smart Hustler campaigns in this batch.');
+                // If we found campaigns but none matched, we might need to paginate?
+                // But since we are deleting, the offset might be tricky.
+                // If we didn't delete anything, we should probably increase offset to look further.
+                if (data.campaigns.length < limit) break; // End of list
+                offset += limit;
+                continue;
+            }
+
+            console.log(`🗑️  Found ${toDelete.length} campaigns to clean up in this batch.`);
+
+            for (const campaign of toDelete) {
+                process.stdout.write(`cleaning [${campaign.id}] (${campaign.status})... `);
+
+                // 1. If Scheduled/Queued, we must SUSPEND to stop sending
+                if (['scheduled', 'queued'].includes(campaign.status)) {
+                    const suspendResp = await fetch(`https://api.brevo.com/v3/emailCampaigns/${campaign.id}/status`, {
+                        method: 'PUT',
+                        headers: { 'api-key': BREVO_API_KEY, 'content-type': 'application/json' },
+                        body: JSON.stringify({ status: 'suspended' })
+                    });
+
+                    if (suspendResp.status === 204) {
+                        process.stdout.write('(Suspended) -> ');
+                        await sleep(500); // Wait for Brevo to process state change
+                    }
+                }
+
+                // 3. Delete
+                const delResp = await fetch(`https://api.brevo.com/v3/emailCampaigns/${campaign.id}`, {
+                    method: 'DELETE',
+                    headers: { 'api-key': BREVO_API_KEY }
+                });
+
+                if (delResp.ok || delResp.status === 204) {
+                    console.log('✅ Deleted');
+                    deletedCount++;
+                } else {
+                    let errText = 'Unknown Error';
+                    try {
+                        errText = await delResp.text();
+                    } catch (e) { }
+                    console.log(`❌ Failed: ${delResp.status} ${errText}`);
+                }
+
+                await sleep(250); // Rate limit protection
+            }
+
+            // If we deleted items, reset offset to 0 to re-check from top
+            if (deletedCount > 0) offset = 0;
+
+        } catch (error) {
+            console.error('❌ Error during cleanup batch:', error.message);
+            await sleep(2000); // Pause on error
+        }
     }
 
     console.log(`\n✨ Cleanup complete! Freed ${deletedCount} slots.`);

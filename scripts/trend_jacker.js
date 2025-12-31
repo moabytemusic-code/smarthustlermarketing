@@ -84,36 +84,59 @@ async function generatePostWithAI(item, match) {
         return null; // Skip duplicate
     }
 
+    // 0. Import Image Generator
+    const { generateBlogImage } = require('./generate_images');
+
+    // ... (rest of imports)
+
+    // ... (inside generatePostWithAI function)
+
     console.log(`🤖 AI Writing Article for: "${item.title}"...`);
     console.log(`   (Estimated Cost: ~$0.05 | Model: sonar-pro)`);
 
+    // Generate Image in parallel or sequence? Sequence is safer for now.
+    let imagePath = "";
+    if (process.env.OPENAI_API_KEY) {
+        try {
+            imagePath = await generateBlogImage(item.title, slug);
+        } catch (err) {
+            console.error(`⚠️ Image generation failed: ${err.message}`);
+        }
+    } else {
+        console.log('⚠️ Skipping Image Generation (No OPENAI_API_KEY found).');
+    }
+
     const prompt = `
-    You are an expert marketing journalist for "Smart Hustler Marketing".
-    
-    Task: Write a high-quality, 1,200+ word blog post reacting to this breaking news.
+    Analyze the following news story and provide a comprehensive, actionable breakdown for a business audience.
     
     News Source: "${item.title}"
     Link: ${item.link}
-    Snippet: ${item.contentSnippet || "No snippet provided, please research based on title."}
+    Snippet: ${item.contentSnippet || "No snippet provided."}
     
-    Guidelines:
-    1. **Title:** Create a patchy, viral-worthy title (do not use the original title).
-    2. **Tone:** Professional but urgent and "hustle-oriented".
-    3. **Structure:** 
-       - Catchy Intro (Why this matters NOW).
-       - The Breakdown (What happened).
-       - Deep Dive Analysis (Provide unique value/insight others miss).
-       - The Opportunity (How to make money from this).
-       - Action Plan (3-5 concrete steps).
-    4. **Value First:** The goal is to make the reader feel they *must* subscribe to get this level of alpha. Avoid generic fluff.
-    5. **CTAs:**
-       - **Primary:** Naturally integrate a Call to Action for our tool: "${match.tool}".
-         - Copy: "${match.cta}"
-         - Link: ${match.link}
-       - **Secondary:** End with a reminder: "For more high-level marketing intel, join the Smart Hustler Vault."
-    6. **Format:** valid Markdown. Use ## for headers.
+    Output Format: A structured Markdown article (1,000+ words).
     
-    Return ONLY the markdown body. Do not include frontmatter (I will add it).
+    Structure:
+    # [Catchy Viral Title]
+    
+    ## The Situation
+    [Explain what is happening and why it matters now. synthesizing the news.]
+    
+    ## The Breakdown
+    [Deep dive into the details, key statistics, and implications.]
+    
+    ## Why This Matters for Entrepreneurs
+    [Specific analysis on how this impacts small business owners and marketers.]
+    
+    ## Action Plan
+    [3-5 concrete steps a reader can take today to pivot or profit from this news.]
+    
+    ## Toolkit Recommendation
+    [If relevant to the topic, briefly mention how tools like ${match.tool} could help solve the problem. Context: ${match.cta}]
+    
+    Constraints:
+    - Tone: Professional, authoritative, insightful.
+    - Do NOT be apologetic. Do NOT say "Here is the analysis". Just write the article.
+    - Focus on educational value and strategic insight.
     `;
 
     try {
@@ -156,6 +179,7 @@ async function generatePostWithAI(item, match) {
 title: "${item.title.replace(/"/g, "'")}"
 date: "${date}"
 category: "News"
+image: "${imagePath || '/images/blog/default.jpg'}"
 excerpt: "Breaking analysis on: ${item.title}."
 author: "Smart Hustler AI"
 original_source: "${item.link}"

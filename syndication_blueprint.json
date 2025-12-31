@@ -52,6 +52,50 @@
                     "y": 0
                 }
             }
+        },
+        {
+            "id": 4,
+            "module": "medium:CreateStory",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "title": "{{1.title}}",
+                "contentFormat": "html",
+                "content": "<h1>{{1.title}}</h1><br><p>{{1.description}}</p><br><p>Read the full article here: <a href=\"{{1.link}}\">{{1.title}}</a></p>",
+                "canonicalUrl": "{{1.link}}",
+                "tags": [
+                    "marketing",
+                    "sidehustle"
+                ],
+                "publishStatus": "draft"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 5,
+            "module": "reddit:SubmitPost",
+            "version": 1,
+            "parameters": {
+                "sr": "marketing"
+            },
+            "mapper": {
+                "title": "{{1.title}}",
+                "kind": "link",
+                "url": "{{1.link}}",
+                "resubmit": true,
+                "sendreplies": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0
+                }
+            }
         }
     ],
     "metadata": {

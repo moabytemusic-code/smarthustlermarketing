@@ -27,6 +27,7 @@ jobs:
       - name: Run Trend Jacker AI
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: node scripts/trend_jacker.js
 
       - name: Commit and Push New Article
@@ -35,8 +36,9 @@ jobs:
           git config --global user.email "bot@smarthustlermarketing.com"
           
           # Check if there are any new files in src/content/posts/
-          if [[ `git status --porcelain src/content/posts/` ]]; then
+          if [[ `git status --porcelain` ]]; then
             git add src/content/posts/*.md
+            git add public/images/blog/*.png
             git commit -m "feat(content): Auto-generated blog post by Trend Jacker"
             git push
             echo "✅ New article pushed to main. Vercel deployment triggered."

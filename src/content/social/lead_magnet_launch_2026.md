@@ -35,13 +35,13 @@ Stop overcomplicating the tech.
 **Tweet 4:**
 3. The "Hook" 🎣
 
-You need a Lead Magnet.
-It must be:
-- Fast to consume (Checklist > Ebook)
-- High Value (Solve 1 specific problem)
-- Instant Gratification
+You need a Lead Magnet that WORKS in 2025.
+Top Converting Formats (B2B):
+- 📊 Interactive Tools (Calculators/Quizzes = ~70% conversion)
+- 📝 Execution Templates (Not just theory)
+- 🗺️ Short Roadmaps (5-15 pages max)
 
-If it takes 2 hours to read, they won't value it.
+If it takes 2 hours to read, they won't value it. Solve 1 problem FAST.
 
 **Tweet 5:**
 4. The Content Flywheel 🔄
