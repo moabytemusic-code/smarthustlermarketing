@@ -107,36 +107,39 @@ async function generatePostWithAI(item, match) {
     }
 
     const prompt = `
-    Analyze the following news story and provide a comprehensive, actionable breakdown for a business audience.
+    Analyze the following news story and create a high-performance blog post for a business/entrepreneurial audience.
     
     News Source: "${item.title}"
     Link: ${item.link}
     Snippet: ${item.contentSnippet || "No snippet provided."}
     
-    Output Format: A structured Markdown article (1,000+ words).
+    You must output your response in valid JSON format.
     
-    Structure:
-    # [Catchy Viral Title]
-    
+    JSON Structure:
+    {
+       "seo_title": "A viral, click-worthy title (under 60 chars) that includes keywords",
+       "meta_description": "A compelling summary (under 160 chars) that encourages clicks",
+       "tags": ["tag1", "tag2", "tag3"],
+       "markdown_content": "# [The Article Title]\n\n..."
+    }
+
+    Article Structure (inside markdown_content):
     ## The Situation
-    [Explain what is happening and why it matters now. synthesizing the news.]
+    [Synthesize the news clearly]
     
     ## The Breakdown
-    [Deep dive into the details, key statistics, and implications.]
+    [Deep dive into stats, details, and implications]
     
-    ## Why This Matters for Entrepreneurs
-    [Specific analysis on how this impacts small business owners and marketers.]
+    ## Why This Matters
+    [Impact on business owners/marketers]
     
     ## Action Plan
-    [3-5 concrete steps a reader can take today to pivot or profit from this news.]
+    [3-5 concrete steps to take]
     
     ## Toolkit Recommendation
-    [If relevant to the topic, briefly mention how tools like ${match.tool} could help solve the problem. Context: ${match.cta}]
+    [Mention how tools like ${match.tool} could help. Context: ${match.cta}]
     
-    Constraints:
-    - Tone: Professional, authoritative, insightful.
-    - Do NOT be apologetic. Do NOT say "Here is the analysis". Just write the article.
-    - Focus on educational value and strategic insight.
+    Tone: Professional, authoritative, insightful.
     `;
 
     try {
@@ -150,10 +153,10 @@ async function generatePostWithAI(item, match) {
             body: JSON.stringify({
                 model: 'sonar-pro',
                 messages: [
-                    { role: 'system', content: 'You are a senior marketing analyst.' },
+                    { role: 'system', content: 'You are an expert SEO content strategist. You only output valid JSON.' },
                     { role: 'user', content: prompt }
                 ],
-                temperature: 0.2, // Low temp for factual accuracy
+                temperature: 0.2,
                 max_tokens: 3000
             })
         });
@@ -163,11 +166,26 @@ async function generatePostWithAI(item, match) {
         }
 
         const data = await response.json();
-        let content = data.choices[0].message.content;
-        const citations = data.citations || [];
+        let rawContent = data.choices[0].message.content;
 
-        // Clean up any potential markdown code blocks wrapped around the content
-        content = content.replace(/^```markdown\n/, '').replace(/\n```$/, '');
+        // Clean markdown code blocks if present
+        rawContent = rawContent.replace(/^```json\n/, '').replace(/^```\n/, '').replace(/\n```$/, '');
+
+        let parsedData;
+        try {
+            parsedData = JSON.parse(rawContent);
+        } catch (e) {
+            console.error("Failed to parse JSON from AI. Fallback to raw text.");
+            // Fallback if AI fails JSON constraint
+            parsedData = {
+                seo_title: item.title,
+                meta_description: `Analysis of ${item.title}`,
+                tags: ['news', 'business'],
+                markdown_content: rawContent
+            };
+        }
+
+        const citations = data.citations || [];
 
         // Format Sources Section
         let sourcesFooter = "";
@@ -176,16 +194,17 @@ async function generatePostWithAI(item, match) {
         }
 
         const fullFileContent = `---
-title: "${item.title.replace(/"/g, "'")}"
+title: "${parsedData.seo_title.replace(/"/g, "'")}"
 date: "${date}"
 category: "News"
+tags: [${parsedData.tags.map(t => `"${t}"`).join(', ')}]
 image: "${imagePath || '/images/blog/default.jpg'}"
-excerpt: "Breaking analysis on: ${item.title}."
+excerpt: "${parsedData.meta_description.replace(/"/g, "'")}"
 author: "Smart Hustler AI"
 original_source: "${item.link}"
 ---
 
-${content}
+${parsedData.markdown_content}
 
 ${sourcesFooter}
 

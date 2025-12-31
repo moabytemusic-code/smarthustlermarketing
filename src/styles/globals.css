@@ -83,6 +83,34 @@
   --text-muted: #475569;
 }
 
+[data-theme='deal'] {
+  /* High-Urgency Deal Theme (5DollarFriday inspired) */
+  --background: #ffffff;
+  --background-alt: #f1f5f9;
+  --foreground: #0f172a;
+
+  /* Urgency Red */
+  --primary: #c9242b;
+  --primary-hover: #991b1b;
+  --primary-glow: rgba(201, 36, 43, 0.2);
+
+  /* Money Green */
+  --secondary: #10582f;
+  --secondary-hover: #064e3b;
+  --secondary-glow: rgba(16, 88, 47, 0.2);
+
+  /* Highlight Gold */
+  --accent: #ffc837;
+
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: #e2e8f0;
+
+  --text-muted: #64748b;
+}
+
 html,
 body {
   margin: 0;
