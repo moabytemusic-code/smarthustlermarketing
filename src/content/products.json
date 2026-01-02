@@ -7,7 +7,8 @@
         "price": 19,
         "category": "Books",
         "description": "Stop chasing the myth of passive income. Learn how to build active assets that generate true wealth and equity.",
-        "action": "Read Chapter 1 Free"
+        "action": "Read Chapter 1 Free",
+        "image": "/images/products/the-passive-trap.png"
     },
     {
         "id": "book-owned-assets",
@@ -17,7 +18,8 @@
         "price": 24,
         "category": "Books",
         "description": "A guide to shifting from renting your income (platforms, jobs) to owning assets that pay you while you sleep, but require active building.",
-        "action": "Buy Now"
+        "action": "Buy Now",
+        "image": "/images/products/owned-assets.png"
     },
     {
         "id": "book-anti-passive-manifesto",
@@ -27,7 +29,8 @@
         "price": 14,
         "category": "Books",
         "description": "A polemic against the 'lazy' rich culture. Why doing the hard work is the only competitive advantage left.",
-        "action": "Buy Now"
+        "action": "Buy Now",
+        "image": "/images/products/anti-passive-manifesto.png"
     },
     {
         "id": "book-leverage-over-luck",
@@ -37,7 +40,8 @@
         "price": 29,
         "category": "Books",
         "description": "Don't get lucky, get leveraged. Systems, code, and media are the new labor. Learn to manage them.",
-        "action": "Buy Now"
+        "action": "Buy Now",
+        "image": "/images/products/leverage-over-luck.png"
     },
     {
         "id": "book-equity-engine",
@@ -47,7 +51,8 @@
         "price": 29,
         "category": "Books",
         "description": "Cash flow pays the bills, but equity builds the fortune. Shift your focus from monthly potential to lifetime value.",
-        "action": "Buy Now"
+        "action": "Buy Now",
+        "image": "/images/products/the-equity-engine.png"
     },
     {
         "id": "prod-active-asset-blueprint",
@@ -62,7 +67,8 @@
             "Asset Valuation Framework",
             "Exit Strategy Roadmap"
         ],
-        "badge": "Best Seller"
+        "badge": "Best Seller",
+        "image": "/images/products/active-asset-blueprint.png"
     },
     {
         "id": "prod-founders-os",
@@ -76,7 +82,8 @@
             "Project Management",
             "CRM Template",
             "Financial Tracker"
-        ]
+        ],
+        "image": "/images/products/founders-os.png"
     },
     {
         "id": "prod-high-ticket-kit",
@@ -90,7 +97,8 @@
             "Sales Script",
             "Proposal Template",
             "Objection Handling"
-        ]
+        ],
+        "image": "/images/products/high-ticket-kit.png"
     },
     {
         "id": "prod-community-launchpad",
@@ -104,7 +112,8 @@
             "Launch Timeline",
             "Retention Strategy",
             "Platform Setup"
-        ]
+        ],
+        "image": "/images/products/community-launchpad.png"
     },
     {
         "id": "prod-real-business-roadmap",
@@ -118,7 +127,8 @@
             "Weekly Coaching",
             "Audit",
             "Private Community"
-        ]
+        ],
+        "image": "/images/products/real-business-roadmap.png"
     },
     {
         "id": "bundle-empire",

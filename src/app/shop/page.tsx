@@ -71,10 +71,25 @@ export default async function Shop() {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <div style={{ width: '100%', maxWidth: '400px', height: '300px', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
-                                        <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>💎</div>
-                                        <div style={{ fontWeight: 'bold' }}>Active Asset Blueprint</div>
-                                    </div>
+                                    {featured.image ? (
+                                        <img
+                                            src={featured.image}
+                                            alt={featured.title}
+                                            style={{
+                                                width: '100%',
+                                                maxWidth: '500px',
+                                                height: 'auto',
+                                                borderRadius: '1rem',
+                                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                                                border: '1px solid rgba(255,255,255,0.1)'
+                                            }}
+                                        />
+                                    ) : (
+                                        <div style={{ width: '100%', maxWidth: '400px', height: '300px', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
+                                            <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>💎</div>
+                                            <div style={{ fontWeight: 'bold' }}>Active Asset Blueprint</div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -86,6 +101,11 @@ export default async function Shop() {
                 <div className="resource-grid" style={{ marginBottom: '8rem' }}>
                     {[...training, ...systems].map((product: any) => (
                         <div key={product.id} className="card-premium">
+                            {product.image && (
+                                <div style={{ marginBottom: '1.5rem', borderRadius: '0.5rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                                </div>
+                            )}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                 <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--primary)', border: '1px solid var(--primary)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>
                                     {product.type}

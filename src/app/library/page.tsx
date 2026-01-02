@@ -37,11 +37,19 @@ export default async function Library() {
                 <div className="resource-grid">
                     {books.map((book: any) => (
                         <div key={book.id} className="card-premium" style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ marginBottom: '1.5rem', height: '240px', background: 'rgba(255,255,255,0.03)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                {/* Placeholder Book Cover */}
-                                <div style={{ width: '140px', height: '200px', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', textAlign: 'center' }}>
-                                    <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{book.title}</span>
-                                </div>
+                            <div style={{ marginBottom: '1.5rem', height: '300px', background: 'rgba(255,255,255,0.03)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+                                {/* Real Book Cover */}
+                                <img
+                                    src={book.image}
+                                    alt={book.title}
+                                    style={{
+                                        height: '100%',
+                                        width: 'auto',
+                                        objectFit: 'contain',
+                                        transition: 'transform 0.3s ease'
+                                    }}
+                                    className="hover:scale-105"
+                                />
                             </div>
 
                             <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 700 }}>{book.title}</h2>
