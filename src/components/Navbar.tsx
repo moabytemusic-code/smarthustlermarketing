@@ -32,7 +32,8 @@ export default function Navbar() {
                 <div className="nav-links">
                     <Link href="/blog">Blog</Link>
                     <Link href="/resources">Resources</Link>
-                    <Link href="/tools">Tools</Link>
+                    <Link href="/library">Library</Link>
+                    <Link href="/tools">The OS</Link>
 
                     <Link href="/shop">Shop</Link>
                     <Link href="/about">About</Link>
@@ -79,7 +80,8 @@ export default function Navbar() {
                 </button>
                 <Link href="/blog" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
                 <Link href="/resources" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
-                <Link href="/tools" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Tools</Link>
+                <Link href="/library" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Library</Link>
+                <Link href="/tools" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>The OS</Link>
 
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
                 <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>

@@ -42,6 +42,10 @@ export default function RootLayout({
                 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
             </head>
             <body suppressHydrationWarning style={{ fontFamily: "'Outfit', sans-serif" }}>
+                {/* Notification Bar */}
+                <div style={{ background: '#fff', color: '#020617', textAlign: 'center', padding: '0.5rem', fontSize: '0.9rem', fontWeight: 600 }}>
+                    New Release: Read 'The Passive Trap' & Stop Wasting Time. <a href="/library" style={{ textDecoration: 'underline' }}>Get the Book &rarr;</a>
+                </div>
                 {children}
                 <Analytics />
             </body>

@@ -1,0 +1,138 @@
+[
+    {
+        "id": "book-passive-trap",
+        "title": "The Passive Trap",
+        "subtitle": "Why Easy Money is a Lie and How to Build Real Wealth",
+        "type": "Book",
+        "price": 19,
+        "category": "Books",
+        "description": "Stop chasing the myth of passive income. Learn how to build active assets that generate true wealth and equity.",
+        "action": "Read Chapter 1 Free"
+    },
+    {
+        "id": "book-owned-assets",
+        "title": "Owned Assets",
+        "subtitle": "Stop Renting Your Income and Start Building an Empire",
+        "type": "Book",
+        "price": 24,
+        "category": "Books",
+        "description": "A guide to shifting from renting your income (platforms, jobs) to owning assets that pay you while you sleep, but require active building.",
+        "action": "Buy Now"
+    },
+    {
+        "id": "book-anti-passive-manifesto",
+        "title": "The Anti-Passive Manifesto",
+        "subtitle": "The Case for Smart Hustle in a Lazy World",
+        "type": "Book",
+        "price": 14,
+        "category": "Books",
+        "description": "A polemic against the 'lazy' rich culture. Why doing the hard work is the only competitive advantage left.",
+        "action": "Buy Now"
+    },
+    {
+        "id": "book-leverage-over-luck",
+        "title": "Leverage Over Luck",
+        "subtitle": "Building Systems That Work as Hard as You Do",
+        "type": "Book",
+        "price": 29,
+        "category": "Books",
+        "description": "Don't get lucky, get leveraged. Systems, code, and media are the new labor. Learn to manage them.",
+        "action": "Buy Now"
+    },
+    {
+        "id": "book-equity-engine",
+        "title": "The Equity Engine",
+        "subtitle": "Why Cash Flow is King, but Ownership is the Kingdom",
+        "type": "Book",
+        "price": 29,
+        "category": "Books",
+        "description": "Cash flow pays the bills, but equity builds the fortune. Shift your focus from monthly potential to lifetime value.",
+        "action": "Buy Now"
+    },
+    {
+        "id": "prod-active-asset-blueprint",
+        "title": "The \"Active Asset\" Blueprint",
+        "subtitle": "Signature \"A-Z\" guide.",
+        "type": "Training",
+        "price": 297,
+        "category": "Products",
+        "description": "The complete roadmap to building digital assets that compound. Stop trading time for money.",
+        "features": [
+            "7 Module Video Course",
+            "Asset Valuation Framework",
+            "Exit Strategy Roadmap"
+        ],
+        "badge": "Best Seller"
+    },
+    {
+        "id": "prod-founders-os",
+        "title": "Founder’s Operating System",
+        "subtitle": "Dashboard for managing work.",
+        "type": "Systems",
+        "price": 97,
+        "category": "Products",
+        "description": "The exact Notion dashboard used to run a 7-figure portfolio of automated businesses.",
+        "features": [
+            "Project Management",
+            "CRM Template",
+            "Financial Tracker"
+        ]
+    },
+    {
+        "id": "prod-high-ticket-kit",
+        "title": "High-Ticket Authority Kit",
+        "subtitle": "Frameworks for selling expertise.",
+        "type": "Systems",
+        "price": 147,
+        "category": "Products",
+        "description": "Scripts, templates, and funnels to close high-ticket deals without being salesy.",
+        "features": [
+            "Sales Script",
+            "Proposal Template",
+            "Objection Handling"
+        ]
+    },
+    {
+        "id": "prod-community-launchpad",
+        "title": "The Community Builder’s Launchpad",
+        "subtitle": "Membership monetization guide.",
+        "type": "Training",
+        "price": 197,
+        "category": "Products",
+        "description": "How to launch and monetize a paid community from scratch.",
+        "features": [
+            "Launch Timeline",
+            "Retention Strategy",
+            "Platform Setup"
+        ]
+    },
+    {
+        "id": "prod-real-business-roadmap",
+        "title": "The \"Real Business\" Roadmap",
+        "subtitle": "High-ticket 90-day accelerator.",
+        "type": "Training",
+        "price": 997,
+        "category": "Products",
+        "description": "Intensive coaching program to turn your side hustle into a scalable enterprise.",
+        "features": [
+            "Weekly Coaching",
+            "Audit",
+            "Private Community"
+        ]
+    },
+    {
+        "id": "bundle-empire",
+        "title": "The Smart Hustler Empire Bundle",
+        "subtitle": "Everything you need to scale.",
+        "type": "Bundle",
+        "price": 497,
+        "category": "Products",
+        "description": "Get the complete suite: Affiliate Jumpstart, AI Content System, Founder’s OS, and The Equity Engine Book.",
+        "features": [
+            "Affiliate Jumpstart",
+            "AI Content System",
+            "Founder’s OS",
+            "Equity Engine Book"
+        ]
+    }
+]
