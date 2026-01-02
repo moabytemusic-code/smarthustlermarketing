@@ -149,7 +149,7 @@ a:hover {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  padding: 8rem 0;
+  padding: 4rem 0;
 }
 
 .resource-grid {
@@ -462,13 +462,15 @@ a:hover {
 
 /* Navbar Modern */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   transition: all 0.3s ease;
   padding: 1.5rem 0;
+  background: var(--background);
+  /* Ensure opaque background initially if needed, or rely on scrolled class */
 }
 
 .navbar.scrolled {

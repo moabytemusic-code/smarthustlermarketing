@@ -23,7 +23,7 @@ export default async function Library() {
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
 
-            <div className="container" style={{ padding: '8rem 0' }}>
+            <div className="container" style={{ padding: '2rem 0 8rem' }}>
                 <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem' }}>
                     <div className="badge" style={{ marginBottom: '1.5rem', justifyContent: 'center' }}>
                         Library

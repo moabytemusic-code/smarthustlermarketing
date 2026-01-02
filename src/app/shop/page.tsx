@@ -32,7 +32,7 @@ export default async function Shop() {
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
 
-            <div className="container" style={{ padding: '8rem 0' }}>
+            <div className="container" style={{ padding: '2rem 0 8rem' }}>
 
                 {/* Header */}
                 <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem' }}>
