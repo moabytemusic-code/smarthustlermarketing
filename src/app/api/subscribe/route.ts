@@ -36,14 +36,43 @@ async function syncToGHL(email: string) {
 }
 
 export async function POST(request: Request) {
-    const { email } = await request.json();
+    const { email, source, productTitle } = await request.json();
 
     if (!email) {
         return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    // 1. Fire & Forget GHL Sync (Don't await, speed up UI)
-    syncToGHL(email);
+    // Generate specific tags
+    const specificTag = source ? `interest:${source}` : 'newsletter-general';
+    const allTags = ["newsletter-subscriber", "smarthustler-website", specificTag];
+
+    // 1. GHL Sync with Tags
+    async function syncToGHL(email: string, tags: string[]) {
+        try {
+            const response = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${GHL_TOKEN}`,
+                    'Version': '2021-07-28',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    tags: tags,
+                    customFields: [
+                        // Example: Store the last product interest if you have a matching Custom Field ID
+                        // { id: "LAST_INTEREST_ID", value: productTitle } 
+                    ]
+                })
+            });
+            if (!response.ok) console.error('❌ GHL Sync Failed:', await response.text());
+        } catch (error) {
+            console.error('❌ GHL Network Error:', error);
+        }
+    }
+
+    // Fire & Forget GHL
+    syncToGHL(email, allTags);
 
     // 2. Add to Brevo (Primary System)
     const apiInstance = new Brevo.ContactsApi();
@@ -53,6 +82,11 @@ export async function POST(request: Request) {
     createContact.email = email;
     createContact.listIds = [51];
     createContact.updateEnabled = true;
+
+    // Save the tag as an attribute for Automation Triggers
+    createContact.attributes = {
+        "SOURCE_TAG": specificTag // e.g. "interest:book-passive-trap"
+    };
 
     try {
         await apiInstance.createContact(createContact);

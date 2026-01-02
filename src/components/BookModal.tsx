@@ -8,20 +8,46 @@ export default function BookModal({ product }: { product: any }) {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
 
-    const handleSubscribe = (e: React.FormEvent) => {
+    const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus('loading');
-        // Simulate API call
-        setTimeout(() => {
+
+        try {
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email,
+                    source: product.id,
+                    productTitle: product.title
+                }),
+            });
+
+            if (!res.ok) throw new Error('Subscription failed');
+
             setStatus('success');
-            // In a real app, you'd trigger the download or redirect here
-        }, 1500);
+        } catch (error) {
+            console.error(error);
+            setStatus('idle'); // Allow retrying, or handle error state
+            alert('Something went wrong. Please try again.');
+        }
     };
 
     if (status === 'success') {
         return (
-            <div className="btn-premium" style={{ background: '#10b981', borderColor: '#10b981', cursor: 'default' }}>
-                Check your inbox! 🚀
+            <div style={{ textAlign: 'center' }}>
+                <div className="btn-premium" style={{ background: '#10b981', borderColor: '#10b981', cursor: 'default', marginBottom: '1rem', width: '100%', justifyContent: 'center' }}>
+                    Welcome to the Inner Circle! 🚀
+                </div>
+                <p style={{ marginBottom: '1rem', color: '#cbd5e1' }}>Check your inbox, or start reading continuously:</p>
+                <a
+                    href="/lead-magnets/The_Passive_Trap_Chapter_1.md"
+                    target="_blank"
+                    className="btn-outline"
+                    style={{ width: '100%', justifyContent: 'center', display: 'flex' }}
+                >
+                    Download Chapter 1 Now &rarr;
+                </a>
             </div>
         );
     }
