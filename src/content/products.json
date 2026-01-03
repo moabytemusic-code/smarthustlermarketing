@@ -4,10 +4,11 @@
         "title": "The Passive Trap",
         "subtitle": "Why Easy Money is a Lie and How to Build Real Wealth",
         "type": "Book",
-        "price": 19,
+        "price": 0,
         "category": "Books",
         "description": "Stop chasing the myth of passive income. Learn how to build active assets that generate true wealth and equity.",
-        "action": "Read Chapter 1 Free",
+        "action": "Download Free",
+        "downloadUrl": "/lead-magnets/THE PASSIVE TRAP.pdf",
         "image": "/images/products/the-passive-trap.png"
     },
     {
@@ -15,10 +16,11 @@
         "title": "Owned Assets",
         "subtitle": "Stop Renting Your Income and Start Building an Empire",
         "type": "Book",
-        "price": 24,
+        "price": 0,
         "category": "Books",
         "description": "A guide to shifting from renting your income (platforms, jobs) to owning assets that pay you while you sleep, but require active building.",
-        "action": "Buy Now",
+        "action": "Download Free",
+        "downloadUrl": "/lead-magnets/OWNED ASSETS.pdf",
         "image": "/images/products/owned-assets.png"
     },
     {
@@ -26,10 +28,11 @@
         "title": "The Anti-Passive Manifesto",
         "subtitle": "The Case for Smart Hustle in a Lazy World",
         "type": "Book",
-        "price": 14,
+        "price": 0,
         "category": "Books",
         "description": "A polemic against the 'lazy' rich culture. Why doing the hard work is the only competitive advantage left.",
-        "action": "Buy Now",
+        "action": "Download Free",
+        "downloadUrl": "/lead-magnets/THE ANTI-PASSIVE MANIFESTO.pdf",
         "image": "/images/products/anti-passive-manifesto.png"
     },
     {
@@ -37,10 +40,11 @@
         "title": "Leverage Over Luck",
         "subtitle": "Building Systems That Work as Hard as You Do",
         "type": "Book",
-        "price": 29,
+        "price": 0,
         "category": "Books",
         "description": "Don't get lucky, get leveraged. Systems, code, and media are the new labor. Learn to manage them.",
-        "action": "Buy Now",
+        "action": "Download Free",
+        "downloadUrl": "/lead-magnets/LEVERAGE OVER LUCK.pdf",
         "image": "/images/products/leverage-over-luck.png"
     },
     {
@@ -48,10 +52,11 @@
         "title": "The Equity Engine",
         "subtitle": "Why Cash Flow is King, but Ownership is the Kingdom",
         "type": "Book",
-        "price": 29,
+        "price": 0,
         "category": "Books",
         "description": "Cash flow pays the bills, but equity builds the fortune. Shift your focus from monthly potential to lifetime value.",
-        "action": "Buy Now",
+        "action": "Download Free",
+        "downloadUrl": "/lead-magnets/THE EQUITY ENGINE.pdf",
         "image": "/images/products/the-equity-engine.png"
     },
     {

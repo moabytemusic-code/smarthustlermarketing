@@ -41,12 +41,12 @@ export default function BookModal({ product }: { product: any }) {
                 </div>
                 <p style={{ marginBottom: '1rem', color: '#cbd5e1' }}>Check your inbox, or start reading continuously:</p>
                 <a
-                    href="/lead-magnets/The_Passive_Trap_Chapter_1.md"
+                    href={product.downloadUrl || "#"}
                     target="_blank"
                     className="btn-outline"
                     style={{ width: '100%', justifyContent: 'center', display: 'flex' }}
                 >
-                    Download Chapter 1 Now &rarr;
+                    Download Now &rarr;
                 </a>
             </div>
         );
@@ -92,9 +92,9 @@ export default function BookModal({ product }: { product: any }) {
                             <X size={24} />
                         </button>
 
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Read Chapter 1 Free</h3>
+                        <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Get Your Free Copy</h3>
                         <p style={{ color: '#94a3b8', marginBottom: '1.5rem' }}>
-                            Join the Smart Hustler list to get the first chapter of <strong>{product.title}</strong> delivered instantly.
+                            Join the Smart Hustler list to get <strong>{product.title}</strong> delivered instantly.
                         </p>
 
                         <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -119,7 +119,7 @@ export default function BookModal({ product }: { product: any }) {
                                 className="btn-premium"
                                 style={{ justifyContent: 'center' }}
                             >
-                                {status === 'loading' ? 'Sending...' : 'Send Me The Chapter'}
+                                {status === 'loading' ? 'Sending...' : 'Get Instant Access'}
                             </button>
                         </form>
                     </div>

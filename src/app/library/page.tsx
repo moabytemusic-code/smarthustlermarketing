@@ -59,7 +59,7 @@ export default async function Library() {
                             </p>
 
                             <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
-                                {book.action === 'Read Chapter 1 Free' ? (
+                                {(book.action.includes('Free') || book.action.includes('Download')) ? (
                                     <BookModal product={book} />
                                 ) : (
                                     <button className="btn-outline" style={{ width: '100%', justifyContent: 'center' }}>
