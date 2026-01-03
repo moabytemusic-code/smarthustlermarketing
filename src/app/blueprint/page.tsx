@@ -21,8 +21,9 @@ export default function LeadMagnetPage() {
             if (!res.ok) throw new Error('Subscription failed');
 
             setStatus('success');
-            // Optional: Redirect to the PDF directly after a few seconds
-            // window.location.href = '/lead-magnets/Side_Hustle_Blueprint_2025.md';
+
+            // Redirect to the Weekly Deal (OTO)
+            window.location.href = '/weekly-deal?origin=blueprint';
         } catch (error) {
             console.error(error);
             setStatus('error');

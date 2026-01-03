@@ -4,8 +4,22 @@ import Navbar from '../../components/Navbar';
 import Link from 'next/link';
 import CountdownTimer from '../../components/CountdownTimer';
 import { CheckCircle2, Package, Download, Zap, ShieldCheck, Gift } from 'lucide-react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function WeeklyDeal() {
+    // We need to wrap in Suspense boundary for useSearchParams in Next.js usually, 
+    // or just use window.location if we want to avoid the suspense/client component complexity for a simple check.
+    // However, since we are already 'use client', let's use a simple useEffect to toggle the banner visibility style.
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('origin') === 'blueprint') {
+            const banner = document.getElementById('welcome-banner');
+            if (banner) banner.style.display = 'block';
+        }
+    }, []);
+
     return (
         <main data-theme="deal">
             <Navbar />
@@ -22,6 +36,11 @@ export default function WeeklyDeal() {
                 <div className="blob blob-1" style={{ top: '-10%', left: '50%', transform: 'translate(-50%)', width: '60rem', height: '60rem', opacity: 0.15 }}></div>
 
                 <div className="container">
+                    {/* Dynamic Welcome Banner */}
+                    <div id="welcome-banner" style={{ display: 'none', marginBottom: '2rem', padding: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', borderRadius: '0.5rem', color: '#34d399', textAlign: 'center' }}>
+                        🎉 <strong>Success!</strong> Your Blueprint is on its way to your inbox. While you wait, check this out...
+                    </div>
+
                     <div className="badge" style={{ marginBottom: '1.5rem', background: 'rgba(251, 191, 36, 0.1)', borderColor: 'rgba(251, 191, 36, 0.3)', color: '#fbbf24' }}>
                         <Zap size={14} fill="#fbbf24" />
                         LIMITED TIME OFFER
