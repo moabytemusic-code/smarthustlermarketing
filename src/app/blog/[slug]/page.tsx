@@ -70,6 +70,7 @@ export default async function Post({ params }: any) {
                                 ul: ({ node, ...props }) => <ul style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }} {...props} />,
                                 li: ({ node, ...props }) => <li style={{ marginBottom: '0.5rem' }} {...props} />,
                                 strong: ({ node, ...props }) => <strong style={{ color: '#fff' }} {...props} />,
+                                a: ({ node, ...props }) => <a style={{ color: 'var(--primary)', textDecoration: 'underline', transition: 'color 0.2s' }} className="hover:text-primary-hover" {...props} />,
                             }}
                         >
                             {content}
