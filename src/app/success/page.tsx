@@ -10,7 +10,9 @@ export default function Success({
         '1': { name: 'Affiliate Jumpstart Kit', file: '/products/Affiliate_Jumpstart_Kit.md' },
         '2': { name: 'Email Mastery Course', file: '/products/Email_Mastery_Course.md' },
         '3': { name: 'AI Content System', file: '/products/AI_Content_System.md' },
-        '4': { name: 'SEO Power Pack', file: '/products/SEO_Power_Pack.md' }
+        '4': { name: 'SEO Power Pack', file: '/products/SEO_Power_Pack.md' },
+        'weekly-bundle-standard': { name: 'The Friday Drop (Standard Bundle)', file: '/Weekly_Deal_Bundle.zip' },
+        'weekly-bundle-reseller': { name: 'The Friday Drop (Reseller Bundle)', file: '/Weekly_Deal_Bundle.zip' }
     };
 
     const productId = searchParams.productId;
