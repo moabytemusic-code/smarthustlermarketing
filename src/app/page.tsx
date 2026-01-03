@@ -2,7 +2,24 @@ import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import NewsletterForm from '../components/NewsletterForm';
 
-export default function Home() {
+// Import fs to read products
+import { promises as fs } from 'fs';
+import path from 'path';
+import BuyButton from '../components/BuyButton';
+
+async function getFeaturedProducts() {
+    const filePath = path.join(process.cwd(), 'src/content/products.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const allProducts = JSON.parse(fileContents);
+
+    // Select specific products for the homepage
+    const targetIds = ['prod-affiliate-jumpstart', 'prod-content-engine', 'prod-founders-os'];
+    return allProducts.filter((p: any) => targetIds.includes(p.id));
+}
+
+export default async function Home() {
+    const featuredProducts = await getFeaturedProducts();
+
     return (
         <main>
             <Navbar />
@@ -36,8 +53,8 @@ export default function Home() {
                                 <Link href="/shop" className="btn-premium">
                                     Explore Products
                                 </Link>
-                                <Link href="/blog" className="btn-outline">
-                                    Read the Guides
+                                <Link href="/library" className="btn-outline">
+                                    Free Library
                                 </Link>
                             </div>
 
@@ -47,12 +64,12 @@ export default function Home() {
                                     <p>Members</p>
                                 </div>
                                 <div className="stat-item">
-                                    <h4>500+</h4>
-                                    <p>Campaigns</p>
+                                    <h4>$1M+</h4>
+                                    <p>Generated</p>
                                 </div>
                                 <div className="stat-item">
-                                    <h4>99%</h4>
-                                    <p>Success Rate</p>
+                                    <h4>14</h4>
+                                    <p>Systems</p>
                                 </div>
                             </div>
                         </div>
@@ -87,44 +104,25 @@ export default function Home() {
             {/* Premium Resources Section */}
             <section style={{ padding: '8rem 0', backgroundColor: 'var(--background-alt)' }}>
                 <div className="container">
-                    <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
+                    <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 4rem' }}>
                         <h2 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1.5rem' }}>Premium Resources</h2>
                         <p style={{ fontSize: '1.125rem', color: '#94a3b8' }}>Everything you need to launch, scale, and automate your digital income streams.</p>
                     </div>
 
                     <div className="resource-grid">
-                        {/* Product 1 */}
-                        <div className="card-premium">
-                            <div className="card-icon">🚀</div>
-                            <h3>Affiliate Jumpstart Kit</h3>
-                            <p>The ultimate launchpad. Includes battle-tested templates, secret niche lists, and a 48-hour launch sequence.</p>
-                            <div className="card-footer">
-                                <span className="price">$49</span>
-                                <Link href="/shop" className="btn-outline btn-sm">Buy Now</Link>
+                        {featuredProducts.map((product: any) => (
+                            <div key={product.id} className="card-premium">
+                                <div className="card-icon">🚀</div>
+                                <h3>{product.title}</h3>
+                                <p>{product.description}</p>
+                                <div className="card-footer" style={{ marginTop: 'auto', paddingTop: '1.5rem' }}>
+                                    <span className="price">${product.price}</span>
+                                    <BuyButton product={product} className="btn-outline btn-sm">
+                                        Buy Now
+                                    </BuyButton>
+                                </div>
                             </div>
-                        </div>
-
-                        {/* Product 2 */}
-                        <div className="card-premium">
-                            <div className="card-icon">📧</div>
-                            <h3>Email Mastery Course</h3>
-                            <p>Transform your list into a profit machine. High-conversion swipe files and behavioral automation workflows.</p>
-                            <div className="card-footer">
-                                <span className="price">$99</span>
-                                <Link href="/shop" className="btn-outline btn-sm">Buy Now</Link>
-                            </div>
-                        </div>
-
-                        {/* Product 3 */}
-                        <div className="card-premium">
-                            <div className="card-icon">🤖</div>
-                            <h3>AI Content System</h3>
-                            <p>Stop writing, start engineering. Leverage custom AI frameworks to crank out viral content at scale.</p>
-                            <div className="card-footer">
-                                <span className="price">$37</span>
-                                <Link href="/shop" className="btn-outline btn-sm">Buy Now</Link>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
