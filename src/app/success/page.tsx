@@ -1,11 +1,10 @@
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
 
-export default function Success({
-    searchParams,
-}: {
-    searchParams: { productId?: string; session_id?: string };
+export default async function Success(props: {
+    searchParams: Promise<{ productId?: string; session_id?: string }>;
 }) {
+    const searchParams = await props.searchParams;
     const productMap: Record<string, { name: string; file: string }> = {
         '1': { name: 'Affiliate Jumpstart Kit', file: '/products/Affiliate_Jumpstart_Kit.md' },
         '2': { name: 'Email Mastery Course', file: '/products/Email_Mastery_Course.md' },
