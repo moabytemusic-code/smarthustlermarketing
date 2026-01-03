@@ -8,9 +8,19 @@ export async function POST(request: Request) {
         const { product } = await request.json();
 
         // 1. Create a Checkout Session
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [
+        let line_items;
+
+        if (product.priceId) {
+            // Use existing Stripe Price ID
+            line_items = [
+                {
+                    price: product.priceId,
+                    quantity: 1,
+                },
+            ];
+        } else {
+            // Create Price on the fly
+            line_items = [
                 {
                     price_data: {
                         currency: 'usd',
@@ -23,10 +33,15 @@ export async function POST(request: Request) {
                     },
                     quantity: 1,
                 },
-            ],
+            ];
+        }
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items,
             mode: 'payment',
             success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${request.headers.get('origin')}/shop`,
+            cancel_url: `${request.headers.get('origin')}/weekly-deal`, // Changed default cancel to weekly-deal since that's where we are
             metadata: {
                 productId: product.id,
                 productType: product.type

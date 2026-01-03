@@ -16,6 +16,30 @@ export default function WeeklyDeal() {
         }
     }, []);
 
+    const handleCheckout = async (priceId: string, productId: string) => {
+        try {
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    product: {
+                        priceId,
+                        id: productId,
+                        type: 'Bundle'
+                    }
+                }),
+            });
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                console.error('Checkout error:', data.error);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
@@ -125,9 +149,13 @@ export default function WeeklyDeal() {
                                     </li>
                                 ))}
                             </ul>
-                            <a href="https://buy.stripe.com/STH_STANDARD_LINK" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block' }}>
+                            <button
+                                onClick={() => handleCheckout('price_1SlWekBa3LVp9FtOqSPMhQE5', 'weekly-bundle-standard')}
+                                className="btn-outline"
+                                style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block', cursor: 'pointer' }}
+                            >
                                 Get Bundle Only
-                            </a>
+                            </button>
                         </div>
 
                         {/* Option 2: Reseller (Highlighted) */}
@@ -154,9 +182,13 @@ export default function WeeklyDeal() {
                                     </li>
                                 ))}
                             </ul>
-                            <a href="https://buy.stripe.com/STH_RESELLER_LINK" target="_blank" rel="noopener noreferrer" className="btn-premium" style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block' }}>
+                            <button
+                                onClick={() => handleCheckout('price_1SlWfXBa3LVp9FtOF3RWZXSB', 'weekly-bundle-reseller')}
+                                className="btn-premium"
+                                style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block', cursor: 'pointer' }}
+                            >
                                 Get Full Access
-                            </a>
+                            </button>
                         </div>
 
                     </div>
