@@ -74,7 +74,7 @@ export default function LeadMagnetPage() {
                                 <div style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '1.5rem', borderRadius: '0.5rem' }}>
                                     <h3 style={{ color: '#34d399', marginBottom: '0.5rem', fontWeight: 'bold' }}>🎉 You're In!</h3>
                                     <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>Check your inbox for the blueprint.</p>
-                                    <a href="/lead-magnets/Side_Hustle_Blueprint_2026.md" download className="btn-premium" style={{ display: 'inline-block', width: 'auto', padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+                                    <a href="/lead-magnets/Side_Hustle_Blueprint_2026.pdf" download className="btn-premium" style={{ display: 'inline-block', width: 'auto', padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
                                         Download Now &rarr;
                                     </a>
                                 </div>
