@@ -66,11 +66,11 @@ Don't sell a $2,000 course on day one.
 ## 🚀 Ready to Fast-Track This?
 We have built the systems for you.
 
-- **Need a Niche?** Get our *Affiliate Jumpstart Kit*.
-- **Need Traffic?** Get the *SEO Power Pack*.
-- **Need Content?** Get the *AI Content System*.
+- **Need a Niche?** Get the [**Micro Niche Finder AI**](/shop) ($27).
+- **Need Traffic?** Get the [**Viral Content Engine**](/shop) ($47).
+- **Need Assets?** Get [**The Affiliate Jumpstart**](/shop) ($97).
 
-**[Get 50% Off Your First Product with Code: BLUEPRINT26]**
+**[👉 Click Here to Access the Shop](/shop)**
 
 ---
 
