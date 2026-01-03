@@ -39,3 +39,10 @@ You don't need viral TikToks. You need targeted leads.
 2.  Filter by "Average Commission > $500".
 3.  Build a simple Bridge Page using the tools in our Resources section.
 4.  Start creating content that answers specific problems this product solves.
+
+
+---
+### 🏰 Own Your Audience, Don't Rent It.
+Social media algorithms change. Your email list is forever. Learn how to shift your audience from rented platforms to owned assets.
+
+[**Get the "Owned Assets" Blueprint for FREE →**](/library)

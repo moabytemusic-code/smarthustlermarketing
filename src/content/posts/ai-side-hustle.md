@@ -43,3 +43,10 @@ The best prompt engineers aren't coders. They are **clear thinkers**. The abilit
 ***
 
 **Want to learn our systems?** Our **[AI Content System](/shop)** includes the exact prompts we use to generate traffic-driving articles in minutes.
+
+
+---
+### 🚀 Ready to Stop Trading Time for Money?
+Most entrepreneurs build a job, not a business. Learn the mathematics of **Active Assets** and how to build equity that pays you forever.
+
+[**Download "The Passive Trap" for FREE here →**](/library)

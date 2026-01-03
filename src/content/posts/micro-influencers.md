@@ -46,3 +46,10 @@ If you can build a deeper connection with 1,000 people than a celebrity has with
 ***
 
 **Need help finding your niche?** Grab our **[Affiliate Jumpstart Kit](/shop)** to see the exact niches we're targeting right now.
+
+
+---
+### ⚙️ Luck isn't a Strategy. Leverage Is.
+Stop hoping for a viral hit. Start engineering systems that work while you sleep. Code, Content, and Capital are the new leverage.
+
+[**Download "Leverage Over Luck" now →**](/library)
