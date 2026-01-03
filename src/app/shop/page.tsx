@@ -3,6 +3,7 @@ import path from 'path';
 import Navbar from '../../components/Navbar';
 import { ArrowRight, Star } from 'lucide-react';
 import { Metadata } from 'next';
+import BuyButton from '../../components/BuyButton';
 
 export const metadata: Metadata = {
     title: 'Shop | Smart Hustler Marketing',
@@ -27,6 +28,7 @@ export default async function Shop() {
     // Group by Type for the grid
     const training = products.filter((p: any) => p.type === 'Training');
     const systems = products.filter((p: any) => p.type === 'Systems');
+    const tools = products.filter((p: any) => p.type === 'Tool'); // Added Tools
 
     return (
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
@@ -65,9 +67,9 @@ export default async function Shop() {
                                     </ul>
                                     <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                                         <span style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>${featured.price}</span>
-                                        <button className="btn-premium">
+                                        <BuyButton product={featured}>
                                             Get Instant Access <ArrowRight size={20} />
-                                        </button>
+                                        </BuyButton>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -97,9 +99,9 @@ export default async function Shop() {
                 )}
 
                 {/* Main Grid */}
-                <h2 className="section-title" style={{ marginBottom: '3rem' }}>Training & Systems</h2>
+                <h2 className="section-title" style={{ marginBottom: '3rem' }}>Training, Systems & Tools</h2>
                 <div className="resource-grid" style={{ marginBottom: '8rem' }}>
-                    {[...training, ...systems].map((product: any) => (
+                    {[...tools, ...systems, ...training].map((product: any) => (
                         <div key={product.id} className="card-premium">
                             {product.image && (
                                 <div style={{ marginBottom: '1.5rem', borderRadius: '0.5rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
@@ -124,9 +126,7 @@ export default async function Shop() {
 
                             <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>${product.price}</span>
-                                <button className="btn-premium" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
-                                    Buy Now
-                                </button>
+                                <BuyButton product={product} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }} />
                             </div>
                         </div>
                     ))}
@@ -148,9 +148,9 @@ export default async function Shop() {
                             ))}
                         </div>
 
-                        <button className="btn-premium" style={{ background: '#a855f7', fontSize: '1.2rem', padding: '1rem 3rem' }}>
+                        <BuyButton product={bundle} className="btn-premium" style={{ background: '#a855f7', fontSize: '1.2rem', padding: '1rem 3rem' }}>
                             Get The Empire Bundle - ${bundle.price}
-                        </button>
+                        </BuyButton>
                     </div>
                 )}
 
