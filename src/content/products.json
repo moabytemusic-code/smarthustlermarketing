@@ -60,6 +60,36 @@
         "image": "/images/products/the-equity-engine.png"
     },
     {
+        "id": "prod-micro-niche-finder",
+        "title": "Micro Niche Finder AI",
+        "subtitle": "Validate profitable markets in seconds.",
+        "type": "Tool",
+        "price": 27,
+        "category": "Products",
+        "description": "Stop guessing. Use this AI system to identify high-profit, low-competition niches before you build.",
+        "features": [
+            "Validation Prompts",
+            "Profitability Calculator",
+            "Competition Radar"
+        ],
+        "image": "/images/products/micro-niche-finder.png"
+    },
+    {
+        "id": "prod-content-engine",
+        "title": "The Viral Content Engine",
+        "subtitle": "Produce 30 days of content in 3 hours.",
+        "type": "Systems",
+        "price": 47,
+        "category": "Products",
+        "description": "The dedicated Notion system for solopreneurs who need to publish consistency without burnout.",
+        "features": [
+            "Production Kanban",
+            "Repurposing Matrix",
+            "Hook Library"
+        ],
+        "image": "/images/products/viral-content-engine.png"
+    },
+    {
         "id": "prod-active-asset-blueprint",
         "title": "The \"Active Asset\" Blueprint",
         "subtitle": "Signature \"A-Z\" guide.",
@@ -89,6 +119,21 @@
             "Financial Tracker"
         ],
         "image": "/images/products/founders-os.png"
+    },
+    {
+        "id": "prod-affiliate-jumpstart",
+        "title": "The Affiliate Jumpstart",
+        "subtitle": "Monetize without a product.",
+        "type": "Training",
+        "price": 97,
+        "category": "Products",
+        "description": "The blueprint for building 'Asset Pages' that generate passive commissions from high-ticket software.",
+        "features": [
+            "Review Page Templates",
+            "Bridge Email Script",
+            "High-Ticket Partner List"
+        ],
+        "image": "/images/products/affiliate-jumpstart.png"
     },
     {
         "id": "prod-high-ticket-kit",
