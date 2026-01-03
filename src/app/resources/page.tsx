@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import Navbar from '../../components/Navbar';
 import ResourceDirectory from '../../components/ResourceDirectory';
+import Image from 'next/image';
 
 async function getOffers() {
     const filePath = path.join(process.cwd(), 'src/content/campaigns/affiliate_offers.json');
@@ -30,11 +31,8 @@ export default async function Resources() {
                     </p>
                 </div>
 
-                {/* Interactive Directory */}
-                <ResourceDirectory offers={offers} />
-
                 {/* Amazon Section */}
-                <div style={{ marginTop: '8rem', paddingTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ marginBottom: '8rem' }}>
                     <h2 className="section-title" style={{ marginBottom: '1rem' }}>Amazon Must-Reads</h2>
                     <p style={{ textAlign: 'center', color: '#94a3b8', maxWidth: '600px', margin: '0 auto 4rem' }}>
                         Books that shaped our mindset and strategy.
@@ -42,35 +40,46 @@ export default async function Resources() {
                     <div className="resource-grid" style={{ marginTop: 0 }}>
                         {[
                             {
-                                title: "AI Side Hustle: 5 Simple Online Businesses You Can Start This Weekend",
+                                title: "Smart Hustler Guide to Affiliate AI Tools",
                                 author: "Smart Hustler Marketing",
-                                description: "Leverage the power of Artificial Intelligence to launch profitable revenue streams without a steep learning curve.",
-                                price: "$14.99",
-                                link: "https://www.amazon.com/s?k=AI+Side+Hustle+5+Simple+Online+Businesses+You+Can+Start+This+Weekend"
+                                description: "Turn AI Tools Into Your 24/7 Sales Team. Uncover the exact systems that let modern marketers automate traffic, conversions, and commissions.",
+                                price: "$11.99",
+                                link: "https://a.co/d/8XuAzjM",
+                                image: "/books/affiliate-ai-tools.jpg"
                             },
                             {
-                                title: "Affiliate Marketing Jumpstart: Zero to Commission in 7 Days",
+                                title: "Smart Hustler Guide to Prompt Engineering",
                                 author: "Smart Hustler Marketing",
-                                description: "The step-by-step blueprint to making your first online dollar. Validated strategies for the modern affiliate.",
-                                price: "$9.99",
-                                link: "https://www.amazon.com/s?k=Affiliate+Marketing+Jumpstart+Zero+to+Commission+in+7+Days"
+                                description: "Unlock the Hidden Skill That Powers the AI Revolution. Learn how to write prompts that get powerful results from tools like ChatGPT, Midjourney, and Claude.",
+                                price: "$11.99",
+                                link: "https://a.co/d/evLEF2W",
+                                image: "/books/prompt-engineering.jpg"
+                            },
+                            {
+                                title: "Smart Hustler Guide to ChatGPT for Beginners",
+                                author: "Smart Hustler Marketing",
+                                description: "Discover how to turn ChatGPT into your personal business partner. Learn to write content, build products, and automate workflows.",
+                                price: "$11.99",
+                                link: "https://a.co/d/1jeSELw",
+                                image: "/books/chatgpt-guide.jpg"
                             }
                         ].map((book, i) => (
                             <div key={i} className="card-premium">
                                 <div style={{
-                                    height: '200px',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    borderRadius: '0.75rem',
+                                    position: 'relative',
+                                    height: '400px',
+                                    width: '100%',
                                     marginBottom: '1.5rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: '#64748b',
-                                    textAlign: 'center',
-                                    padding: '1rem',
-                                    border: '1px solid rgba(255,255,255,0.05)'
+                                    borderRadius: '0.75rem',
+                                    overflow: 'hidden',
+                                    border: '1px solid rgba(255,255,255,0.1)'
                                 }}>
-                                    📚 {book.title.slice(0, 20)}...
+                                    <Image
+                                        src={book.image}
+                                        alt={book.title}
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
                                 </div>
                                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', lineHeight: '1.4' }}>{book.title}</h3>
                                 <p style={{ color: 'var(--primary)', fontSize: '0.85rem', marginBottom: '0.75rem' }}>{book.author}</p>
@@ -87,6 +96,12 @@ export default async function Resources() {
                             </div>
                         ))}
                     </div>
+                </div>
+
+                {/* Interactive Directory */}
+                <div style={{ paddingTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                    <h2 className="section-title" style={{ marginBottom: '2rem' }}>Digital Toolkit</h2>
+                    <ResourceDirectory offers={offers} />
                 </div>
             </div>
         </main>

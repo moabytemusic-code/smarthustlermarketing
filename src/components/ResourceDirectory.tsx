@@ -116,22 +116,19 @@ export default function ResourceDirectory({ offers }: { offers: any[] }) {
 
                         <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '1.5rem', flexGrow: 1, lineHeight: '1.6' }}>
                             {offer.description}
-                            {offer.commission && offer.commission !== 'Free Tool' && (
-                                <span style={{ display: 'block', marginTop: '0.5rem', color: 'var(--primary)', fontSize: '0.8rem' }}>
-                                    💰 Commission: {offer.commission}
-                                </span>
-                            )}
                         </p>
 
-                        <a
-                            href={offer.affiliate_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-outline btn-sm"
-                            style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}
-                        >
-                            {offer.commission === 'Free Tool' ? 'Use for Free' : 'Get Deal'} &rarr;
-                        </a>
+                        {(offer.affiliate_link || offer.link) && (
+                            <a
+                                href={offer.affiliate_link || offer.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-outline btn-sm"
+                                style={{ width: '100%', textAlign: 'center', justifyContent: 'center' }}
+                            >
+                                {offer.commission === 'Free Tool' ? 'Use for Free' : 'Visit Site'} &rarr;
+                            </a>
+                        )}
                     </div>
                 ))}
             </div>
