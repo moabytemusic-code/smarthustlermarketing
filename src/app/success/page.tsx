@@ -18,6 +18,11 @@ export default function Success({
     const productId = searchParams.productId;
     const product = productId ? productMap[productId] : null;
 
+    console.log('Success Page Debug:');
+    console.log('searchParams:', searchParams);
+    console.log('productId:', productId);
+    console.log('product:', product);
+
     return (
         <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#fff' }}>
             <Navbar />
