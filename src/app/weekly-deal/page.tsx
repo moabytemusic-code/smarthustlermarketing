@@ -150,7 +150,7 @@ export default function WeeklyDeal() {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCheckout('price_1SlWekBa3LVp9FtOqSPMhQE5', 'weekly-bundle-standard')}
+                                onClick={() => handleCheckout(process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_STANDARD!, 'weekly-bundle-standard')}
                                 className="btn-outline"
                                 style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block', cursor: 'pointer' }}
                             >
@@ -183,7 +183,7 @@ export default function WeeklyDeal() {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCheckout('price_1SlWfXBa3LVp9FtOF3RWZXSB', 'weekly-bundle-reseller')}
+                                onClick={() => handleCheckout(process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_RESELLER!, 'weekly-bundle-reseller')}
                                 className="btn-premium"
                                 style={{ marginTop: 'auto', width: '100%', justifyContent: 'center', textAlign: 'center', display: 'block', cursor: 'pointer' }}
                             >
