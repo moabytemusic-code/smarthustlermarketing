@@ -40,7 +40,7 @@ export async function POST(request: Request) {
             payment_method_types: ['card'],
             line_items,
             mode: 'payment',
-            success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}&productId=${product.id}`,
             cancel_url: `${request.headers.get('origin')}/weekly-deal`, // Changed default cancel to weekly-deal since that's where we are
             metadata: {
                 productId: product.id,
