@@ -4,6 +4,9 @@ import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import Navbar from '../../../components/Navbar';
 import { Metadata } from 'next';
+import { ENGINE_MAPPING, ENGINE_DETAILS, DEFAULT_ENGINE_CTA } from '../../../data/engineMapping';
+import { Activity, ArrowRight } from 'lucide-react';
+import SignalEngineCard from '../../../components/SignalEngineCard';
 
 interface PostProps {
     params: {
@@ -50,6 +53,18 @@ export default async function Post({ params }: any) {
     const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), 'src/content/posts', `${slug}.md`), 'utf-8');
     const { data: frontmatter, content } = matter(markdownWithMeta);
 
+    // Engine CTA Logic
+    const engineId = ENGINE_MAPPING[slug];
+    const engineData = engineId ? ENGINE_DETAILS[engineId] : null;
+    const ctaConfig = engineData ? {
+        title: engineData.title,
+        description: engineData.description,
+        label: "Run Diagnostic",
+        url: engineData.url
+    } : null; // Only show specific if mapped, otherwise show generic or none? User said "If no mapping exists, show 'Browse diagnostics'"
+
+    const finalCta = ctaConfig || DEFAULT_ENGINE_CTA;
+
     return (
         <main>
             <Navbar />
@@ -76,6 +91,30 @@ export default async function Post({ params }: any) {
                             {content}
                         </ReactMarkdown>
                     </div>
+                </div>
+
+                {/* Engine CTA Block */}
+                <div style={{ marginTop: '3rem', marginBottom: '3rem' }}>
+                    {engineId && engineData ? (
+                        <SignalEngineCard
+                            engineId={engineId}
+                            title={engineData.title}
+                            description={engineData.description}
+                            placement={`blog_footer_${slug}`}
+                            className="bg-slate-900 border border-blue-900/50" // Custom style overrides if needed
+                        />
+                    ) : (
+                        <div style={{ padding: '2rem', background: 'rgba(30, 41, 59, 0.5)', borderRadius: '1rem', border: '1px solid rgba(59, 130, 246, 0.2)', textAlign: 'center' }}>
+                            <div style={{ display: 'inline-flex', background: 'rgba(59, 130, 246, 0.1)', padding: '1rem', borderRadius: '50%', marginBottom: '1rem' }}>
+                                <Activity color="#3b82f6" size={32} />
+                            </div>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#fff' }}>Not sure what needs fixing?</h3>
+                            <p style={{ color: '#94a3b8', marginBottom: '1.5rem' }}>Run a full diagnostic scan to identify hidden risks in your accounts.</p>
+                            <a href="https://www.signalengines.com/engines?utm_source=smarthustler&utm_content=blog_fallback" target="_blank" className="btn-premium" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#3b82f6' }}>
+                                Browse All Engines <ArrowRight size={18} />
+                            </a>
+                        </div>
+                    )}
                 </div>
 
                 <div style={{ marginTop: '4rem', textAlign: 'center' }}>

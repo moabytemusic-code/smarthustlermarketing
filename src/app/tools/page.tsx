@@ -1,6 +1,8 @@
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
-import { ArrowRight, Calculator, Search, Zap } from 'lucide-react';
+import { ArrowRight, Calculator, Search, Zap, Activity } from 'lucide-react';
+import SignalEngineCard from '../../components/SignalEngineCard';
+import { ENGINE_DETAILS } from '../../data/engineMapping';
 
 export default function ToolsHub() {
     return (
@@ -70,6 +72,38 @@ export default function ToolsHub() {
                         </div>
                     </div>
 
+                </div>
+
+                {/* Signal Engines Section */}
+                <div style={{ marginTop: '8rem', marginBottom: '6rem' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                        <h2 className="title-main" style={{ fontSize: '2.5rem' }}>Signal Engines: <span className="gradient-text">Fix Problems Fast</span></h2>
+                        <p className="subtitle" style={{ margin: '0 auto' }}>
+                            Dedicated repair tools for the things that break most often. Stop guessing, execute a fix.
+                        </p>
+                    </div>
+
+                    <div className="resource-grid">
+                        {/* trackingfix, adbleed, emailspam, compliancealert, gbpsuspend, amazonsuspend */}
+                        {['trackingfix', 'adbleed', 'emailspam', 'compliancealert', 'gbpsuspend', 'amazonsuspend'].map(id => {
+                            const details = ENGINE_DETAILS[id] || { title: id, description: "Launch this engine." };
+                            return (
+                                <SignalEngineCard
+                                    key={id}
+                                    engineId={id}
+                                    title={details.title}
+                                    description={details.description}
+                                    placement="tools_directory"
+                                />
+                            );
+                        })}
+                    </div>
+
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <a href="https://www.signalengines.com/engines?utm_source=smarthustler" target="_blank" className="btn-premium" style={{ background: '#3b82f6' }}>
+                            Browse all Engines <ArrowRight className="inline ml-2" />
+                        </a>
+                    </div>
                 </div>
 
                 {/* Bottom CTA */}
