@@ -3,6 +3,9 @@ import path from 'path';
 import Navbar from '../../components/Navbar';
 import ResourceDirectory from '../../components/ResourceDirectory';
 import Image from 'next/image';
+import SignalEngineCard from '../../components/SignalEngineCard';
+import { ENGINE_DETAILS, getEngineUrl } from '../../data/engineMapping';
+import { ArrowRight } from 'lucide-react';
 
 async function getOffers() {
     const filePath = path.join(process.cwd(), 'src/content/campaigns/affiliate_offers.json');
@@ -29,6 +32,34 @@ export default async function Resources() {
                     <p className="subtitle" style={{ margin: '0 auto' }}>
                         The software, services, and secret weapons behind our 6-figure automated business.
                     </p>
+                </div>
+
+                {/* Signal Engines Highlight */}
+                <div style={{ marginBottom: '8rem' }}>
+                    <h2 className="section-title" style={{ marginBottom: '1rem', textAlign: 'center' }}>Diagnostics & Fixes</h2>
+                    <p style={{ textAlign: 'center', color: '#94a3b8', maxWidth: '600px', margin: '0 auto 3rem' }}>
+                        Before you scale, fix the leaks. Use these engines to repair suspended accounts and tracking issues.
+                    </p>
+                    <div className="resource-grid">
+                        {['fbadban', 'gbpsuspend', 'emailspam', 'trackingfix'].map(id => {
+                            const details = ENGINE_DETAILS[id] || { title: id, description: "Launch this engine." };
+                            return (
+                                <SignalEngineCard
+                                    key={id}
+                                    engineId={id}
+                                    title={details.title}
+                                    description={details.description}
+                                    placement="resources_highlight"
+                                    campaign="resources_page"
+                                />
+                            );
+                        })}
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                        <a href={getEngineUrl(null, 'resources_highlight_browse', 'resources_page')} target="_blank" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                            View all Diagnostic Engines <ArrowRight size={16} />
+                        </a>
+                    </div>
                 </div>
 
                 {/* Amazon Section */}
