@@ -1,9 +1,9 @@
 'use client';
-
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import { getEngineUrl } from '../data/engineMapping';
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,6 +16,9 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Helper for nav links
+    const signalEnginesUrl = getEngineUrl(null, 'top_nav', 'top_nav');
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -37,7 +40,7 @@ export default function Navbar() {
 
                     <Link href="/shop">Shop</Link>
                     <Link href="/about">About</Link>
-                    <a href="https://www.signalengines.com/?utm_source=smarthustler" target="_blank" rel="noopener noreferrer" style={{ color: '#60a5fa', fontWeight: 'bold' }}>Run a Scan</a>
+                    <a href={signalEnginesUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#60a5fa', fontWeight: 'bold' }}>Run a Scan</a>
 
                     <div style={{ marginLeft: '1rem', marginRight: '0.5rem' }}>
                         <ThemeToggle />
@@ -86,7 +89,7 @@ export default function Navbar() {
 
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
                 <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-                <a href="https://www.signalengines.com/?utm_source=smarthustler" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.5rem', fontWeight: 700, color: '#60a5fa' }} onClick={() => setIsMobileMenuOpen(false)}>Run a Scan</a>
+                <a href={signalEnginesUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.5rem', fontWeight: 700, color: '#60a5fa' }} onClick={() => setIsMobileMenuOpen(false)}>Run a Scan</a>
                 <div onClick={() => setIsMobileMenuOpen(false)} style={{ transform: 'scale(1.5)' }}>
                     <ThemeToggle />
                 </div>

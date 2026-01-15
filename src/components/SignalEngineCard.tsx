@@ -1,19 +1,27 @@
 
 import React from 'react';
 import { Activity, ArrowRight } from 'lucide-react';
+import { getEngineUrl } from '../data/engineMapping';
 
 interface SignalEngineCardProps {
     engineId: string;
     title: string;
     description: string;
     placement: string;
+    campaign?: string; // Allow overriding campaign
     className?: string; // Allow custom styling extensions
 }
 
-const SignalEngineCard: React.FC<SignalEngineCardProps> = ({ engineId, title, description, placement, className }) => {
-    // Construct the tracking URL
-    // https://www.signalengines.com/go/{engineId}?utm_source=smarthustler&utm_medium=referral&utm_campaign=system&utm_content={placement}
-    const targetUrl = `https://www.signalengines.com/go/${engineId}?utm_source=smarthustler&utm_medium=referral&utm_campaign=system&utm_content=${placement}`;
+const SignalEngineCard: React.FC<SignalEngineCardProps> = ({
+    engineId,
+    title,
+    description,
+    placement,
+    campaign = 'system',
+    className
+}) => {
+    // Construct the tracking URL using helper
+    const targetUrl = getEngineUrl(engineId, placement, campaign);
 
     return (
         <div className={`card-premium ${className || ''}`} style={{ borderColor: 'rgba(59, 130, 246, 0.3)', display: 'flex', flexDirection: 'column' }}>
