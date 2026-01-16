@@ -97,7 +97,9 @@ export default function ToolsHub() {
                             'amazonsuspend',
                             'trackingfix',
                             'emailspam',
-                            'compliancealert'
+                            'compliancealert',
+                            'tiktok-idea-batch',
+                            'emailwarmup'
                         ].map(id => {
                             const details = ENGINE_DETAILS[id] || { title: id, description: "Launch this engine." };
                             return (

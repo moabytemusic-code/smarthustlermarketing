@@ -14,7 +14,9 @@ export type EngineId =
     | 'merchantsuspend'
     | 'reviewrepair'
     | 'sitehacked'
-    | 'trackingfix';
+    | 'trackingfix'
+    | 'tiktok-idea-batch'
+    | 'emailwarmup';
 
 export interface EngineDetail {
     title: string;
@@ -22,6 +24,14 @@ export interface EngineDetail {
 }
 
 export const ENGINE_DETAILS: Record<string, EngineDetail> = {
+    "tiktok-idea-batch": {
+        title: "TikTok Content Dried Up?",
+        description: "Generate 10 viral video concepts tailored to your niche instantly."
+    },
+    "emailwarmup": {
+        title: "Emails Landing in Spam?",
+        description: "Check your sender reputation and warmup status."
+    },
     "accountrecovery": {
         title: "Account Locked?",
         description: "Recover access to your locked social or ad accounts fast."
@@ -83,6 +93,8 @@ export const ENGINE_DETAILS: Record<string, EngineDetail> = {
 // Map blog post slugs to relevant Signal Engine IDs
 // Format: "blog-post-slug": "engine-id"
 export const ENGINE_MAPPING: Record<string, EngineId> = {
+    "tiktok-marketing-guide": "tiktok-idea-batch",
+    "email-warmup-guide": "emailwarmup",
     "facebook-account-locked": "fbadban", // Fallback to fbadban implies general FB issue logic if accurate recovery not available or mapped
     "facebook-page-restricted": "fbpagerestricted",
     "facebook-ad-account": "fbadban",
@@ -100,13 +112,19 @@ export const ENGINE_MAPPING: Record<string, EngineId> = {
     "facebook-ad-account-disabled-2025": "fbadban",
     "amazon-seller-suspension-guide": "amazonsuspend",
     "google-business-profile-suspended": "gbpsuspend",
-    "email-deliverability-guide": "emailspam",
+    "email-deliverability-guide": "emailspam", // emailspam or emailwarmup? Let's use spam for now, or maybe warmup if specific.
     "wordpress-hacked-fix": "sitehacked",
 };
 
 // Topic Cluster Fallbacks
 // Used if no exact slug match contains these keywords
 export const TOPIC_FALLBACKS: Record<string, EngineId> = {
+    "tiktok": "tiktok-idea-batch",
+    "viral": "tiktok-idea-batch",
+    "content": "tiktok-idea-batch",
+    "warmup": "emailwarmup",
+    "reputation": "emailwarmup", // Overlap with reviewrepair? Context matters. Review usually reputation. Email reputation -> warmup.
+    // "reputation": "reviewrepair", // Keep existing for reviews
     "facebook": "fbadban",
     "meta": "fbadban",
     "google": "gbpsuspend",
@@ -121,8 +139,6 @@ export const TOPIC_FALLBACKS: Record<string, EngineId> = {
     "legal": "compliancealert",
     "security": "sitehacked",
     "hacked": "sitehacked",
-    "malware": "sitehacked",
-    "reputation": "reviewrepair",
     "review": "reviewrepair"
 };
 
