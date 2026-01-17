@@ -58,20 +58,7 @@ export default async function Home() {
                                 </Link>
                             </div>
 
-                            <div className="stats-row">
-                                <div className="stat-item">
-                                    <h4>10k+</h4>
-                                    <p>Members</p>
-                                </div>
-                                <div className="stat-item">
-                                    <h4>$1M+</h4>
-                                    <p>Generated</p>
-                                </div>
-                                <div className="stat-item">
-                                    <h4>14</h4>
-                                    <p>Systems</p>
-                                </div>
-                            </div>
+                            {/* Stats Removed as per Pre-Index Checklist */}
                         </div>
 
                         <div className="hero-visual">
@@ -146,7 +133,7 @@ export default async function Home() {
                             </div>
 
                             <p style={{ marginTop: '2rem', fontSize: '0.875rem', color: '#64748b' }}>
-                                Join over 10,000+ hustlers. Zero spam, just pure signal.
+                                Join our growing community. Zero spam, just pure signal.
                             </p>
                         </div>
                     </div>

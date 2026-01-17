@@ -9,7 +9,7 @@ import Link from 'next/link';
 const getPosts = () => {
     const files = fs.readdirSync(path.join(process.cwd(), 'src/content/posts'));
 
-    const posts = files.map(filename => {
+    const posts = files.filter(file => file.endsWith('.md')).map(filename => {
         const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), 'src/content/posts', filename), 'utf-8');
         const { data: frontmatter } = matter(markdownWithMeta);
 
