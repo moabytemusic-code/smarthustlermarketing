@@ -1,0 +1,35 @@
+name: Weekly Drop Automation
+
+on:
+  schedule:
+    - cron: '0 5 * * 5' # Every Friday at 5:00 AM UTC (12:00 AM EST)
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-drop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install dotenv node-fetch@2
+
+      - name: Run Update Script
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+        run: node scripts/update_weekly_drop.js
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add src/content/weekly_drop.json
+          git commit -m "chore: automated weekly drop update [skip ci]" || echo "No changes to commit"
+          git push origin main

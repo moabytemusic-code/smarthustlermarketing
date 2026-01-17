@@ -1,64 +1,17 @@
-'use client';
-
+import { promises as fs } from 'fs';
+import path from 'path';
 import Navbar from '../../../components/Navbar';
 import Link from 'next/link';
 import { Download, Gift, ExternalLink, Star } from 'lucide-react';
 
-// This data would typically come from a CMS or config file
-// to make it "customizable" for the user.
-const WEEKLY_DATA = {
-    weekNumber: 42,
-    theme: "The Content Scaling Protocol",
-    gifts: [
-        {
-            id: 1,
-            title: "Viral Hook Templates",
-            description: "50+ plug-and-play headlines for TikTok and Reels.",
-            type: "PDF Guide",
-            size: "2.4 MB"
-        },
-        {
-            id: 2,
-            title: "Email Sequence Swipe File",
-            description: "7-day nurture sequence to warm up cold leads.",
-            type: "Doc Template",
-            size: "1.1 MB"
-        },
-        {
-            id: 3,
-            title: "Canva Carousel Kit",
-            description: "10 editable carousel templates for LinkedIn.",
-            type: "Canva Link",
-            size: "Access Link"
-        },
-        {
-            id: 4,
-            title: "SEO Checklist 2024",
-            description: "Technical audit sheet to rank higher on Google.",
-            type: "Spreadsheet",
-            size: "500 KB"
-        }
-    ],
-    affiliateOffers: [
-        {
-            id: 1,
-            title: "Jasper AI",
-            description: "The AI co-pilot for enterprise marketing teams.",
-            cta: "Start Free Trial",
-            link: "https://jasper.ai?fpr=example", // Affiliate Link
-            badge: "Top Pick"
-        },
-        {
-            id: 2,
-            title: "ConvertKit",
-            description: "The creator marketing platform for newsletter growth.",
-            cta: "Get 14 Days Free",
-            link: "https://convertkit.com?lmref=example" // Affiliate Link
-        }
-    ]
-};
+async function getWeeklyData() {
+    const filePath = path.join(process.cwd(), 'src/content/weekly_drop.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContents);
+}
 
-export default function WeeklyGiftPage() {
+export default async function WeeklyGiftPage() {
+    const WEEKLY_DATA = await getWeeklyData();
     return (
         <main data-theme="deal" style={{ background: 'var(--background)', minHeight: '100vh' }}>
             <Navbar />
@@ -129,10 +82,15 @@ export default function WeeklyGiftPage() {
                                         <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--foreground)' }}>{gift.title}</h3>
                                         <p style={{ color: '#475569', margin: 0, fontWeight: '500' }}>{gift.description}</p>
                                     </div>
-                                    <button className="btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', whiteSpace: 'nowrap', color: 'var(--foreground)', borderColor: 'var(--card-border)' }}>
+                                    <a
+                                        href={gift.downloadUrl}
+                                        download
+                                        className="btn-outline"
+                                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', whiteSpace: 'nowrap', color: 'var(--foreground)', borderColor: 'var(--card-border)', textDecoration: 'none' }}
+                                    >
                                         <Download size={18} />
                                         Download
-                                    </button>
+                                    </a>
                                 </div>
                             ))}
                         </div>

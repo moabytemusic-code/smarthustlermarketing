@@ -1,0 +1,57 @@
+{
+    "weekNumber": 44,
+    "theme": "The Profit Authority Protocol",
+    "dropDate": "2026-01-17",
+    "gifts": [
+        {
+            "id": "book-passive-trap",
+            "title": "The Passive Trap",
+            "description": "Why Easy Money is a Lie and How to Build Real Wealth",
+            "type": "Book",
+            "size": "PDF",
+            "downloadUrl": "/lead-magnets/THE PASSIVE TRAP.pdf"
+        },
+        {
+            "id": "book-owned-assets",
+            "title": "Owned Assets",
+            "description": "Stop Renting Your Income and Start Building an Empire",
+            "type": "Book",
+            "size": "PDF",
+            "downloadUrl": "/lead-magnets/OWNED ASSETS.pdf"
+        },
+        {
+            "id": "prod-micro-niche-finder",
+            "title": "Micro Niche Finder AI",
+            "description": "Validate profitable markets in seconds.",
+            "type": "Tool",
+            "size": "Guide",
+            "downloadUrl": "/products_pdf/Micro_Niche_Finder.pdf"
+        },
+        {
+            "id": "prod-content-engine",
+            "title": "The Viral Content Engine",
+            "description": "Produce 30 days of content in 3 hours.",
+            "type": "Systems",
+            "size": "Template",
+            "downloadUrl": "/products_pdf/AI_Content_System.pdf"
+        }
+    ],
+    "affiliateOffers": [
+        {
+            "id": "5-dollar-friday---agency-license",
+            "title": "5 Dollar Friday - Agency License",
+            "description": "Sell these services to your own clients.",
+            "cta": "Access Now",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-84.html",
+            "badge": "High Commission"
+        },
+        {
+            "id": "5-dollar-friday---webinar-kit",
+            "title": "5 Dollar Friday - Webinar Kit",
+            "description": "Host webinars that sell on autopilot.",
+            "cta": "Access Now",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-93.html",
+            "badge": "High Commission"
+        }
+    ]
+}
