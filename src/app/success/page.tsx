@@ -6,10 +6,10 @@ export default async function Success(props: {
 }) {
     const searchParams = await props.searchParams;
     const productMap: Record<string, { name: string; file: string }> = {
-        '1': { name: 'Affiliate Jumpstart Kit', file: '/products/Affiliate_Jumpstart_Kit.md' },
-        '2': { name: 'Email Mastery Course', file: '/products/Email_Mastery_Course.md' },
-        '3': { name: 'AI Content System', file: '/products/AI_Content_System.md' },
-        '4': { name: 'SEO Power Pack', file: '/products/SEO_Power_Pack.md' },
+        '1': { name: 'Affiliate Jumpstart Kit', file: '/products_pdf/Affiliate_Jumpstart_Kit.pdf' },
+        '2': { name: 'Email Mastery Course', file: '/products_pdf/Email_Mastery_Course.pdf' },
+        '3': { name: 'AI Content System', file: '/products_pdf/AI_Content_System.pdf' },
+        '4': { name: 'SEO Power Pack', file: '/products_pdf/SEO_Power_Pack.pdf' },
         'weekly-bundle-standard': { name: 'The Friday Drop (Standard Bundle)', file: '/Weekly_Deal_Bundle.zip' },
         'weekly-bundle-reseller': { name: 'The Friday Drop (Reseller Bundle)', file: '/Weekly_Deal_Bundle.zip' }
     };
