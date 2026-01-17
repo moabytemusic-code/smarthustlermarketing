@@ -1,6 +1,9 @@
 
 // Canonical Signal Engine IDs - DO NOT MODIFY
 export type EngineId =
+    | 'emailwarmup'
+    | 'tiktok-idea-batch'
+    | 'tiktok-script-generator'
     | 'accountrecovery'
     | 'adbleed'
     | 'amazonsuspend'
@@ -14,10 +17,7 @@ export type EngineId =
     | 'merchantsuspend'
     | 'reviewrepair'
     | 'sitehacked'
-    | 'trackingfix'
-    | 'tiktok-idea-batch'
-    | 'tiktok-script-generator'
-    | 'emailwarmup';
+    | 'trackingfix';
 
 export interface EngineDetail {
     title: string;
@@ -25,73 +25,73 @@ export interface EngineDetail {
 }
 
 export const ENGINE_DETAILS: Record<string, EngineDetail> = {
+    "emailwarmup": {
+        title: "Email Reputation Checker",
+        description: "Don't land in spam. Check your sender reputation and warmup status."
+    },
     "tiktok-idea-batch": {
         title: "TikTok Viral Idea Batch",
-        description: "Generate 10 viral video concepts tailored to your niche."
+        description: "Stuck on what to post? Generate 10 high-conversion TikTok/Reels ideas in seconds."
     },
     "tiktok-script-generator": {
         title: "TikTok Script Generator",
-        description: "Turn any idea into a viral script in seconds (Hook, Body, CTA)."
-    },
-    "emailwarmup": {
-        title: "Email Reputation Checker",
-        description: "Check for blacklists and low sender reputation scores."
+        description: "Generate high-retention TikTok and Reels scripts with viral hooks, body content, and call-to-actions."
     },
     "accountrecovery": {
-        title: "Account Locked?",
-        description: "Recover access to your locked social or ad accounts fast."
+        title: "Account Access Recovery Engine",
+        description: "Find out why your account was locked and the fastest way to regain access."
     },
     "adbleed": {
-        title: "Ad Budget Bleeding?",
-        description: "Identify underperforming ads and wasted spend instantly."
+        title: "Ad Spend Bleed Diagnostic Engine",
+        description: "Scan your ad funnel and stop wasting money."
     },
     "amazonsuspend": {
-        title: "Amazon Seller Suspended?",
-        description: "Generate professional appeal letters for Seller Central."
+        title: "Amazon Seller Suspension Appeal Engine",
+        description: "Generate a winning Plan of Action (POA) for Amazon Seller Central."
     },
     "chargebackalert": {
-        title: "Too Many Chargebacks?",
-        description: "Get alerts and dispute templates to save your merchant account."
+        title: "Chargeback & Dispute Alert Engine",
+        description: "Analyze your transaction risk factors and get a plan to reduce disputes and chargebacks."
     },
     "compliancealert": {
-        title: "Missing Legal Pages?",
-        description: "Scan your site for GDPR/CCPA compliance gaps."
+        title: "Compliance Alert Engine",
+        description: "Scan your compliance risk and get a fix plan."
     },
     "domainblock": {
-        title: "Domain Blacklisted?",
-        description: "Check if your domain is blocked by major ISPs or platforms."
+        title: "Domain Blacklist & Reputation Engine",
+        description: "Emails going to spam or domain blocked? Identify the specific blacklists and get a clean-up and delisting guide immediately."
     },
     "emailspam": {
-        title: "Emails Going to Spam?",
-        description: "Check your spam score and fix deliverability issues."
+        title: "Email Deliverability Fix Engine",
+        description: "Stop landing in spam. Diagnose SPF, DKIM, and reputation issues."
     },
     "fbadban": {
         title: "Facebook Ad Account Recovery Engine",
-        description: "Recover disabled ad accounts and unrestricted generic assets."
+        description: "Run a quick scan to identify likely causes, get do/don’t steps, and generate an appeal template."
     },
     "fbpagerestricted": {
-        title: "Facebook Page Restricted?",
-        description: "Restore your page publishing rights and ad access."
+        title: "Facebook Page Restriction Fix",
+        description: "Identify policy violations hurting your page quality and get a plan to restore publishing access."
     },
     "gbpsuspend": {
-        title: "Google Business Profile Suspended?",
-        description: "Restore your local listing on Maps instantly."
+        title: "Google Business Profile Reinstatement",
+        description: "Diagnostic tool for suspended Google Business Profiles. Identify the suspension reason and get a reinstatement guide."
     },
     "merchantsuspend": {
-        title: "Merchant Center Suspended?",
-        description: "Fix products disapproval and account warning issues."
+        title: "Merchant Account Suspension Fix",
+        description: "Diagnose the reason for your Stripe, PayPal, or Google Merchant Center suspension and get an appeal template."
     },
     "reviewrepair": {
-        title: "Negative Reviews?",
-        description: "Generate professional responses to repair your reputation."
+        title: "Google Review Repair Engine",
+        description: "Scan your review damage and get step-by-step repair actions."
     },
     "sitehacked": {
-        title: "WordPress Site Hacked?",
-        description: "Clean malware and secure your site against future attacks."
+        title: "Website Hack & Malware Recovery Engine",
+        description: "Identify malware risk and get a cleanup plan instantly."
     },
     "trackingfix": {
-        title: "Broken Price/Tracking?",
-        description: "Debug Facebook Pixels and CAPI events."
+        title: "Ad Tracking & Attribution Fixer",
+        description: "Diagnose tracking pixel and install conversion API to recover lost ad attribution data."
     }
 };
 

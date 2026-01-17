@@ -10,7 +10,10 @@ async function syncEngines() {
     console.log('🔄 Checking SignalEngines.com for new updates...');
 
     try {
-        const engines = await fetchEngines();
+        const responseBlock = await fetchEngines();
+        // The API returns { count: number, engines: [...] }
+        const engines = responseBlock.engines;
+
         if (!engines || engines.length === 0) {
             console.log('⚠️ No engines found or API error.');
             return;
