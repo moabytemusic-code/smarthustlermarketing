@@ -16,6 +16,7 @@ export type EngineId =
     | 'sitehacked'
     | 'trackingfix'
     | 'tiktok-idea-batch'
+    | 'tiktok-script-generator'
     | 'emailwarmup';
 
 export interface EngineDetail {
@@ -25,12 +26,16 @@ export interface EngineDetail {
 
 export const ENGINE_DETAILS: Record<string, EngineDetail> = {
     "tiktok-idea-batch": {
-        title: "TikTok Content Dried Up?",
-        description: "Generate 10 viral video concepts tailored to your niche instantly."
+        title: "TikTok Viral Idea Batch",
+        description: "Generate 10 viral video concepts tailored to your niche."
+    },
+    "tiktok-script-generator": {
+        title: "TikTok Script Generator",
+        description: "Turn any idea into a viral script in seconds (Hook, Body, CTA)."
     },
     "emailwarmup": {
-        title: "Emails Landing in Spam?",
-        description: "Check your sender reputation and warmup status."
+        title: "Email Reputation Checker",
+        description: "Check for blacklists and low sender reputation scores."
     },
     "accountrecovery": {
         title: "Account Locked?",
@@ -61,8 +66,8 @@ export const ENGINE_DETAILS: Record<string, EngineDetail> = {
         description: "Check your spam score and fix deliverability issues."
     },
     "fbadban": {
-        title: "Facebook Ad Account Disabled?",
-        description: "Diagnose policy violations and generate an appeal."
+        title: "Facebook Ad Account Recovery Engine",
+        description: "Recover disabled ad accounts and unrestricted generic assets."
     },
     "fbpagerestricted": {
         title: "Facebook Page Restricted?",
@@ -120,6 +125,7 @@ export const ENGINE_MAPPING: Record<string, EngineId> = {
 // Used if no exact slug match contains these keywords
 export const TOPIC_FALLBACKS: Record<string, EngineId> = {
     "tiktok": "tiktok-idea-batch",
+    "script": "tiktok-script-generator",
     "viral": "tiktok-idea-batch",
     "content": "tiktok-idea-batch",
     "warmup": "emailwarmup",
