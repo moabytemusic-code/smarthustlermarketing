@@ -1,0 +1,30 @@
+name: Engine Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  sync-engines:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Sync Script
+        run: node scripts/sync_engines.js
+
+      - name: Commit Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add src/data/engineMapping.ts
+          git commit -m "chore: sync engines from public api [skip ci]" || echo "No changes to sync"
+          git push origin main
