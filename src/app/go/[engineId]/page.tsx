@@ -10,8 +10,8 @@ const INTERNAL_TOOLS: Record<string, string> = {
     // Add other internal tools here as they are built
 };
 
-export default function EngineBayPage({ params }: { params: { engineId: string } }) {
-    const { engineId } = params;
+export default async function EngineBayPage({ params }: { params: Promise<{ engineId: string }> }) {
+    const { engineId } = await params;
     const engine = ENGINE_DETAILS[engineId];
 
     // 1. Direct Redirect for existing internal tools
