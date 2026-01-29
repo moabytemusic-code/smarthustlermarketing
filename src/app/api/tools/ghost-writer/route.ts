@@ -127,14 +127,16 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
 
         // Filter accounts (Basic logic)
         const availableAccounts = accountsList.filter((acc: any) => {
-            const type = (acc.type || acc.social_account?.type || '').toLowerCase();
-            if (platform === 'twitter' && type.includes('twitter')) return true;
-            if (platform === 'linkedin' && type.includes('linkedin')) return true;
+            // Note: ContentStudio JSON uses `platform` key (e.g. "twitter", "linkedin")
+            const accPlatform = (acc.platform || '').toLowerCase();
+
+            if (platform === 'twitter' && accPlatform === 'twitter') return true;
+            if (platform === 'linkedin' && accPlatform === 'linkedin') return true;
             return false;
         });
 
         if (availableAccounts.length === 0) {
-            console.warn(`[GhostWriter] No ${platform} accounts found in:`, accountsList.map((a: any) => a.type));
+            console.warn(`[GhostWriter] No ${platform} accounts found in:`, accountsList.map((a: any) => a.platform));
             return NextResponse.json({ error: `No connected ${platform} accounts found in ContentStudio.` }, { status: 400 });
         }
 
