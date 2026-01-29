@@ -174,17 +174,16 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
 
         const payload = {
             accounts: selectedAccountIds,
-            // content must be an array of objects.
-            // Explicitly defining type: 'text' might be the key.
-            content: [{
-                type: 'text',
-                content: content, // Some docs say 'content' is the value
-                text: content,    // Some say 'text'
-                body: content     // Some say 'body'
-            }],
+            // Strategy: "Mixed Hierarchy"
+            // 1. content: Array of strings (Satisfies "must be array" and "required")
+            // 2. caption/text/body: Root level fields (Common in social APIs)
+            content: [content],
+            caption: content,
+            text: content,
+            body: content,
 
             scheduling: {
-                publish_type: 'scheduled', // Changed from 'agenda' to 'scheduled'
+                publish_type: 'scheduled',
                 scheduled_at: scheduledTime,
                 timezone: "UTC"
             }
