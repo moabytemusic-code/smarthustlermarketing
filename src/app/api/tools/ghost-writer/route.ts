@@ -144,14 +144,16 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         const selectedAccountIds = [availableAccounts[0]._id || availableAccounts[0].id];
 
         // 2. Post to Composer
-        // Endpoint: /api/v1/posts/compose
+        // Endpoint: /api/v1/posts/compose -> /api/v1/workspaces/{workspaceId}/posts/compose or similar.
+        // Based on search: https://api.contentstudio.io/api/v1/workspaces/{workspace_id}/posts
+
         const payload = {
             message: content,
-            accounts: selectedAccountIds,
+            social_accounts: selectedAccountIds, // API likely uses social_accounts, not accounts
             status: 1 // 1 = Planned/Scheduled, 2 = Published
         };
 
-        const postUrl = `${CS_API_URL}/posts/compose`;
+        const postUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/posts/compose`;
         const postResponse = await fetch(postUrl, {
             method: 'POST',
             headers: {
