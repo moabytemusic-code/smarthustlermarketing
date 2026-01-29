@@ -161,12 +161,25 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
 
         // 2. Post to Composer
         // Endpoint: /api/v1/workspaces/{workspaceId}/posts (POST)
-        // Note: 'compose' endpoint might be legacy or UI specific. Official API usually uses /posts resource.
+
+        // Calculate Schedule Time (current time + 10 mins). Format: Y-m-d H:i
+        // Note: ContentStudio expects UTC or Workspace time. We'll send standard UTC format string.
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 10);
+        const scheduledTime = now.toISOString().replace('T', ' ').substring(0, 16);
 
         const payload = {
-            message: content,
-            social_accounts: selectedAccountIds,
-            status: 1 // 1 = Planned/Scheduled, 2 = Published
+            title: "Ghost Writer Auto-Draft",
+            content: content,
+            accounts: selectedAccountIds, // API Error said "accounts" or "content_category_id" required
+
+            scheduling: {
+                publish_type: "agenda", // 'now' rarely works via API without special perms, 'agenda' is safer
+                scheduled_at: scheduledTime,
+                timezone: "UTC"
+            },
+
+            // "status": 1 sometimes needed, sometimes implicit with publish_type
         };
 
         const postUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/posts`;
