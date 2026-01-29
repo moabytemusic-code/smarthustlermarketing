@@ -80,13 +80,25 @@ async function handleGeneration(inputText: string, slug?: string) {
     let rawContent = data.choices[0].message.content;
 
     // Clean markdown
-    rawContent = rawContent.replace(/^```json\n/, '').replace(/^```\n/, '').replace(/\n```$/, '');
+    rawContent = rawContent.replace(/^```json\s*/, '').replace(/^```\s*/, '').replace(/\s*```$/, '');
 
     try {
         const json = JSON.parse(rawContent);
         return NextResponse.json(json);
     } catch (e) {
-        return NextResponse.json({ error: "Failed to parse AI response", raw: rawContent }, { status: 500 });
+        // Fallback: Try to find JSON object with regex if standard parse fails
+        const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            try {
+                const json = JSON.parse(jsonMatch[0]);
+                return NextResponse.json(json);
+            } catch (e2) {
+                console.error("JSON Parse Error (Fallback):", e2);
+            }
+        }
+
+        console.error("AI returned invalid JSON:", rawContent);
+        return NextResponse.json({ error: "Failed to parse AI response. Try again.", raw: rawContent }, { status: 500 });
     }
 }
 
