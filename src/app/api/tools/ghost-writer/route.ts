@@ -91,61 +91,82 @@ async function handleGeneration(inputText: string, slug?: string) {
 }
 
 async function handleScheduling(content: string, platform: 'twitter' | 'linkedin') {
-    // ContentStudio /compose api
-    // Docs: https://docs.contentstudio.io/
+    console.log(`[GhostWriter] Scheduling to ${platform}...`);
 
-    const accountId = platform === 'twitter' ? 'YOUR_TWITTER_ID' : 'YOUR_LINKEDIN_ID';
-    // note: We need to fetch accounts first to get IDs, but for now we'll push to "Drafts" via general compose
+    try {
+        // 1. Get Accounts
+        const accUrl = `${CS_API_URL}/social-accounts?access_token=${CS_TOKEN}`;
+        const accResponse = await fetch(accUrl, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
 
-    // For now, let's just do a 'quick post' or verify token.
-    // ContentStudio API is tricky for specific accounts without listing them first.
-    // We will list accounts, pick the first one matching platform, and post.
+        const accText = await accResponse.text();
 
-    // 1. Get Accounts
-    const accResponse = await fetch(`${CS_API_URL}/social-accounts?access_token=${CS_TOKEN}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    });
+        if (!accResponse.ok) {
+            console.error(`[GhostWriter] CS Accounts Error (${accResponse.status}):`, accText);
+            return NextResponse.json({ error: `ContentStudio Error: ${accResponse.statusText} - ${accText.substring(0, 100)}` }, { status: accResponse.status });
+        }
 
-    const accData = await accResponse.json();
+        let accData;
+        try {
+            accData = JSON.parse(accText);
+        } catch (e) {
+            console.error("[GhostWriter] Failed to parse CS Accounts JSON:", accText);
+            return NextResponse.json({ error: "ContentStudio returned invalid JSON for accounts." }, { status: 502 });
+        }
 
-    if (!accData.status || !accData.data) {
-        return NextResponse.json({ error: "Failed to fetch social accounts from ContentStudio" }, { status: 500 });
+        if (!accData.status || !accData.data) {
+            return NextResponse.json({ error: "Failed to fetch social accounts from ContentStudio (Invalid Data Structure)" }, { status: 500 });
+        }
+
+        // Filter accounts (Basic logic)
+        const availableAccounts = accData.data.filter((acc: any) => {
+            if (platform === 'twitter' && acc.type === 'twitter') return true;
+            if (platform === 'linkedin' && (acc.type === 'linkedin' || acc.type === 'linkedin_page')) return true;
+            return false;
+        });
+
+        if (availableAccounts.length === 0) {
+            return NextResponse.json({ error: `No connected ${platform} accounts found in ContentStudio.` }, { status: 400 });
+        }
+
+        const selectedAccountIds = availableAccounts.map((a: any) => a._id);
+
+        // 2. Post to Composer
+        const payload = {
+            message: content,
+            accounts: selectedAccountIds,
+            status: 1 // 1 = Planned/Scheduled, 2 = Published
+        };
+
+        const postUrl = `${CS_API_URL}/posts/compose?access_token=${CS_TOKEN}`;
+        const postResponse = await fetch(postUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const postText = await postResponse.text();
+
+        if (!postResponse.ok) {
+            console.error(`[GhostWriter] CS Post Error (${postResponse.status}):`, postText);
+            return NextResponse.json({ error: `ContentStudio Post Error: ${postResponse.statusText}` }, { status: postResponse.status });
+        }
+
+        let postData;
+        try {
+            postData = JSON.parse(postText);
+        } catch (e) {
+            return NextResponse.json({ error: "ContentStudio returned invalid JSON for posting." }, { status: 502 });
+        }
+
+        return NextResponse.json(postData);
+
+    } catch (error: any) {
+        console.error("[GhostWriter] Scheduling Exception:", error);
+        return NextResponse.json({ error: error.message || "Unknown Scheduling Error" }, { status: 500 });
     }
-
-    // Filter accounts (Basic logic)
-    const availableAccounts = accData.data.filter((acc: any) => {
-        if (platform === 'twitter' && acc.type === 'twitter') return true;
-        if (platform === 'linkedin' && (acc.type === 'linkedin' || acc.type === 'linkedin_page')) return true;
-        return false;
-    });
-
-    if (availableAccounts.length === 0) {
-        return NextResponse.json({ error: `No connected ${platform} accounts found in ContentStudio.` }, { status: 400 });
-    }
-
-    const selectedAccountIds = availableAccounts.map((a: any) => a._id);
-
-    // 2. Post to Composer
-    const payload = {
-        message: content,
-        accounts: selectedAccountIds,
-        // scheduleAt: new Date(Date.now() + 3600 * 1000).toISOString(), // 1 hour from now
-        status: 1 // 1 = Planned/Scheduled, 2 = Published
-    };
-
-    // Note: The specific endpoint for creating a post might look different depending on version.
-    // Using /posts/compose based on common patterns, verifying docs is better but I'll try standard.
-
-    const postResponse = await fetch(`${CS_API_URL}/posts/compose?access_token=${CS_TOKEN}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-
-    const postData = await postResponse.json();
-
-    return NextResponse.json(postData);
 }
