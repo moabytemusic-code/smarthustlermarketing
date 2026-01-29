@@ -175,14 +175,12 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         const payload = {
             accounts: selectedAccountIds,
             // content must be an array of objects.
-            // We are unsure if it's 'body', 'text', 'description', or 'message'.
-            // Sending ALL of them to ensure text appears.
+            // Explicitly defining type: 'text' might be the key.
             content: [{
-                body: content,
-                text: content,
-                description: content,
-                message: content,
-                caption: content
+                type: 'text',
+                content: content, // Some docs say 'content' is the value
+                text: content,    // Some say 'text'
+                body: content     // Some say 'body'
             }],
 
             scheduling: {
