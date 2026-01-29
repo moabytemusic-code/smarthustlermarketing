@@ -180,25 +180,19 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         // 3. scheduled_at must be Y-m-d H:i:s
 
         const now = new Date();
-        now.setMinutes(now.getMinutes() + 15);
         // Format: YYYY-MM-DD HH:mm:ss
         const scheduledTime = now.toISOString().replace('T', ' ').substring(0, 19);
 
         const payload = {
             accounts: selectedAccountIds,
-            // Strategy: "Mixed Hierarchy"
-            // 1. content: Array of strings (Satisfies "must be array" and "required")
-            // 2. caption/text/body: Root level fields (Common in social APIs)
-            content: [{
-                type: 'text',
-                content: content,
-                text: content,
-                body: content,
-                message: content // Adding 'message' key as well based on extensive testing
-            }],
-            caption: content,
-            text: content,
-            body: content,
+            // According to official docs (https://api-prod.contentstudio.io/guide), 
+            // content is an OBJECT, not an array.
+            // "content": { "text": "...", "media": { ... } }
+            // Previous error "must be an array" might have been due to malformed object or wrong endpoint version.
+            // Let's try the EXACT structure from the docs.
+            content: {
+                text: content
+            },
 
             scheduling: {
                 publish_type: 'scheduled',
