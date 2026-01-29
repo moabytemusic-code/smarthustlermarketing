@@ -13,12 +13,12 @@ const PERPLEXITY_API_URL = 'https://api.perplexity.ai/chat/completions';
 
 export async function POST(request: Request) {
     try {
-        const { action, text, slug, platform, content } = await request.json();
+        const { action, text, slug, platform, content, imageUrl } = await request.json();
 
         if (action === 'generate') {
             return await handleGeneration(text, slug);
         } else if (action === 'schedule') {
-            return await handleScheduling(content, platform);
+            return await handleScheduling(content, platform, imageUrl);
         } else {
             return NextResponse.json({ error: 'Invalid Action' }, { status: 400 });
         }
@@ -102,8 +102,9 @@ async function handleGeneration(inputText: string, slug?: string) {
     }
 }
 
-async function handleScheduling(content: string, platform: 'twitter' | 'linkedin') {
+async function handleScheduling(content: string, platform: 'twitter' | 'linkedin', imageUrl?: string) {
     console.log(`[GhostWriter] Scheduling to ${platform}...`);
+    if (imageUrl) console.log(`[GhostWriter] With Image: ${imageUrl}`);
 
     try {
         // 1. Get Accounts (Paginated)
@@ -174,26 +175,26 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         // 2. Post to Composer
         // Endpoint: /api/v1/workspaces/{workspaceId}/posts (POST)
 
-        // Validation Fixes: 
-        // 1. content must be an array (of strings?) or objects? Usually it's text. Error says "must be an array".
-        // 2. publish_type must be: 'scheduled' (not 'agenda')
-        // 3. scheduled_at must be Y-m-d H:i:s
+        // Validation Fixes & Schema Alignment:
+        // content object with optional media. 
 
         const now = new Date();
         // Format: YYYY-MM-DD HH:mm:ss
         const scheduledTime = now.toISOString().replace('T', ' ').substring(0, 19);
 
+        const postContent: any = {
+            text: content
+        };
+
+        if (imageUrl && imageUrl.trim().startsWith('http')) {
+            postContent.media = {
+                images: [imageUrl.trim()]
+            };
+        }
+
         const payload = {
             accounts: selectedAccountIds,
-            // According to official docs (https://api-prod.contentstudio.io/guide), 
-            // content is an OBJECT, not an array.
-            // "content": { "text": "...", "media": { ... } }
-            // Previous error "must be an array" might have been due to malformed object or wrong endpoint version.
-            // Let's try the EXACT structure from the docs.
-            content: {
-                text: content
-            },
-
+            content: postContent,
             scheduling: {
                 publish_type: 'scheduled',
                 scheduled_at: scheduledTime,
