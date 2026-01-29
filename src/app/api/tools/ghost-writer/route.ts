@@ -94,49 +94,65 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
     console.log(`[GhostWriter] Scheduling to ${platform}...`);
 
     try {
-        // 1. Get Accounts
-        // Correct Endpoint: /api/v1/workspaces/{id}/accounts
-        const accUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/accounts`;
+        // 1. Get Accounts (Paginated)
+        // We need to fetch all pages to find the right account.
+        const allAccounts = [];
+        let page = 1;
+        let hasMore = true;
 
-        console.log(`[GhostWriter] Fetching accounts from: ${accUrl}`);
+        console.log(`[GhostWriter] Fetching all accounts...`);
 
-        const accResponse = await fetch(accUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-Key': CS_TOKEN // Must use Header, not query param
+        while (hasMore) {
+            const accUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/accounts?page=${page}`;
+            const accResponse = await fetch(accUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': CS_TOKEN
+                }
+            });
+
+            if (!accResponse.ok) {
+                const errorText = await accResponse.text();
+                // If page 1 fails, that's critical. If page 2 fails, we might still have data.
+                if (page === 1) {
+                    return NextResponse.json({ error: `ContentStudio Error: ${accResponse.statusText} - ${errorText.substring(0, 100)}` }, { status: accResponse.status });
+                }
+                console.warn(`[GhostWriter] Failed to fetch page ${page}, stopping.`);
+                break;
             }
-        });
 
-        const accText = await accResponse.text();
+            const accData = await accResponse.json();
+            const pageAccounts = Array.isArray(accData) ? accData : (accData.data || []);
 
-        if (!accResponse.ok) {
-            console.error(`[GhostWriter] CS Accounts Error (${accResponse.status}):`, accText);
-            return NextResponse.json({ error: `ContentStudio Error: ${accResponse.statusText} - ${accText.substring(0, 100)}` }, { status: accResponse.status });
+            if (pageAccounts.length > 0) {
+                allAccounts.push(...pageAccounts);
+            }
+
+            // Check pagination
+            // API returns: "current_page":1, "last_page":2
+            if (accData.last_page && accData.current_page < accData.last_page) {
+                page++;
+            } else {
+                hasMore = false;
+            }
+
+            // Safety break
+            if (page > 10) hasMore = false;
         }
 
-        let accData;
-        try {
-            accData = JSON.parse(accText);
-        } catch (e) {
-            console.error("[GhostWriter] Failed to parse CS Accounts JSON:", accText);
-            return NextResponse.json({ error: "ContentStudio returned invalid JSON for accounts." }, { status: 502 });
-        }
+        console.log(`[GhostWriter] Total accounts fetched: ${allAccounts.length}`);
 
-        const accountsList = Array.isArray(accData) ? accData : (accData.data || []);
-
-        // Filter accounts (Basic logic)
-        const availableAccounts = accountsList.filter((acc: any) => {
-            // Note: ContentStudio JSON uses `platform` key (e.g. "twitter", "linkedin")
+        // Filter accounts
+        const availableAccounts = allAccounts.filter((acc: any) => {
             const accPlatform = (acc.platform || '').toLowerCase();
-
             if (platform === 'twitter' && accPlatform === 'twitter') return true;
             if (platform === 'linkedin' && accPlatform === 'linkedin') return true;
             return false;
         });
 
         if (availableAccounts.length === 0) {
-            console.warn(`[GhostWriter] No ${platform} accounts found in:`, accountsList.map((a: any) => a.platform));
+            console.warn(`[GhostWriter] No ${platform} accounts found in:`, allAccounts.map((a: any) => a.platform));
             return NextResponse.json({ error: `No connected ${platform} accounts found in ContentStudio.` }, { status: 400 });
         }
 
@@ -144,12 +160,9 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         const selectedAccountIds = [availableAccounts[0]._id || availableAccounts[0].id];
 
         // 2. Post to Composer
-        // Endpoint: /api/v1/posts/compose -> /api/v1/workspaces/{workspaceId}/posts/compose or similar.
-        // Based on search: https://api.contentstudio.io/api/v1/workspaces/{workspace_id}/posts
-
         const payload = {
             message: content,
-            social_accounts: selectedAccountIds, // API likely uses social_accounts, not accounts
+            social_accounts: selectedAccountIds,
             status: 1 // 1 = Planned/Scheduled, 2 = Published
         };
 
