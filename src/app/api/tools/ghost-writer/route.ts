@@ -160,13 +160,16 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         const selectedAccountIds = [availableAccounts[0]._id || availableAccounts[0].id];
 
         // 2. Post to Composer
+        // Endpoint: /api/v1/workspaces/{workspaceId}/posts (POST)
+        // Note: 'compose' endpoint might be legacy or UI specific. Official API usually uses /posts resource.
+
         const payload = {
             message: content,
             social_accounts: selectedAccountIds,
             status: 1 // 1 = Planned/Scheduled, 2 = Published
         };
 
-        const postUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/posts/compose`;
+        const postUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/posts`;
         const postResponse = await fetch(postUrl, {
             method: 'POST',
             headers: {
