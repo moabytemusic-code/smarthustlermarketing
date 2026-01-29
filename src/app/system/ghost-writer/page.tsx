@@ -31,6 +31,7 @@ function BlogOptions() {
 export default function GhostWriter() {
     const [inputText, setInputText] = useState('');
     const [selectedSlug, setSelectedSlug] = useState(''); // Track slug
+    const [imageUrl, setImageUrl] = useState(''); // New Image State
     const [isGenerating, setIsGenerating] = useState(false);
     const [isScheduling, setIsScheduling] = useState(false); // New State
     const [outputs, setOutputs] = useState<{ twitter: string; linkedin: string } | null>(null);
@@ -82,7 +83,8 @@ export default function GhostWriter() {
                 body: JSON.stringify({
                     action: 'schedule',
                     platform: platform,
-                    content: content
+                    content: content,
+                    imageUrl: imageUrl // Pass the image URL
                 })
             });
 
@@ -177,15 +179,37 @@ export default function GhostWriter() {
                                 color: '#fff',
                                 fontSize: '1rem',
                                 lineHeight: '1.6',
-                                resize: 'vertical'
+                                resize: 'vertical',
+                                marginBottom: '1rem'
                             }}
                         />
+
+                        {/* Image Attachment Input */}
+                        <div style={{ marginBottom: '1rem' }}>
+                            <label style={{ display: 'block', fontSize: '0.9rem', color: '#94a3b8', marginBottom: '0.5rem' }}>
+                                🖼️ Attachment Image URL (Optional)
+                            </label>
+                            <input
+                                type="text"
+                                value={imageUrl}
+                                onChange={(e) => setImageUrl(e.target.value)}
+                                placeholder="https://..."
+                                style={{
+                                    width: '100%',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    color: '#fff',
+                                    padding: '0.5rem',
+                                    borderRadius: '0.5rem'
+                                }}
+                            />
+                        </div>
 
                         <button
                             onClick={handleGenerate}
                             disabled={isGenerating || !inputText}
                             className="btn-premium"
-                            style={{ width: '100%', marginTop: '1.5rem', justifyContent: 'center' }}
+                            style={{ width: '100%', marginTop: '1rem', justifyContent: 'center' }}
                         >
                             {isGenerating ? (
                                 <>
