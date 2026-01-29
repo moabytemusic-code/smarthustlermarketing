@@ -174,7 +174,9 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
 
         const payload = {
             accounts: selectedAccountIds,
-            content: [content], // API demands array
+            // content must be an array of objects for the API, usually with a 'body' or 'text' key.
+            // Based on standard patterns, let's try { body: ... }
+            content: [{ body: content }],
 
             scheduling: {
                 publish_type: 'scheduled', // Changed from 'agenda' to 'scheduled'
