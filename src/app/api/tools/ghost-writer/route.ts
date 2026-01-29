@@ -95,10 +95,17 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
 
     try {
         // 1. Get Accounts
-        const accUrl = `${CS_API_URL}/social-accounts?access_token=${CS_TOKEN}`;
+        // Correct Endpoint: /api/v1/workspaces/{id}/accounts
+        const accUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/accounts`;
+
+        console.log(`[GhostWriter] Fetching accounts from: ${accUrl}`);
+
         const accResponse = await fetch(accUrl, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': CS_TOKEN // Must use Header, not query param
+            }
         });
 
         const accText = await accResponse.text();
@@ -116,35 +123,38 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
             return NextResponse.json({ error: "ContentStudio returned invalid JSON for accounts." }, { status: 502 });
         }
 
-        if (!accData.status || !accData.data) {
-            return NextResponse.json({ error: "Failed to fetch social accounts from ContentStudio (Invalid Data Structure)" }, { status: 500 });
-        }
+        const accountsList = Array.isArray(accData) ? accData : (accData.data || []);
 
         // Filter accounts (Basic logic)
-        const availableAccounts = accData.data.filter((acc: any) => {
-            if (platform === 'twitter' && acc.type === 'twitter') return true;
-            if (platform === 'linkedin' && (acc.type === 'linkedin' || acc.type === 'linkedin_page')) return true;
+        const availableAccounts = accountsList.filter((acc: any) => {
+            const type = (acc.type || acc.social_account?.type || '').toLowerCase();
+            if (platform === 'twitter' && type.includes('twitter')) return true;
+            if (platform === 'linkedin' && type.includes('linkedin')) return true;
             return false;
         });
 
         if (availableAccounts.length === 0) {
+            console.warn(`[GhostWriter] No ${platform} accounts found in:`, accountsList.map((a: any) => a.type));
             return NextResponse.json({ error: `No connected ${platform} accounts found in ContentStudio.` }, { status: 400 });
         }
 
-        const selectedAccountIds = availableAccounts.map((a: any) => a._id);
+        // Use the first match
+        const selectedAccountIds = [availableAccounts[0]._id || availableAccounts[0].id];
 
         // 2. Post to Composer
+        // Endpoint: /api/v1/posts/compose
         const payload = {
             message: content,
             accounts: selectedAccountIds,
             status: 1 // 1 = Planned/Scheduled, 2 = Published
         };
 
-        const postUrl = `${CS_API_URL}/posts/compose?access_token=${CS_TOKEN}`;
+        const postUrl = `${CS_API_URL}/posts/compose`;
         const postResponse = await fetch(postUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-API-Key': CS_TOKEN
             },
             body: JSON.stringify(payload)
         });
