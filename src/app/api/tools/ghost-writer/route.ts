@@ -177,7 +177,13 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
             // Strategy: "Mixed Hierarchy"
             // 1. content: Array of strings (Satisfies "must be array" and "required")
             // 2. caption/text/body: Root level fields (Common in social APIs)
-            content: [content],
+            content: [{
+                type: 'text',
+                content: content,
+                text: content,
+                body: content,
+                message: content // Adding 'message' key as well based on extensive testing
+            }],
             caption: content,
             text: content,
             body: content,
