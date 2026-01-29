@@ -1,7 +1,15 @@
-
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Activity, Layout, CheckCircle } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'The Smart Hustler System | Complete Marketing Ecosystem',
+    description: 'One complete system. Education, diagnostics, and deployment tools. Master the Smarthustler ecosystem to build your digital income streams.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/system',
+    }
+};
 
 export default function SystemPage() {
     return (

@@ -20,12 +20,18 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), 'src/content/posts', `${slug}.md`), 'utf-8');
     const { data: frontmatter } = matter(markdownWithMeta);
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://smarthustlermarketing.com';
+
     return {
         title: `${frontmatter.title} | Smart Hustler Marketing`,
         description: frontmatter.excerpt,
+        alternates: {
+            canonical: `${baseUrl}/blog/${slug}`,
+        },
         openGraph: {
             title: frontmatter.title,
             description: frontmatter.excerpt,
+            url: `${baseUrl}/blog/${slug}`,
             type: 'article',
             authors: [frontmatter.author || 'Smart Hustler Team'],
             publishedTime: frontmatter.date,
@@ -42,9 +48,11 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 export async function generateStaticParams() {
     const files = fs.readdirSync(path.join(process.cwd(), 'src/content/posts'));
 
-    return files.map(filename => ({
-        slug: filename.replace('.md', ''),
-    }));
+    return files
+        .filter(filename => filename.endsWith('.md'))
+        .map(filename => ({
+            slug: filename.replace('.md', ''),
+        }));
 }
 
 // 3. The Page Component

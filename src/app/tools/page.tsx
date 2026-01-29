@@ -3,6 +3,15 @@ import Link from 'next/link';
 import { ArrowRight, Calculator, Search, Zap, Activity } from 'lucide-react';
 import SignalEngineCard from '../../components/SignalEngineCard';
 import { ENGINE_DETAILS, getEngineUrl } from '../../data/engineMapping';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'The Growth Arsenal | Free Marketing Tools',
+    description: 'Battle-tested free utilities for solopreneurs. Micro-Niche Finders, Freedom Calculators, and AI Marketing Agents.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/tools',
+    }
+};
 
 export default function ToolsHub() {
     return (
@@ -57,10 +66,25 @@ export default function ToolsHub() {
                         </div>
                     </div>
 
-                    {/* Tool 3: AI Agents Suite */}
+                    {/* Tool 3: Ghost Writer (New) */}
+                    <div className="card-premium">
+                        <div className="card-icon" style={{ background: 'rgba(234, 179, 8, 0.1)' }}>
+                            <Zap size={32} color="#eab308" />
+                        </div>
+                        <h3>Ghost Writer</h3>
+                        <p>Turn one boring thought into a viral Thread and a LinkedIn thought-leader post. Instant repurposing engine.</p>
+
+                        <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+                            <Link href="/tools/ghost-writer" className="btn-premium" style={{ display: 'inline-block', width: '100%', textAlign: 'center', background: '#eab308', boxShadow: '0 10px 15px -3px rgba(234, 179, 8, 0.2)' }}>
+                                Open Tool <ArrowRight className="inline ml-2 w-4 h-4" />
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Tool 4: AI Agents Suite */}
                     <div className="card-premium">
                         <div className="card-icon" style={{ background: 'rgba(168, 85, 247, 0.1)' }}>
-                            <Zap size={32} color="#a855f7" />
+                            <Activity size={32} color="#a855f7" />
                         </div>
                         <h3>AI Agent Suite</h3>
                         <p>Next-Gen Tools: Campaign Architect, Faceless Director, and Reply Guy Bot. Automate the work itself.</p>

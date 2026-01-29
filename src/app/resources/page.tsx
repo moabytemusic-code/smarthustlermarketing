@@ -6,6 +6,15 @@ import Image from 'next/image';
 import SignalEngineCard from '../../components/SignalEngineCard';
 import { ENGINE_DETAILS, getEngineUrl } from '../../data/engineMapping';
 import { ArrowRight } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Resources & Toolkit | Smart Hustler Marketing Stack',
+    description: 'The software, services, and secret weapons behind our 6-figure automated business. Explore our curated toolbox and diagnostics.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/resources',
+    }
+};
 
 async function getOffers() {
     const filePath = path.join(process.cwd(), 'src/content/campaigns/affiliate_offers.json');

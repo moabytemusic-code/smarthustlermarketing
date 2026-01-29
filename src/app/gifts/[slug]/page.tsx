@@ -5,6 +5,32 @@ import remarkGfm from 'remark-gfm';
 import Navbar from '../../../components/Navbar';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+    const { slug } = await params;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://smarthustlermarketing.com';
+
+    return {
+        title: `${slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')} | Multi-Bonus Gift`,
+        description: 'Free member resource from Smart Hustler Marketing.',
+        alternates: {
+            canonical: `${baseUrl}/gifts/${slug}`,
+        }
+    };
+}
+
+export async function generateStaticParams() {
+    const giftsDir = path.join(process.cwd(), 'src/content/gifts');
+    if (!fs.existsSync(giftsDir)) return [];
+
+    const files = fs.readdirSync(giftsDir);
+    return files
+        .filter(filename => filename.endsWith('.md'))
+        .map(filename => ({
+            slug: filename.replace('.md', ''),
+        }));
+}
 
 interface PageProps {
     params: Promise<{

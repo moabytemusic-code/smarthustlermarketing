@@ -1,5 +1,14 @@
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'About Us | The Smart Hustler Philosophy',
+    description: 'Most side hustles are just second jobs. At Smart Hustler, we build automated income assets that pay us forever. Learn about our mission and the 5-step asset blueprint.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/about',
+    }
+};
 
 export default function About() {
     return (

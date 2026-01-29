@@ -1,6 +1,15 @@
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import NewsletterForm from '../components/NewsletterForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Smart Hustler Marketing | Tools & Tactics for Solopreneurs',
+    description: 'Unlock high-performance tools, battle-tested tactics, and expert-led training for the modern entrepreneur. Stop chasing trends—start building assets.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com',
+    }
+};
 
 // Import fs to read products
 import { promises as fs } from 'fs';

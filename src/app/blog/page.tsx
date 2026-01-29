@@ -1,9 +1,17 @@
-
 import Navbar from '../../components/Navbar';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Insights | Smart Hustler Marketing Blog',
+    description: 'Strategies, case studies, and industry shifts that impact your bottom line. Read our latest marketing insights.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/blog',
+    }
+};
 
 // Helper to get posts
 const getPosts = () => {

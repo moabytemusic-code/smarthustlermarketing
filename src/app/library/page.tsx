@@ -5,8 +5,11 @@ import BookModal from '../../components/BookModal';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Library | Smart Hustler Marketing',
-    description: 'Essential reading for the anti-passive entrepreneur. Build assets, not jobs.',
+    title: 'The Archives | Smart Hustler Marketing Library',
+    description: 'Essential reading for the anti-passive entrepreneur. Foundational knowledge for building equity and assets, not just jobs.',
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/library',
+    }
 };
 
 async function getProducts() {

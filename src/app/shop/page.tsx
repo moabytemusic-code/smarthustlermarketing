@@ -8,7 +8,10 @@ import BuyButton from '../../components/BuyButton';
 export const metadata: Metadata = {
     title: 'Shop | Smart Hustler Marketing',
     description: 'Premium templates, courses, and systems for the active asset builder.',
-    keywords: ['Asset Building', 'Business Systems', 'Notion Templates for Business', 'Scale Consulting']
+    keywords: ['Asset Building', 'Business Systems', 'Notion Templates for Business', 'Scale Consulting'],
+    alternates: {
+        canonical: 'https://smarthustlermarketing.com/shop',
+    }
 };
 
 async function getProducts() {
