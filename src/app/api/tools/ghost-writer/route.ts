@@ -162,24 +162,25 @@ async function handleScheduling(content: string, platform: 'twitter' | 'linkedin
         // 2. Post to Composer
         // Endpoint: /api/v1/workspaces/{workspaceId}/posts (POST)
 
-        // Calculate Schedule Time (current time + 10 mins). Format: Y-m-d H:i
-        // Note: ContentStudio expects UTC or Workspace time. We'll send standard UTC format string.
+        // Validation Fixes: 
+        // 1. content must be an array (of strings?) or objects? Usually it's text. Error says "must be an array".
+        // 2. publish_type must be: 'scheduled' (not 'agenda')
+        // 3. scheduled_at must be Y-m-d H:i:s
+
         const now = new Date();
-        now.setMinutes(now.getMinutes() + 10);
-        const scheduledTime = now.toISOString().replace('T', ' ').substring(0, 16);
+        now.setMinutes(now.getMinutes() + 15);
+        // Format: YYYY-MM-DD HH:mm:ss
+        const scheduledTime = now.toISOString().replace('T', ' ').substring(0, 19);
 
         const payload = {
-            title: "Ghost Writer Auto-Draft",
-            content: content,
-            accounts: selectedAccountIds, // API Error said "accounts" or "content_category_id" required
+            accounts: selectedAccountIds,
+            content: [content], // API demands array
 
             scheduling: {
-                publish_type: "agenda", // 'now' rarely works via API without special perms, 'agenda' is safer
+                publish_type: 'scheduled', // Changed from 'agenda' to 'scheduled'
                 scheduled_at: scheduledTime,
                 timezone: "UTC"
-            },
-
-            // "status": 1 sometimes needed, sometimes implicit with publish_type
+            }
         };
 
         const postUrl = `${CS_API_URL}/workspaces/${WORKSPACE_ID}/posts`;
