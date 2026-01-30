@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
                 email: email,
-                listIds: [2, 3], // Master List + Niche Finder Users
+                listIds: [58, 59], // Master List + Niche Finder Users
                 updateEnabled: true,
                 attributes: {
                     SOURCE: 'niche_finder',
