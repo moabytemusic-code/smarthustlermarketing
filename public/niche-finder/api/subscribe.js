@@ -20,11 +20,13 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
                 email: email,
-                listIds: [57],
+                listIds: [2, 3], // Master List + Niche Finder Users
                 updateEnabled: true,
                 attributes: {
-                    SOURCE: 'SignalEngines_LP',
-                    INTEREST: keyword || 'General'
+                    SOURCE: 'niche_finder',
+                    KEYWORD: keyword || 'unknown',
+                    SIGNUP_DATE: new Date().toISOString(),
+                    TOOL_USED: 'niche_finder'
                 }
             })
         });
