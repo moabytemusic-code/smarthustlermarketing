@@ -10,6 +10,7 @@ export default async function Success(props: {
         '2': { name: 'Email Mastery Course', file: '/products_pdf/Email_Mastery_Course.pdf' },
         '3': { name: 'AI Content System', file: '/products_pdf/AI_Content_System.pdf' },
         '4': { name: 'SEO Power Pack', file: '/products_pdf/SEO_Power_Pack.pdf' },
+        'prod-micro-niche-finder': { name: 'Micro Niche Finder AI', file: '/products_pdf/Micro_Niche_Finder.pdf' },
         'weekly-bundle-standard': { name: 'The Friday Drop (Standard Bundle)', file: '/Weekly_Deal_Bundle.zip' },
         'weekly-bundle-reseller': { name: 'The Friday Drop (Reseller Bundle)', file: '/Weekly_Deal_Bundle.zip' }
     };
