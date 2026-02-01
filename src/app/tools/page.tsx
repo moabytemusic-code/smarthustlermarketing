@@ -45,9 +45,9 @@ export default function ToolsHub() {
                         <p>AI-powered market scanner. Uncover untapped, high-cpc sub-niches in seconds before the competition does.</p>
 
                         <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
-                            <Link href="/tools/micro-niche-finder" className="btn-premium" style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+                            <a href="https://micro-niche-finder.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-premium" style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
                                 Launch Tool <ArrowRight className="inline ml-2 w-4 h-4" />
-                            </Link>
+                            </a>
                         </div>
                     </div>
 
