@@ -26,9 +26,15 @@ export async function POST(request: Request) {
         'book-equity-engine': 56
     };
 
-    // Determine Lists (Always add to Master 51)
-    const listsToAdd = [51];
-    if (source && listMap[source]) {
+    // Determine Lists (Master 51 + Specifics)
+    let listsToAdd = [51];
+
+    // Add to 'SignalEngines NicheFinder' list (59) if applicable
+    if (source === 'micro-niche-finder') {
+        listsToAdd.push(59);
+    }
+    // Add other book lists
+    else if (source && listMap[source]) {
         listsToAdd.push(listMap[source]);
     }
 
@@ -41,8 +47,11 @@ export async function POST(request: Request) {
     const attributes: Record<string, string> = {};
 
     if (source === 'micro-niche-finder') {
-        attributes["SOURCE_TAG"] = "micro_niche_finder_user";
-        attributes["LAST_SEARCH_TERM"] = productTitle || ""; // Save their niche idea
+        // Updated to match reference repo: SignalEngines_LP & INTEREST
+        attributes["SOURCE"] = "SignalEngines_LP"; // This triggers the automation
+        attributes["INTEREST"] = productTitle || "General";
+        attributes["SOURCE_TAG"] = "micro_niche_finder_user"; // Keeping backward compatibility just in case
+        attributes["LAST_SEARCH_TERM"] = productTitle || "";
     } else {
         attributes["SOURCE_TAG"] = specificTag;
     }
