@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         'book-passive-trap': 52,
         'book-owned-assets': 53,
         'book-anti-passive-manifesto': 54,
-        'book-leverage': 55, // Note: ID in products.json might be 'book-leverage-over-luck' or 'book-leverage' - checking logic below
+        'book-leverage': 55,
         'book-leverage-over-luck': 55,
         'book-equity-engine': 56
     };
@@ -37,10 +37,17 @@ export async function POST(request: Request) {
     createContact.listIds = listsToAdd;
     createContact.updateEnabled = true;
 
-    // Save the tag as an attribute for Automation Triggers
-    createContact.attributes = {
-        "SOURCE_TAG": specificTag // e.g. "interest:book-passive-trap"
-    };
+    // Attributes (Custom Tags handled via attributes in workflows)
+    const attributes: Record<string, string> = {};
+
+    if (source === 'micro-niche-finder') {
+        attributes["SOURCE_TAG"] = "micro_niche_finder_user";
+        attributes["LAST_SEARCH_TERM"] = productTitle || ""; // Save their niche idea
+    } else {
+        attributes["SOURCE_TAG"] = specificTag;
+    }
+
+    createContact.attributes = attributes;
 
     try {
         await apiInstance.createContact(createContact);

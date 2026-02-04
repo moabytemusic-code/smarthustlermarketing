@@ -1,0 +1,230 @@
+# Antigravity Instructions: Brevo Email Automation Setup
+
+## Context for Antigravity
+
+You are helping set up an automated email nurture campaign in Brevo for Smart Hustler Marketing. The campaign targets new subscribers who join via the Micro-Niche Finder tool and guides them through a 30-day journey from free tools to paid products.
+
+---
+
+## Login Credentials
+
+**Brevo Account:**
+- URL: https://app.brevo.com/account/login
+- Email: ken@smarthustlermarketing.com
+- Password: 4FSup4wgn2aTAjt
+
+---
+
+## Your Task
+
+Set up a complete email automation workflow in Brevo with the following components:
+
+### 1. Create Tags
+Navigate to **Contacts → Settings → Tags** and create these tags:
+
+- `micro_niche_finder_user` (entry point)
+- `tool_user_active` (clicked 3+ tools)
+- `interested_affiliate` (clicked Affiliate Jumpstart)
+- `buyer_low_ticket` (purchased $47-97 products)
+- `buyer_high_ticket` (purchased $197+ products)
+- `signal_engines_user` (used Signal Engines tools)
+
+### 2. Create the Automation Workflow
+
+Go to **Automation → Create a new workflow**
+
+**Workflow Name:** "Smart Hustler 30-Day Nurture"
+
+**Entry Point:** Contact is added with tag `micro_niche_finder_user`
+
+### 3. Build the Email Sequence
+
+Create these 12 emails with the specified delays:
+
+#### Email 1 (Day 0 - Immediate)
+- **Subject:** "✅ Your Micro-Niche Results + 3 Free Tools Inside"
+- **Delay:** Send immediately on tag addition
+- **Content Focus:** Welcome, recap niche results, introduce Freedom Calculator, Ghost Writer, link to The Equity Engine book
+- **CTA:** Read The Equity Engine → smarthustlermarketing.com/library
+
+#### Email 2 (Day 1)
+- **Subject:** "🚨 Your email might be landing in spam (free scan)"
+- **Delay:** 24 hours after Email 1
+- **Content Focus:** Email deliverability importance, introduce Signal Engines
+- **CTA:** Run Email Reputation Check → warmup.signalengines.com
+
+#### Email 3 (Day 3)
+- **Subject:** "📚 The 5 books that changed how I build businesses"
+- **Delay:** 48 hours after Email 2
+- **Content Focus:** Introduce The Archives (The Passive Trap, Owned Assets, Anti-Passive Manifesto)
+- **CTA:** Download all 5 free → smarthustlermarketing.com/library
+
+#### Email 4 (Day 5)
+- **Subject:** "Why 'passive income' is a scam (and what to build instead)"
+- **Delay:** 48 hours after Email 3
+- **Content Focus:** Philosophy - active assets compound, passive income plateaus
+- **CTA:** See the full Asset Blueprint (tease the course)
+
+#### Email 5 (Day 7)
+- **Subject:** "🎯 Stuck on what to post? Generate 10 viral ideas in 30 seconds"
+- **Delay:** 48 hours after Email 4
+- **Content Focus:** Introduce TikTok Viral Idea Batch tool
+- **CTA:** Generate ideas → ideas.signalengines.com
+- **Automation:** IF clicked link containing "affiliate" → Add tag `interested_affiliate`
+
+#### Email 6 (Day 10)
+- **Subject:** "The Notion system I use to run 7 figures (free tour)"
+- **Delay:** 72 hours after Email 5
+- **Content Focus:** Behind-the-scenes of Founder's Operating System
+- **CTA:** Get the full template → smarthustlermarketing.com/shop (soft sell)
+
+#### Email 7 (Day 14) - FIRST PAID OFFER
+- **Subject:** "💰 How I made $47K last month from affiliate commissions"
+- **Delay:** 96 hours after Email 6
+- **Content Focus:** Case study on Asset Pages strategy
+- **CTA:** Get the Affiliate Jumpstart Blueprint ($97) → smarthustlermarketing.com/shop
+- **Automation:** IF purchased → Add tag `buyer_low_ticket` and exit to "Buyer Nurture" workflow
+
+#### Email 8 (Day 16) - TRIPWIRE
+- **Subject:** "🎁 Special: The Viral Content Engine (48-hour discount)"
+- **Delay:** 48 hours after Email 7
+- **Content Focus:** Problem: inconsistent posting. Solution: Production Kanban system
+- **Offer:** Viral Content Engine at 30% off ($67 → $47)
+- **CTA:** Get instant access → smarthustlermarketing.com/shop
+- **Automation:** IF purchased → Add tag `buyer_low_ticket`
+
+#### Email 9 (Day 18)
+- **Subject:** "The 3-tool stack that saved me 15 hours this week"
+- **Delay:** 48 hours after Email 8
+- **Content Focus:** Workflow integration (Micro-Niche Finder → Ghost Writer → TikTok Script Generator)
+- **CTA:** Bookmark the Growth Arsenal → smarthustlermarketing.com/tools
+
+#### Email 10 (Day 21)
+- **Subject:** "Are you building assets or just making content?"
+- **Delay:** 72 hours after Email 9
+- **Content Focus:** Philosophy - content ≠ assets unless it compounds
+- **CTA:** Watch the free intro module → Active Asset Blueprint course
+
+#### Email 11 (Day 25)
+- **Subject:** "📊 Your business health scorecard"
+- **Delay:** 96 hours after Email 10
+- **Content Focus:** Interactive diagnostic questions
+- **CTA:** Fix what's broken → signalengines.com/engines
+
+#### Email 12 (Day 30)
+- **Subject:** "What's next for your empire?"
+- **Delay:** 120 hours after Email 11
+- **Content Focus:** Transition to ongoing value
+- **CTA:** Join weekly newsletter, reply with what you're building
+- **Automation:** Add to list "Weekly Signal Newsletter" and exit workflow
+
+---
+
+## Product Funnel Reference
+
+**Free Tier:**
+- Micro-Niche Finder, Freedom Calculator, Ghost Writer
+- Signal Engines tools
+- The Archives (5 free books)
+
+**Low-Ticket ($47-97):**
+- Viral Content Engine ($47 tripwire)
+- Affiliate Jumpstart ($97)
+- High-Ticket Authority Kit ($97)
+
+**Mid-Ticket ($197-497):**
+- Founder's Operating System ($197-497)
+- Active Asset Blueprint (course)
+
+**High-Ticket ($997+):**
+- Real Business Roadmap (coaching)
+- Smart Hustler Empire Bundle
+
+---
+
+## Email Template Format
+
+Use this structure for each email (plain text is fine to start):
+
+```
+Subject: [Subject line from above]
+
+Hey {{ contact.FIRSTNAME | default: "there" }},
+
+[Opening hook - 1-2 sentences]
+
+[Main content - 3-5 short paragraphs]
+
+[CTA with clear link]
+
+[Sign-off]
+
+P.S. [Engagement prompt - ask a question or tease next email]
+```
+
+---
+
+## Purchase Tracking Setup
+
+After creating the workflow, set up purchase tracking:
+
+1. Go to **Automation → Integrations**
+2. Connect Stripe or Gumroad
+3. Create automation: "When payment succeeds for [Product Name] → Add tag `buyer_low_ticket`"
+
+---
+
+## Testing Checklist
+
+Before launching:
+- [ ] Add yourself as test contact with tag `micro_niche_finder_user`
+- [ ] Verify Email 1 sends immediately
+- [ ] Check delays are working (24h, 48h, etc.)
+- [ ] Test link tracking
+- [ ] Verify tags are applied correctly
+- [ ] Check unsubscribe link works
+
+---
+
+## Success Metrics to Monitor
+
+Track in Brevo dashboard:
+- Open Rate: Target 35%+
+- Click Rate: Target 8%+
+- Unsubscribe Rate: Keep below 0.5%
+- First Purchase Rate: Target 3-7% within 30 days
+
+---
+
+## Additional Context
+
+**Philosophy:** This campaign follows "Give, Give, Give, Offer" but with a strategic twist:
+- Days 0-7: 100% value (tools + free books)
+- Days 8-14: 75% value, 25% soft sell
+- Days 15-30: 50/50 (tools + offers)
+
+**Cross-Promotion:** Integrate Smart Hustler Marketing products with Signal Engines tools throughout the sequence.
+
+**Segmentation:** Use tags to create different paths for engaged users, buyers, and inactive subscribers.
+
+---
+
+## Questions to Ask Me If Needed
+
+If you encounter any issues or need clarification:
+1. Should I write the full email copy for each email?
+2. Do you want HTML templates or plain text?
+3. Should I set up A/B testing for subject lines?
+4. Do you want me to create the "Buyer Nurture" sequence as well?
+
+---
+
+## Final Notes
+
+This is a high-value automation that will run 24/7 once set up. Take your time to ensure:
+- All links are correct
+- Tags are spelled consistently
+- Delays are accurate
+- Email copy is compelling
+
+Good luck! This should take about 30-45 minutes to complete.
