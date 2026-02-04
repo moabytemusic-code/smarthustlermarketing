@@ -40,6 +40,7 @@ export default function Navbar() {
 
                     <Link href="/shop">Shop</Link>
                     <Link href="/about">About</Link>
+                    <Link href="/tools/micro-niche-finder">Niche-Finder-Tool</Link>
                     <a href={signalEnginesUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#60a5fa', fontWeight: 'bold' }}>Run a Scan</a>
 
                     <div style={{ marginLeft: '1rem', marginRight: '0.5rem' }}>
@@ -89,6 +90,7 @@ export default function Navbar() {
 
                 <Link href="/shop" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
                 <Link href="/about" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                <Link href="/tools/micro-niche-finder" style={{ fontSize: '1.5rem', fontWeight: 700 }} onClick={() => setIsMobileMenuOpen(false)}>Niche-Finder-Tool</Link>
                 <a href={signalEnginesUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.5rem', fontWeight: 700, color: '#60a5fa' }} onClick={() => setIsMobileMenuOpen(false)}>Run a Scan</a>
                 <div onClick={() => setIsMobileMenuOpen(false)} style={{ transform: 'scale(1.5)' }}>
                     <ThemeToggle />

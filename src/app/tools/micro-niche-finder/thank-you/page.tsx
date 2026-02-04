@@ -32,8 +32,11 @@ export default function ThankYouPage() {
             <div className="background-mesh"></div>
 
             <nav className="signal-navbar">
-                <div className="logo">
+                <Link href="/tools/micro-niche-finder" className="logo" style={{ textDecoration: 'none', color: 'white', display: 'flex', alignItems: 'center' }}>
                     <span style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}>⚡</span> SIGNAL ENGINES
+                </Link>
+                <div className="nav-links">
+                    <Link href="/">Back to Main Site</Link>
                 </div>
             </nav>
 

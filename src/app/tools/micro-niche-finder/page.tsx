@@ -12,10 +12,11 @@ export default function MicroNicheFinderPage() {
 
             {/* --- SIGNAL ENGINES NAVBAR --- */}
             <nav className="signal-navbar">
-                <div className="logo">
+                <Link href="/tools/micro-niche-finder" className="logo" style={{ textDecoration: 'none', color: 'white', display: 'flex', alignItems: 'center' }}>
                     <span style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}>⚡</span> SIGNAL ENGINES
-                </div>
+                </Link>
                 <div className="nav-links">
+                    <Link href="/">Back to Main Site</Link>
                     <Link href="#">Analysis Tool</Link>
                     <Link href="#">Case Studies</Link>
                     <button className="btn-secondary">
