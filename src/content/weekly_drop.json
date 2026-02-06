@@ -1,7 +1,7 @@
 {
-    "weekNumber": 46,
-    "theme": "The Marketing Authority Protocol",
-    "dropDate": "2026-01-30",
+    "weekNumber": 47,
+    "theme": "The Authority Profit Protocol",
+    "dropDate": "2026-02-06",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,19 +38,19 @@
     ],
     "affiliateOffers": [
         {
-            "id": "5-dollar-friday---agency-license",
-            "title": "5 Dollar Friday - Agency License",
-            "description": "Sell these services to your own clients.",
+            "id": "5-dollar-friday---offer-85",
+            "title": "5 Dollar Friday - Offer 85",
+            "description": "Exclusive partner offer.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-84.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-85.html",
             "badge": "High Commission"
         },
         {
-            "id": "5-dollar-friday---social-dominator",
-            "title": "5 Dollar Friday - Social Dominator",
-            "description": "Automate your social media presence.",
+            "id": "5-dollar-friday---offer-106",
+            "title": "5 Dollar Friday - Offer 106",
+            "description": "Exclusive partner offer.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-86.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-106.html",
             "badge": "High Commission"
         }
     ]
