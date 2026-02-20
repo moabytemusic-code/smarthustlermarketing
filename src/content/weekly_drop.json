@@ -1,7 +1,7 @@
 {
-    "weekNumber": 48,
-    "theme": "The Marketing Authority Protocol",
-    "dropDate": "2026-02-13",
+    "weekNumber": 49,
+    "theme": "The Authority Profit Protocol",
+    "dropDate": "2026-02-20",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,19 +38,19 @@
     ],
     "affiliateOffers": [
         {
-            "id": "5-dollar-friday---affiliate-pro",
-            "title": "5 Dollar Friday - Affiliate Pro",
-            "description": "Tools designed specifically for affiliate success.",
+            "id": "5-dollar-friday---offer-76",
+            "title": "5 Dollar Friday - Offer 76",
+            "description": "Exclusive partner offer.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-99.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-76.html",
             "badge": "High Commission"
         },
         {
-            "id": "5-dollar-friday---ad-copilot",
-            "title": "5 Dollar Friday - Ad Copilot",
-            "description": "Write high-converting ad copy instantly.",
+            "id": "5-dollar-friday---content-engine",
+            "title": "5 Dollar Friday - Content Engine",
+            "description": "Never run out of content ideas again.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-94.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-12.html",
             "badge": "High Commission"
         }
     ]
