@@ -1,7 +1,7 @@
 {
-    "weekNumber": 50,
-    "theme": "The Authority Profit Pack",
-    "dropDate": "2026-02-27",
+    "weekNumber": 51,
+    "theme": "The Income Automation Protocol",
+    "dropDate": "2026-03-06",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,20 +38,19 @@
     ],
     "affiliateOffers": [
         {
-            "id": "5-dollar-friday---content-engine",
-            "title": "5 Dollar Friday - Content Engine",
-            "description": "Never run out of content ideas again.",
+            "id": "5-dollar-friday---webinar-kit",
+            "title": "5 Dollar Friday - Webinar Kit",
+            "description": "Host webinars that sell on autopilot.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-12.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-93.html",
             "badge": "High Commission"
         },
         {
-            "id": "5-dollar-friday---graphics-pack",
-            "title": "5 Dollar Friday - Graphics Pack",
-            "description": "Professional graphics for your website and socials.",
+            "id": "warm-up-hero",
+            "title": "Warm-Up Hero",
+            "description": "Stop landing in spam with AI-driven email warm-up.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-83.html",
-            "badge": "High Commission"
+            "link": "https://warmup.signalengines.com"
         }
     ]
 }
