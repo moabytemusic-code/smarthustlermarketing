@@ -1,7 +1,7 @@
 {
-    "weekNumber": 52,
+    "weekNumber": 53,
     "theme": "The Income Automation Protocol",
-    "dropDate": "2026-03-13",
+    "dropDate": "2026-03-20",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,19 +38,19 @@
     ],
     "affiliateOffers": [
         {
-            "id": "5-dollar-friday---conversion-key",
-            "title": "5 Dollar Friday - Conversion Key",
-            "description": "Turn more visitors into buyers.",
+            "id": "5-dollar-friday---affiliate-pro",
+            "title": "5 Dollar Friday - Affiliate Pro",
+            "description": "Tools designed specifically for affiliate success.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-91.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-99.html",
             "badge": "High Commission"
         },
         {
-            "id": "youtube-ctr-boost-lab",
-            "title": "YouTube CTR Boost Lab",
-            "description": "AI-powered title optimizer trained on viral videos.",
+            "id": "real-estate-deal-snapshot",
+            "title": "Real Estate Deal Snapshot",
+            "description": "Analyze rental properties and calculate cash flow in seconds.",
             "cta": "Access Now",
-            "link": "https://youtube.signalengines.com"
+            "link": "https://realestate.signalengines.com"
         }
     ]
 }
