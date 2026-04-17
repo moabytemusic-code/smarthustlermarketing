@@ -1,7 +1,7 @@
 {
-    "weekNumber": 56,
+    "weekNumber": 57,
     "theme": "The Income Automation Protocol",
-    "dropDate": "2026-04-10",
+    "dropDate": "2026-04-17",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,18 +38,19 @@
     ],
     "affiliateOffers": [
         {
-            "id": "master-affiliate-profits",
-            "title": "Master Affiliate Profits",
-            "description": "Comprehensive affiliate marketing ecosystem.",
+            "id": "affiliate-profit-scanner",
+            "title": "Affiliate Profit Scanner",
+            "description": "Validate niche ideas and generate viral content strategies.",
             "cta": "Access Now",
-            "link": "https://masteraffiliateprofits.com/tdf/yMZz2M"
+            "link": "https://5dollarfriday.idevaffiliate.com/235-94.html",
+            "badge": "High Commission"
         },
         {
-            "id": "5-dollar-friday---ai-suite",
-            "title": "5 Dollar Friday - AI Suite",
-            "description": "Leverage AI to automate your hustle.",
+            "id": "5-dollar-friday---offer-106",
+            "title": "5 Dollar Friday - Offer 106",
+            "description": "Exclusive partner offer.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-124.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-106.html",
             "badge": "High Commission"
         }
     ]
