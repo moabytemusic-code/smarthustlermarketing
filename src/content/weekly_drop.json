@@ -1,7 +1,7 @@
 {
-    "weekNumber": 57,
+    "weekNumber": 58,
     "theme": "The Income Automation Protocol",
-    "dropDate": "2026-04-17",
+    "dropDate": "2026-04-24",
     "gifts": [
         {
             "id": "book-passive-trap",
@@ -38,19 +38,18 @@
     ],
     "affiliateOffers": [
         {
-            "id": "affiliate-profit-scanner",
-            "title": "Affiliate Profit Scanner",
-            "description": "Validate niche ideas and generate viral content strategies.",
+            "id": "landingforge",
+            "title": "LandingForge",
+            "description": "Generate high-converting landing pages instantly.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-94.html",
-            "badge": "High Commission"
+            "link": "https://landing.signalengines.com"
         },
         {
-            "id": "5-dollar-friday---offer-106",
-            "title": "5 Dollar Friday - Offer 106",
-            "description": "Exclusive partner offer.",
+            "id": "5-dollar-friday---agency-license",
+            "title": "5 Dollar Friday - Agency License",
+            "description": "Sell these services to your own clients.",
             "cta": "Access Now",
-            "link": "https://5dollarfriday.idevaffiliate.com/235-106.html",
+            "link": "https://5dollarfriday.idevaffiliate.com/235-84.html",
             "badge": "High Commission"
         }
     ]
